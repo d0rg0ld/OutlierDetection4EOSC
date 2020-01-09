@@ -1,0 +1,1171 @@
+Loading required package: remotes
+Loading required package: 52North/sos4R
+Skipping install of 'sos4R' from a github remote, the SHA1 (396b71d5) has not changed since last install.
+  Use `force = TRUE` to force installation
+Loading required package: sos4R
+Loading required package: lubridate
+
+Attaching package: ‘lubridate’
+
+The following object is masked from ‘package:base’:
+
+    date
+
+Error in curl::curl_fetch_memory(url, handle = handle) : 
+  Failed to connect to ltercwn01.umweltbundesamt.at port 8080: No route to host
+In addition: Warning message:
+In library(package, lib.loc = lib.loc, character.only = TRUE, logical.return = TRUE,  :
+  there is no package called ‘52North/sos4R’
+Error in (function (classes, fdef, mtable)  : 
+  unable to find an inherited method for function ‘sosOfferings’ for signature ‘"NULL"’
+[1] "2017-12-01 UTC"
+[1] "2017-12-31 23:59:59 UTC"
+[1] "./qs/cache/ZOE_0551P00_SurfaceWaterConcentration_DOC_0.2m_2017121_20171231"
+[1] "restab"
+[1] "2019-11-26 11:35:19 CET"
+Loading required package: chron
+
+Attaching package: ‘chron’
+
+The following objects are masked from ‘package:lubridate’:
+
+    days, hours, minutes, seconds, years
+
+Loading required package: GmAMisc
+Loading required package: maptools
+Loading required package: sp
+Checking rgeos availability: TRUE
+Loading required package: extremevalues
+Warning message:
+no DISPLAY variable so Tk is not available 
+Loading required package: univOutl
+Loading required package: robustbase
+Loading required package: Hmisc
+Loading required package: lattice
+Loading required package: survival
+
+Attaching package: ‘survival’
+
+The following object is masked from ‘package:robustbase’:
+
+    heart
+
+Loading required package: Formula
+Loading required package: ggplot2
+
+Attaching package: ‘Hmisc’
+
+The following object is masked from ‘package:maptools’:
+
+    label
+
+The following objects are masked from ‘package:base’:
+
+    format.pval, units
+
+Loading required package: OutlierDetection
+Warning messages:
+1: In rgl.init(initValue, onlyNULL) : RGL: unable to open X11 display
+2: 'rgl_init' failed, running with rgl.useNULL = TRUE 
+Loading required package: DMwR
+Loading required package: grid
+Registered S3 method overwritten by 'xts':
+  method     from
+  as.zoo.xts zoo 
+Registered S3 method overwritten by 'quantmod':
+  method            from
+  as.zoo.data.frame zoo 
+Registered S3 method overwritten by 'gdata':
+  method         from     
+  reorder.factor DescTools
+Loading required package: outliers
+
+Attaching package: ‘outliers’
+
+The following object is masked from ‘package:GmAMisc’:
+
+    outlier
+
+[1] "SurfaceWaterConcentration_DOC_0.2m"
+[1] 0
+No. of outliers in left tail: 0
+No. of outliers in right tail: 139
+
+No. of outliers in left tail: 0
+No. of outliers in right tail: 82
+
+No. of outliers in left tail: 0
+No. of outliers in right tail: 93
+
+No. of outliers in left tail: 0
+No. of outliers in right tail: 51
+
+No. of outliers in left tail: 6
+No. of outliers in right tail: 164
+
+No. of outliers in left tail: 0
+No. of outliers in right tail: 103
+
+No. of outliers in left tail: 0
+No. of outliers in right tail: 85
+
+No. of outliers in left tail: 0
+No. of outliers in right tail: 48
+
+No. of outliers in left tail: 0
+No. of outliers in right tail: 139
+
+No. of outliers in left tail: 0
+No. of outliers in right tail: 82
+
+No. of outliers in left tail: 0
+No. of outliers in right tail: 127
+
+No. of outliers in left tail: 0
+No. of outliers in right tail: 78
+
+No. of outliers in left tail: 0
+No. of outliers in right tail: 134
+
+No. of outliers in left tail: 0
+No. of outliers in right tail: 81
+
+[1] 1
+No. of outliers in left tail: 0
+No. of outliers in right tail: 167
+
+No. of outliers in left tail: 0
+No. of outliers in right tail: 112
+
+No. of outliers in left tail: 0
+No. of outliers in right tail: 120
+
+No outliers found
+No. of outliers in left tail: 0
+No. of outliers in right tail: 226
+
+No. of outliers in left tail: 0
+No. of outliers in right tail: 171
+
+No. of outliers in left tail: 0
+No. of outliers in right tail: 143
+
+No. of outliers in left tail: 0
+No. of outliers in right tail: 74
+
+No. of outliers in left tail: 0
+No. of outliers in right tail: 204
+
+No. of outliers in left tail: 0
+No. of outliers in right tail: 149
+
+No. of outliers in left tail: 0
+No. of outliers in right tail: 246
+
+No. of outliers in left tail: 0
+No. of outliers in right tail: 192
+
+No. of outliers in left tail: 0
+No. of outliers in right tail: 235
+
+No. of outliers in left tail: 0
+No. of outliers in right tail: 181
+
+[1] 2
+No. of outliers in left tail: 0
+No. of outliers in right tail: 46
+
+No outliers found
+No. of outliers in left tail: 0
+No. of outliers in right tail: 98
+
+No outliers found
+No. of outliers in left tail: 0
+No. of outliers in right tail: 224
+
+No. of outliers in left tail: 0
+No. of outliers in right tail: 9
+
+No. of outliers in left tail: 0
+No. of outliers in right tail: 189
+
+No outliers found
+No. of outliers in left tail: 0
+No. of outliers in right tail: 199
+
+No outliers found
+No. of outliers in left tail: 0
+No. of outliers in right tail: 251
+
+No. of outliers in left tail: 0
+No. of outliers in right tail: 186
+
+No. of outliers in left tail: 0
+No. of outliers in right tail: 235
+
+No. of outliers in left tail: 0
+No. of outliers in right tail: 56
+
+Loading required package: zip
+
+Attaching package: ‘zip’
+
+The following objects are masked from ‘package:utils’:
+
+    unzip, zip
+
+Loading required package: remotes
+Loading required package: 52North/sos4R
+Skipping install of 'sos4R' from a github remote, the SHA1 (396b71d5) has not changed since last install.
+  Use `force = TRUE` to force installation
+Loading required package: sos4R
+Loading required package: lubridate
+
+Attaching package: ‘lubridate’
+
+The following object is masked from ‘package:base’:
+
+    date
+
+Error in curl::curl_fetch_memory(url, handle = handle) : 
+  Timeout was reached: [ltercwn01.umweltbundesamt.at:8080] Connection timed out after 10001 milliseconds
+In addition: Warning message:
+In library(package, lib.loc = lib.loc, character.only = TRUE, logical.return = TRUE,  :
+  there is no package called ‘52North/sos4R’
+Error in (function (classes, fdef, mtable)  : 
+  unable to find an inherited method for function ‘sosOfferings’ for signature ‘"NULL"’
+[1] "2017-12-01 UTC"
+[1] "2017-12-31 23:59:59 UTC"
+[1] "./qs/cache/ZOE_0551P00_SurfaceWaterConcentration_DOC_0.2m_2017121_20171231"
+[1] "restab"
+[1] "2019-11-26 11:37:03 CET"
+Loading required package: chron
+
+Attaching package: ‘chron’
+
+The following objects are masked from ‘package:lubridate’:
+
+    days, hours, minutes, seconds, years
+
+Loading required package: GmAMisc
+Loading required package: maptools
+Loading required package: sp
+Checking rgeos availability: TRUE
+Loading required package: extremevalues
+Warning message:
+no DISPLAY variable so Tk is not available 
+Loading required package: univOutl
+Loading required package: robustbase
+Loading required package: Hmisc
+Loading required package: lattice
+Loading required package: survival
+
+Attaching package: ‘survival’
+
+The following object is masked from ‘package:robustbase’:
+
+    heart
+
+Loading required package: Formula
+Loading required package: ggplot2
+
+Attaching package: ‘Hmisc’
+
+The following object is masked from ‘package:maptools’:
+
+    label
+
+The following objects are masked from ‘package:base’:
+
+    format.pval, units
+
+Loading required package: OutlierDetection
+Warning messages:
+1: In rgl.init(initValue, onlyNULL) : RGL: unable to open X11 display
+2: 'rgl_init' failed, running with rgl.useNULL = TRUE 
+Loading required package: DMwR
+Loading required package: grid
+Registered S3 method overwritten by 'xts':
+  method     from
+  as.zoo.xts zoo 
+Registered S3 method overwritten by 'quantmod':
+  method            from
+  as.zoo.data.frame zoo 
+Registered S3 method overwritten by 'gdata':
+  method         from     
+  reorder.factor DescTools
+Loading required package: outliers
+
+Attaching package: ‘outliers’
+
+The following object is masked from ‘package:GmAMisc’:
+
+    outlier
+
+[1] "SurfaceWaterConcentration_DOC_0.2m"
+[1] 0
+No. of outliers in left tail: 0
+No. of outliers in right tail: 139
+
+No. of outliers in left tail: 0
+No. of outliers in right tail: 82
+
+No. of outliers in left tail: 0
+No. of outliers in right tail: 93
+
+No. of outliers in left tail: 0
+No. of outliers in right tail: 51
+
+No. of outliers in left tail: 6
+No. of outliers in right tail: 164
+
+No. of outliers in left tail: 0
+No. of outliers in right tail: 103
+
+No. of outliers in left tail: 0
+No. of outliers in right tail: 85
+
+No. of outliers in left tail: 0
+No. of outliers in right tail: 48
+
+No. of outliers in left tail: 0
+No. of outliers in right tail: 139
+
+No. of outliers in left tail: 0
+No. of outliers in right tail: 82
+
+No. of outliers in left tail: 0
+No. of outliers in right tail: 127
+
+No. of outliers in left tail: 0
+No. of outliers in right tail: 78
+
+No. of outliers in left tail: 0
+No. of outliers in right tail: 134
+
+No. of outliers in left tail: 0
+No. of outliers in right tail: 81
+
+[1] 1
+No. of outliers in left tail: 0
+No. of outliers in right tail: 167
+
+No. of outliers in left tail: 0
+No. of outliers in right tail: 112
+
+No. of outliers in left tail: 0
+No. of outliers in right tail: 120
+
+No outliers found
+No. of outliers in left tail: 0
+No. of outliers in right tail: 226
+
+No. of outliers in left tail: 0
+No. of outliers in right tail: 171
+
+No. of outliers in left tail: 0
+No. of outliers in right tail: 143
+
+No. of outliers in left tail: 0
+No. of outliers in right tail: 74
+
+No. of outliers in left tail: 0
+No. of outliers in right tail: 204
+
+No. of outliers in left tail: 0
+No. of outliers in right tail: 149
+
+No. of outliers in left tail: 0
+No. of outliers in right tail: 246
+
+No. of outliers in left tail: 0
+No. of outliers in right tail: 192
+
+No. of outliers in left tail: 0
+No. of outliers in right tail: 235
+
+No. of outliers in left tail: 0
+No. of outliers in right tail: 181
+
+[1] 2
+No. of outliers in left tail: 0
+No. of outliers in right tail: 46
+
+No outliers found
+No. of outliers in left tail: 0
+No. of outliers in right tail: 98
+
+No outliers found
+No. of outliers in left tail: 0
+No. of outliers in right tail: 224
+
+No. of outliers in left tail: 0
+No. of outliers in right tail: 9
+
+No. of outliers in left tail: 0
+No. of outliers in right tail: 189
+
+No outliers found
+No. of outliers in left tail: 0
+No. of outliers in right tail: 199
+
+No outliers found
+No. of outliers in left tail: 0
+No. of outliers in right tail: 251
+
+No. of outliers in left tail: 0
+No. of outliers in right tail: 186
+
+No. of outliers in left tail: 0
+No. of outliers in right tail: 235
+
+No. of outliers in left tail: 0
+No. of outliers in right tail: 56
+
+Loading required package: zip
+
+Attaching package: ‘zip’
+
+The following objects are masked from ‘package:utils’:
+
+    unzip, zip
+
+Loading required package: remotes
+Loading required package: 52North/sos4R
+Skipping install of 'sos4R' from a github remote, the SHA1 (396b71d5) has not changed since last install.
+  Use `force = TRUE` to force installation
+Loading required package: sos4R
+Loading required package: lubridate
+
+Attaching package: ‘lubridate’
+
+The following object is masked from ‘package:base’:
+
+    date
+
+
+Warning message:
+In library(package, lib.loc = lib.loc, character.only = TRUE, logical.return = TRUE,  :
+  there is no package called ‘52North/sos4R’
+Error in curl::curl_fetch_memory(url, handle = handle) : 
+  Operation was aborted by an application callback
+Error in (function (classes, fdef, mtable)  : 
+  unable to find an inherited method for function ‘sosOfferings’ for signature ‘"NULL"’
+[1] "2017-12-01 UTC"
+[1] "2017-12-31 23:59:59 UTC"
+[1] "./qs/cache/ZOE_0551P00_SurfaceWaterConcentration_DOC_0.2m_2017121_20171231"
+[1] "restab"
+[1] "2019-11-26 11:48:11 CET"
+Loading required package: chron
+
+Attaching package: ‘chron’
+
+The following objects are masked from ‘package:lubridate’:
+
+    days, hours, minutes, seconds, years
+
+Loading required package: GmAMisc
+Loading required package: maptools
+Loading required package: sp
+Checking rgeos availability: TRUE
+
+Execution halted
+
+ 2019-11-26 11:48:26 	
+ 2019-11-26 11:48:26 	
+ 2019-11-26 11:48:26 	
+ 2019-11-26 11:48:26 	
+ 2019-11-26 11:48:26 	
+ 2019-11-26 11:48:26 	
+ 2019-11-26 11:48:26 	
+ 2019-11-26 11:48:26 	
+ 2019-11-26 11:48:26 	
+ 2019-11-26 11:48:26 	Loading required package: remotes
+Loading required package: 52North/sos4R
+Skipping install of 'sos4R' from a github remote, the SHA1 (396b71d5) has not changed since last install.
+  Use `force = TRUE` to force installation
+Loading required package: sos4R
+Loading required package: lubridate
+
+Attaching package: ‘lubridate’
+
+The following object is masked from ‘package:base’:
+
+    date
+
+Error in curl::curl_fetch_memory(url, handle = handle) : 
+  Failed to connect to ltercwn01.umweltbundesamt.at port 8080: No route to host
+In addition: Warning message:
+In library(package, lib.loc = lib.loc, character.only = TRUE, logical.return = TRUE,  :
+  there is no package called ‘52North/sos4R’
+Error in (function (classes, fdef, mtable)  : 
+  unable to find an inherited method for function ‘sosOfferings’ for signature ‘"NULL"’
+[1] "2017-12-01 UTC"
+[1] "2017-12-31 23:59:59 UTC"
+[1] "./qs/cache/ZOE_0551P00_SurfaceWaterConcentration_DOC_0.2m_2017121_20171231"
+[1] "restab"
+[1] "2019-11-26 11:48:31 CET"
+
+ 2019-11-26 11:48:31 	Loading required package: chron
+
+Attaching package: ‘chron’
+
+The following objects are masked from ‘package:lubridate’:
+
+    days, hours, minutes, seconds, years
+
+
+ 2019-11-26 11:48:31 	Loading required package: GmAMisc
+Loading required package: maptools
+Loading required package: sp
+Checking rgeos availability: TRUE
+
+ 2019-11-26 11:48:38 	Loading required package: extremevalues
+Warning message:
+no DISPLAY variable so Tk is not available 
+
+ 2019-11-26 11:48:39 	Loading required package: univOutl
+Loading required package: robustbase
+Loading required package: Hmisc
+Loading required package: lattice
+Loading required package: survival
+
+Attaching package: ‘survival’
+
+The following object is masked from ‘package:robustbase’:
+
+    heart
+
+Loading required package: Formula
+Loading required package: ggplot2
+
+Attaching package: ‘Hmisc’
+
+The following object is masked from ‘package:maptools’:
+
+    label
+
+The following objects are masked from ‘package:base’:
+
+    format.pval, units
+
+
+ 2019-11-26 11:48:39 	Loading required package: OutlierDetection
+Warning messages:
+1: In rgl.init(initValue, onlyNULL) : RGL: unable to open X11 display
+2: 'rgl_init' failed, running with rgl.useNULL = TRUE 
+
+ 2019-11-26 11:48:40 	Loading required package: DMwR
+Loading required package: grid
+Registered S3 method overwritten by 'xts':
+  method     from
+  as.zoo.xts zoo 
+Registered S3 method overwritten by 'quantmod':
+  method            from
+  as.zoo.data.frame zoo 
+Registered S3 method overwritten by 'gdata':
+  method         from     
+  reorder.factor DescTools
+
+ 2019-11-26 11:48:40 	Loading required package: outliers
+
+Attaching package: ‘outliers’
+
+The following object is masked from ‘package:GmAMisc’:
+
+    outlier
+
+
+ 2019-11-26 11:48:40 	
+ 2019-11-26 11:48:40 	
+ 2019-11-26 11:48:40 	
+ 2019-11-26 11:48:40 	
+ 2019-11-26 11:48:40 	
+ 2019-11-26 11:48:40 	
+ 2019-11-26 11:48:40 	
+ 2019-11-26 11:48:40 	
+ 2019-11-26 11:48:40 	
+ 2019-11-26 11:48:40 	
+ 2019-11-26 11:48:40 	
+ 2019-11-26 11:48:40 	[1] "SurfaceWaterConcentration_DOC_0.2m"
+[1] 0
+No. of outliers in left tail: 0
+No. of outliers in right tail: 139
+
+No. of outliers in left tail: 0
+No. of outliers in right tail: 82
+
+No. of outliers in left tail: 0
+No. of outliers in right tail: 93
+
+No. of outliers in left tail: 0
+No. of outliers in right tail: 51
+
+No. of outliers in left tail: 6
+No. of outliers in right tail: 164
+
+No. of outliers in left tail: 0
+No. of outliers in right tail: 103
+
+No. of outliers in left tail: 0
+No. of outliers in right tail: 85
+
+No. of outliers in left tail: 0
+No. of outliers in right tail: 48
+
+No. of outliers in left tail: 0
+No. of outliers in right tail: 139
+
+No. of outliers in left tail: 0
+No. of outliers in right tail: 82
+
+No. of outliers in left tail: 0
+No. of outliers in right tail: 127
+
+No. of outliers in left tail: 0
+No. of outliers in right tail: 78
+
+No. of outliers in left tail: 0
+No. of outliers in right tail: 134
+
+No. of outliers in left tail: 0
+No. of outliers in right tail: 81
+
+[1] 1
+No. of outliers in left tail: 0
+No. of outliers in right tail: 167
+
+No. of outliers in left tail: 0
+No. of outliers in right tail: 112
+
+No. of outliers in left tail: 0
+No. of outliers in right tail: 120
+
+No outliers found
+No. of outliers in left tail: 0
+No. of outliers in right tail: 226
+
+No. of outliers in left tail: 0
+No. of outliers in right tail: 171
+
+No. of outliers in left tail: 0
+No. of outliers in right tail: 143
+
+No. of outliers in left tail: 0
+No. of outliers in right tail: 74
+
+No. of outliers in left tail: 0
+No. of outliers in right tail: 204
+
+No. of outliers in left tail: 0
+No. of outliers in right tail: 149
+
+No. of outliers in left tail: 0
+No. of outliers in right tail: 246
+
+No. of outliers in left tail: 0
+No. of outliers in right tail: 192
+
+No. of outliers in left tail: 0
+No. of outliers in right tail: 235
+
+No. of outliers in left tail: 0
+No. of outliers in right tail: 181
+
+[1] 2
+No. of outliers in left tail: 0
+No. of outliers in right tail: 46
+
+No outliers found
+No. of outliers in left tail: 0
+No. of outliers in right tail: 98
+
+No outliers found
+No. of outliers in left tail: 0
+No. of outliers in right tail: 224
+
+No. of outliers in left tail: 0
+No. of outliers in right tail: 9
+
+No. of outliers in left tail: 0
+No. of outliers in right tail: 189
+
+No outliers found
+No. of outliers in left tail: 0
+No. of outliers in right tail: 199
+
+No outliers found
+No. of outliers in left tail: 0
+No. of outliers in right tail: 251
+
+No. of outliers in left tail: 0
+No. of outliers in right tail: 186
+
+No. of outliers in left tail: 0
+No. of outliers in right tail: 235
+
+No. of outliers in left tail: 0
+No. of outliers in right tail: 56
+
+
+ 2019-11-26 11:49:16 	
+ 2019-11-26 11:49:16 	
+ 2019-11-26 11:49:16 	
+ 2019-11-26 11:49:16 	
+ 2019-11-26 11:49:16 	
+ 2019-11-26 11:49:16 	
+ 2019-11-26 11:49:16 	
+ 2019-11-26 11:49:16 	
+ 2019-11-26 11:49:16 	
+ 2019-11-26 11:49:16 	
+ 2019-11-26 11:49:16 	
+ 2019-11-26 11:49:16 	
+ 2019-11-26 11:49:17 	Loading required package: zip
+
+Attaching package: ‘zip’
+
+The following objects are masked from ‘package:utils’:
+
+    unzip, zip
+
+
+ 2019-11-26 11:49:17 	
+ 2019-11-26 11:49:17 	
+ 2019-11-26 11:49:17 	Error: unexpected symbol in "print paste"
+Execution halted
+[1] "------------ BEGIN ---2019-11-26 11:57:59----------------"
+Loading required package: remotes
+Loading required package: 52North/sos4R
+Skipping install of 'sos4R' from a github remote, the SHA1 (396b71d5) has not changed since last install.
+  Use `force = TRUE` to force installation
+Loading required package: sos4R
+Loading required package: lubridate
+
+Attaching package: ‘lubridate’
+
+The following object is masked from ‘package:base’:
+
+    date
+
+Error in curl::curl_fetch_memory(url, handle = handle) : 
+  Failed to connect to ltercwn01.umweltbundesamt.at port 8080: No route to host
+In addition: Warning message:
+In library(package, lib.loc = lib.loc, character.only = TRUE, logical.return = TRUE,  :
+  there is no package called ‘52North/sos4R’
+Error in (function (classes, fdef, mtable)  : 
+  unable to find an inherited method for function ‘sosOfferings’ for signature ‘"NULL"’
+[1] "2017-12-01 UTC"
+[1] "2017-12-31 23:59:59 UTC"
+[1] "./qs/cache/ZOE_0551P00_SurfaceWaterConcentration_DOC_0.2m_2017121_20171231"
+[1] "restab"
+[1] "2019-11-26 11:58:04 CET"
+Loading required package: chron
+
+Attaching package: ‘chron’
+
+The following objects are masked from ‘package:lubridate’:
+
+    days, hours, minutes, seconds, years
+
+Loading required package: GmAMisc
+Loading required package: maptools
+Loading required package: sp
+Checking rgeos availability: TRUE
+Loading required package: extremevalues
+Warning message:
+no DISPLAY variable so Tk is not available 
+Loading required package: univOutl
+Loading required package: robustbase
+Loading required package: Hmisc
+Loading required package: lattice
+Loading required package: survival
+
+Attaching package: ‘survival’
+
+The following object is masked from ‘package:robustbase’:
+
+    heart
+
+Loading required package: Formula
+Loading required package: ggplot2
+
+Attaching package: ‘Hmisc’
+
+The following object is masked from ‘package:maptools’:
+
+    label
+
+The following objects are masked from ‘package:base’:
+
+    format.pval, units
+
+Loading required package: OutlierDetection
+Warning messages:
+1: In rgl.init(initValue, onlyNULL) : RGL: unable to open X11 display
+2: 'rgl_init' failed, running with rgl.useNULL = TRUE 
+Loading required package: DMwR
+Loading required package: grid
+Registered S3 method overwritten by 'xts':
+  method     from
+  as.zoo.xts zoo 
+Registered S3 method overwritten by 'quantmod':
+  method            from
+  as.zoo.data.frame zoo 
+Registered S3 method overwritten by 'gdata':
+  method         from     
+  reorder.factor DescTools
+Loading required package: outliers
+
+Attaching package: ‘outliers’
+
+The following object is masked from ‘package:GmAMisc’:
+
+    outlier
+
+[1] "SurfaceWaterConcentration_DOC_0.2m"
+[1] 0
+No. of outliers in left tail: 0
+No. of outliers in right tail: 139
+
+No. of outliers in left tail: 0
+No. of outliers in right tail: 82
+
+No. of outliers in left tail: 0
+No. of outliers in right tail: 93
+
+No. of outliers in left tail: 0
+No. of outliers in right tail: 51
+
+No. of outliers in left tail: 6
+No. of outliers in right tail: 164
+
+No. of outliers in left tail: 0
+No. of outliers in right tail: 103
+
+No. of outliers in left tail: 0
+No. of outliers in right tail: 85
+
+No. of outliers in left tail: 0
+No. of outliers in right tail: 48
+
+No. of outliers in left tail: 0
+No. of outliers in right tail: 139
+
+No. of outliers in left tail: 0
+No. of outliers in right tail: 82
+
+No. of outliers in left tail: 0
+No. of outliers in right tail: 127
+
+No. of outliers in left tail: 0
+No. of outliers in right tail: 78
+
+No. of outliers in left tail: 0
+No. of outliers in right tail: 134
+
+No. of outliers in left tail: 0
+No. of outliers in right tail: 81
+
+[1] 1
+No. of outliers in left tail: 0
+No. of outliers in right tail: 167
+
+No. of outliers in left tail: 0
+No. of outliers in right tail: 112
+
+No. of outliers in left tail: 0
+No. of outliers in right tail: 120
+
+No outliers found
+No. of outliers in left tail: 0
+No. of outliers in right tail: 226
+
+No. of outliers in left tail: 0
+No. of outliers in right tail: 171
+
+No. of outliers in left tail: 0
+No. of outliers in right tail: 143
+
+No. of outliers in left tail: 0
+No. of outliers in right tail: 74
+
+No. of outliers in left tail: 0
+No. of outliers in right tail: 204
+
+No. of outliers in left tail: 0
+No. of outliers in right tail: 149
+
+No. of outliers in left tail: 0
+No. of outliers in right tail: 246
+
+No. of outliers in left tail: 0
+No. of outliers in right tail: 192
+
+No. of outliers in left tail: 0
+No. of outliers in right tail: 235
+
+No. of outliers in left tail: 0
+No. of outliers in right tail: 181
+
+[1] 2
+No. of outliers in left tail: 0
+No. of outliers in right tail: 46
+
+No outliers found
+No. of outliers in left tail: 0
+No. of outliers in right tail: 98
+
+No outliers found
+No. of outliers in left tail: 0
+No. of outliers in right tail: 224
+
+No. of outliers in left tail: 0
+No. of outliers in right tail: 9
+
+No. of outliers in left tail: 0
+No. of outliers in right tail: 189
+
+No outliers found
+No. of outliers in left tail: 0
+No. of outliers in right tail: 199
+
+No outliers found
+No. of outliers in left tail: 0
+No. of outliers in right tail: 251
+
+No. of outliers in left tail: 0
+No. of outliers in right tail: 186
+
+No. of outliers in left tail: 0
+No. of outliers in right tail: 235
+
+No. of outliers in left tail: 0
+No. of outliers in right tail: 56
+
+Loading required package: zip
+
+Attaching package: ‘zip’
+
+The following objects are masked from ‘package:utils’:
+
+    unzip, zip
+
+[1] "------------ END ---2019-11-26 11:58:51----------------"
+[1] "------------ BEGIN ---2019-11-26 13:27:21----------------"
+Loading required package: remotes
+Loading required package: 52North/sos4R
+Skipping install of 'sos4R' from a github remote, the SHA1 (396b71d5) has not changed since last install.
+  Use `force = TRUE` to force installation
+Loading required package: sos4R
+Loading required package: lubridate
+
+Attaching package: ‘lubridate’
+
+The following object is masked from ‘package:base’:
+
+    date
+
+Error in curl::curl_fetch_memory(url, handle = handle) : 
+  Failed to connect to ltercwn01.umweltbundesamt.at port 8080: No route to host
+In addition: Warning message:
+In library(package, lib.loc = lib.loc, character.only = TRUE, logical.return = TRUE,  :
+  there is no package called ‘52North/sos4R’
+Error in (function (classes, fdef, mtable)  : 
+  unable to find an inherited method for function ‘sosOfferings’ for signature ‘"NULL"’
+[1] "2017-12-01 UTC"
+[1] "2017-12-31 23:59:59 UTC"
+[1] "./qs/cache/ZOE_0551P00_SurfaceWaterConcentration_DOC_0.2m_2017121_20171231"
+[1] "restab"
+[1] "2019-11-26 13:27:26 CET"
+Loading required package: chron
+
+Attaching package: ‘chron’
+
+The following objects are masked from ‘package:lubridate’:
+
+    days, hours, minutes, seconds, years
+
+Loading required package: GmAMisc
+Loading required package: maptools
+Loading required package: sp
+Checking rgeos availability: TRUE
+Loading required package: extremevalues
+Warning message:
+no DISPLAY variable so Tk is not available 
+Loading required package: univOutl
+Loading required package: robustbase
+Loading required package: Hmisc
+Loading required package: lattice
+Loading required package: survival
+
+Attaching package: ‘survival’
+
+The following object is masked from ‘package:robustbase’:
+
+    heart
+
+Loading required package: Formula
+Loading required package: ggplot2
+
+Attaching package: ‘Hmisc’
+
+The following object is masked from ‘package:maptools’:
+
+    label
+
+The following objects are masked from ‘package:base’:
+
+    format.pval, units
+
+Loading required package: OutlierDetection
+Warning messages:
+1: In rgl.init(initValue, onlyNULL) : RGL: unable to open X11 display
+2: 'rgl_init' failed, running with rgl.useNULL = TRUE 
+Loading required package: DMwR
+Loading required package: grid
+Registered S3 method overwritten by 'xts':
+  method     from
+  as.zoo.xts zoo 
+Registered S3 method overwritten by 'quantmod':
+  method            from
+  as.zoo.data.frame zoo 
+Registered S3 method overwritten by 'gdata':
+  method         from     
+  reorder.factor DescTools
+Loading required package: outliers
+
+Attaching package: ‘outliers’
+
+The following object is masked from ‘package:GmAMisc’:
+
+    outlier
+
+[1] "SurfaceWaterConcentration_DOC_0.2m"
+[1] 0
+No. of outliers in left tail: 0
+No. of outliers in right tail: 139
+
+No. of outliers in left tail: 0
+No. of outliers in right tail: 82
+
+No. of outliers in left tail: 0
+No. of outliers in right tail: 93
+
+No. of outliers in left tail: 0
+No. of outliers in right tail: 51
+
+No. of outliers in left tail: 6
+No. of outliers in right tail: 164
+
+No. of outliers in left tail: 0
+No. of outliers in right tail: 103
+
+No. of outliers in left tail: 0
+No. of outliers in right tail: 85
+
+No. of outliers in left tail: 0
+No. of outliers in right tail: 48
+
+No. of outliers in left tail: 0
+No. of outliers in right tail: 139
+
+No. of outliers in left tail: 0
+No. of outliers in right tail: 82
+
+No. of outliers in left tail: 0
+No. of outliers in right tail: 127
+
+No. of outliers in left tail: 0
+No. of outliers in right tail: 78
+
+No. of outliers in left tail: 0
+No. of outliers in right tail: 134
+
+No. of outliers in left tail: 0
+No. of outliers in right tail: 81
+
+[1] 1
+No. of outliers in left tail: 0
+No. of outliers in right tail: 167
+
+No. of outliers in left tail: 0
+No. of outliers in right tail: 112
+
+No. of outliers in left tail: 0
+No. of outliers in right tail: 120
+
+No outliers found
+No. of outliers in left tail: 0
+No. of outliers in right tail: 226
+
+No. of outliers in left tail: 0
+No. of outliers in right tail: 171
+
+No. of outliers in left tail: 0
+No. of outliers in right tail: 143
+
+No. of outliers in left tail: 0
+No. of outliers in right tail: 74
+
+No. of outliers in left tail: 0
+No. of outliers in right tail: 204
+
+No. of outliers in left tail: 0
+No. of outliers in right tail: 149
+
+No. of outliers in left tail: 0
+No. of outliers in right tail: 246
+
+No. of outliers in left tail: 0
+No. of outliers in right tail: 192
+
+No. of outliers in left tail: 0
+No. of outliers in right tail: 235
+
+No. of outliers in left tail: 0
+No. of outliers in right tail: 181
+
+[1] 2
+No. of outliers in left tail: 0
+No. of outliers in right tail: 46
+
+No outliers found
+No. of outliers in left tail: 0
+No. of outliers in right tail: 98
+
+No outliers found
+No. of outliers in left tail: 0
+No. of outliers in right tail: 224
+
+No. of outliers in left tail: 0
+No. of outliers in right tail: 9
+
+No. of outliers in left tail: 0
+No. of outliers in right tail: 189
+
+No outliers found
+No. of outliers in left tail: 0
+No. of outliers in right tail: 199
+
+No outliers found
+No. of outliers in left tail: 0
+No. of outliers in right tail: 251
+
+No. of outliers in left tail: 0
+No. of outliers in right tail: 186
+
+No. of outliers in left tail: 0
+No. of outliers in right tail: 235
+
+No. of outliers in left tail: 0
+No. of outliers in right tail: 56
+
+Loading required package: zip
+
+Attaching package: ‘zip’
+
+The following objects are masked from ‘package:utils’:
+
+    unzip, zip
+
+[1] "------------ END ---2019-11-26 13:28:10----------------"

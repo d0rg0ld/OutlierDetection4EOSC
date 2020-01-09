@@ -1,0 +1,326 @@
+openapi: 3.0.1
+info:
+  title: Timeseries Outlier Analysis
+  version: "0.1"
+servers:
+- url: https://90.147.102.53/v1
+paths:
+  /qs_blocking:
+    get:
+      summary: Retrieve a parameter from one station from start to end
+      operationId: qs_blocking_get
+      parameters:
+      - name: sosendpoint
+        in: query
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: string
+          format: uri
+      - name: begin
+        in: query
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: string
+          format: date-time
+      - name: end
+        in: query
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: string
+          format: date-time
+      - name: parameter
+        in: query
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: array
+          items:
+            type: string
+      - name: site
+        in: query
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: array
+          items:
+            type: string
+      - name: windowwidth
+        in: query
+        required: false
+        style: form
+        explode: true
+        schema:
+          minimum: 1
+          type: integer
+          default: 10
+      - name: windowinterval
+        in: query
+        required: false
+        style: form
+        explode: true
+        schema:
+          minimum: 1
+          type: integer
+          default: 10
+      responses:
+        "200":
+          description: All is well
+          content:
+            application/zip:
+              schema:
+                type: string
+                format: binary
+                x-content-type: application/zip
+      x-openapi-router-controller: swagger_server.controllers.default_controller
+    post:
+      summary: Perform outlier analysis on file(s) stored in remote repo
+      operationId: qs_blocking_post
+      parameters:
+      - name: repourl
+        in: query
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: string
+          format: uri
+      - name: windowwidth
+        in: query
+        required: false
+        style: form
+        explode: true
+        schema:
+          minimum: 1
+          type: integer
+          default: 10
+      - name: windowinterval
+        in: query
+        required: false
+        style: form
+        explode: true
+        schema:
+          minimum: 1
+          type: integer
+          default: 10
+      responses:
+        "200":
+          description: All is well
+          content:
+            application/zip:
+              schema:
+                type: string
+                format: binary
+                x-content-type: application/zip
+      security:
+      - basicAuth: []
+      x-openapi-router-controller: swagger_server.controllers.default_controller
+  /qs_nonblocking:
+    get:
+      summary: Retrieve a parameter from one station from start to end
+      operationId: qs_nonblocking_get
+      parameters:
+      - name: sosendpoint
+        in: query
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: string
+          format: uri
+      - name: begin
+        in: query
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: string
+          format: date-time
+      - name: end
+        in: query
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: string
+          format: date-time
+      - name: parameter
+        in: query
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: array
+          items:
+            type: string
+      - name: site
+        in: query
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: array
+          items:
+            type: string
+      - name: windowwidth
+        in: query
+        required: false
+        style: form
+        explode: true
+        schema:
+          minimum: 1
+          type: integer
+          default: 10
+      - name: windowinterval
+        in: query
+        required: false
+        style: form
+        explode: true
+        schema:
+          minimum: 1
+          type: integer
+          default: 10
+      responses:
+        "202":
+          description: All is well
+          content:
+            application/json:
+              schema:
+                type: string
+                x-content-type: application/json
+      x-openapi-router-controller: swagger_server.controllers.default_controller
+    post:
+      summary: Perform outlier analysis on file(s) stored in remote repo
+      operationId: qs_nonblocking_post
+      parameters:
+      - name: repourl
+        in: query
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: string
+          format: uri
+      - name: windowwidth
+        in: query
+        required: false
+        style: form
+        explode: true
+        schema:
+          minimum: 1
+          type: integer
+          default: 10
+      - name: windowinterval
+        in: query
+        required: false
+        style: form
+        explode: true
+        schema:
+          minimum: 1
+          type: integer
+          default: 10
+      responses:
+        "202":
+          description: All is well
+          content:
+            application/json:
+              schema:
+                type: string
+                x-content-type: application/json
+      security:
+      - basicAuth: []
+      x-openapi-router-controller: swagger_server.controllers.default_controller
+  /qs_checkstatus:
+    get:
+      summary: Check if job has finished
+      operationId: qs_checkstatus
+      parameters:
+      - name: pid
+        in: query
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: integer
+      - name: timestamp
+        in: query
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: string 
+      responses:
+        "200":
+          description: All is well
+          content:
+            application/zip:
+              schema:
+                type: string
+                format: binary
+                x-content-type: application/zip
+      x-openapi-router-controller: swagger_server.controllers.default_controller
+  /qs_download:
+    get:
+      summary: Download File
+      operationId: qs_download
+      parameters:
+      - name: pid
+        in: query
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: integer
+      - name: timestamp
+        in: query
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: All is well
+          content:
+            application/zip:
+              schema:
+                type: string
+                format: binary
+                x-content-type: application/zip
+      x-openapi-router-controller: swagger_server.controllers.default_controller
+components:
+  schemas: {}
+  parameters:
+    windowParam:
+      name: windowwidth
+      in: query
+      required: false
+      style: form
+      explode: true
+      schema:
+        minimum: 1
+        type: integer
+        default: 10
+    intervalParam:
+      name: windowinterval
+      in: query
+      required: false
+      style: form
+      explode: true
+      schema:
+        minimum: 1
+        type: integer
+        default: 10
+  securitySchemes:
+    basicAuth:
+      type: http
+      scheme: basic
+      x-basicInfoFunc: swagger_server.controllers.authorization_controller.check_basicAuth
+
