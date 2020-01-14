@@ -136,7 +136,7 @@ if (type==1) {
   pkgTest("sos4R")
   pkgTest("lubridate")
   
-.verbose <- FALSE
+.verbose <- FALSE 
 .saveOriginal <- FALSE
 .version <- sos200_version
 .binding <- "KVP"
@@ -158,11 +158,16 @@ sos_endperiod <- as_datetime(sos_endperiod)
 sos_startperiod_utc <- floor_date(sos_startperiod, unit="month")
 sos_endperiod_utc <- ceiling_date(sos_endperiod, unit="month")-seconds(1)
 
+print (paste("sos_startperiod : ",sos_startperiod," sos_endperiod : ",sos_endperiod, sep=""))
+print (paste("sos_startperiod_utc : ",sos_startperiod_utc," sos_endperiod_utc : ",sos_endperiod_utc, sep=""))
+
 source <- sos_startperiod_utc
 target <- source+months(1)-seconds(1)
 
 restab00 <- t(data.frame(rep(NA,6)))
 colnames(restab00) <- c("SITECODE","FIELDNAME","VALUE","DAY","MONTH","YEAR")
+
+print (paste("source : ",source," target : ",target, sep=""))
 
 while (target != sos_endperiod_utc) {
   print (source)
@@ -170,25 +175,33 @@ while (target != sos_endperiod_utc) {
   periodstart <- paste(year(source),month(source),day(source),sep="")
   periodend <- paste(year(target),month(target),day(target),sep="")
 
-  cache_filename=paste(cachepath,sos_site,"_",sos_parameter,"_",periodstart,"_",periodend,sep="")
+  cache_filename=paste(gsub(" ", "_", sos_site) ,"_",sos_parameter,"_",periodstart,"_",periodend,sep="")
+
+  cache_filename=paste(cachepath,gsub("[://]","_", cache_filename), sep="")
 
   loaded_object=NULL
   print (cache_filename)
   try ((loaded_object=load(cache_filename)), silent=TRUE) 
   print (loaded_object)
-  if (loaded_object!="restab") { 
+  .loadCache=FALSE
+  if (.loadCache==FALSE || is.null(loaded_object) || loaded_object!="restab") { 
 	      period <- sosCreateTimePeriod(sos = sos,
 					    begin = source,
 					    end = target)
 	      .eventTime <- sosCreateEventTimeList(period)
-	      
+	     
+	      print (paste("Loading observations from SOS : ", cache_filename, sep="")) 
 	      myGetObservation <- getObservation(sos = sos,
-						 offering = sosOfferings(sos)[[.procedure]],
+						 #offering = sosOfferings(sos)[[.procedure]],
+						 featureOfInterest = .procedure,
 						 observedProperty = .observedProperty,
 						 responseFormat = .responseFormat,
 						 eventTime = .eventTime,
-						 verbose = .verbose,
+						 verbose = FALSE,
+						 #verbose = .verbose,
 						 saveOriginal = .saveOriginal)
+	      save(myGetObservation, file=paste(cache_filename, "myGetObs", sep="_"))
+	      print (paste("Finished loading observations from SOS : ", "", sep="")) 
 	  
 	      restab <- t(data.frame(rep(NA,8)))
 	      colnames(restab) <- c("procedure","phentime","obsprop","result","resTime","resQual","parameter","metadata")
@@ -230,7 +243,10 @@ while (target != sos_endperiod_utc) {
       restab00 <- rbind(restab00,restab)
       print(Sys.time())
       source=target+seconds(1)
+      print (target)
       target=target+months(1)
+      print (source)
+      print (target)
 }
 restab00 <- restab00[-1,]
 #resultat <- restab00[,c("procedure","phentime","obsprop","result")]
