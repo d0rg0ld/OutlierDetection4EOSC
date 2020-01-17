@@ -1,10 +1,5 @@
 options(encoding = "UTF-8")
 # from
-# https://stackoverflow.com/questions/27304258/r-sink-output-with-time
-
-#res=TRUE
-#while (res) {
-#	res=removeTaskCallback(getTaskCallbackNames() )
 #}
 #addTaskCallback(function(expr, value, ok, visible) {
 #	cat('\n',as.character(Sys.time()), '\t') 
@@ -50,6 +45,7 @@ pkgTest <- function(x, mode="regular", extra="")
 # sprung zwischen den einzelnen moving windows (alle 2 wochen ein moving window mit 40 tage)
 ##stat_interval <- 10
 # pfad wo die resultate exportiert werden
+
 cachepath <- "./qs/cache/" 
 
 library("optparse")
@@ -99,6 +95,7 @@ sink(con, append=TRUE, type="message")
 
 print (paste("------------ BEGIN ---",Sys.time(),"----------------", sep=""))
 
+#parameter passing
 .sos <- opt$endpoint
 sos_site	<- opt$site
 sos_parameter	<- opt$parameter
@@ -107,15 +104,30 @@ sos_endperiod	<- opt$to
 stat_movingwindows <- opt$window
 stat_interval <- opt$interval
 type <- opt$mode
-
 dav <- opt$repourl
 username = opt$username
 password = opt$credential
+respath=opt$outpathbase
+myts=opt$timestamp
+
+#DEBUG OVERRIDE
+.sos <- "https://sensorweb.demo.52north.org/sensorwebtestbed/service" 
+sos_site	<- "ELV-WS2500"
+sos_parameter	<- "AirTemperature"
+sos_startperiod	<- "2015-06-01T00:00:00.000Z"
+sos_endperiod	<- "2015-06-05T23:59:59.000Z"
+stat_movingwindows <- 40
+stat_interval <- 14
+type <- 1
+dav <- ""
+username = ""
+password = ""
+respath="./qs/results/"
+myts="20200116_105051"
+
 
 mypid=Sys.getpid()
-myts=opt$timestamp
 mydir=paste(mypid, myts, sep="_")
-respath=opt$outpathbase
 respath <- paste(respath,"/",mydir, "/", sep="")
 
 dir.create(respath)
@@ -130,6 +142,7 @@ for ( k in seq(1,length(opt))) {
 }
 
 
+#browser()
 if (type==1) {
   pkgTest("remotes")
   pkgTest("52North/sos4R", mode="github", extra="feature/0.4")
@@ -161,19 +174,21 @@ sos_endperiod_utc <- ceiling_date(sos_endperiod, unit="month")-seconds(1)
 print (paste("sos_startperiod : ",sos_startperiod," sos_endperiod : ",sos_endperiod, sep=""))
 print (paste("sos_startperiod_utc : ",sos_startperiod_utc," sos_endperiod_utc : ",sos_endperiod_utc, sep=""))
 
+#browser()
 source <- sos_startperiod_utc
 target <- source+months(1)-seconds(1)
 
-restab00 <- t(data.frame(rep(NA,6)))
-colnames(restab00) <- c("SITECODE","FIELDNAME","VALUE","DAY","MONTH","YEAR")
+restab00 <- t(data.frame(rep(NA,9)))
+colnames(restab00) <- c("SITECODE", "YEAR","MONTH", "DAY", "HOUR", "MIN", "SEC", "FIELDNAME","VALUE")
 
 print (paste("source : ",source," target : ",target, sep=""))
-
-while (target != sos_endperiod_utc) {
+done=FALSE
+while (!done) {
+  #browser()
   print (source)
   print (target)
-  periodstart <- paste(year(source),month(source),day(source),sep="")
-  periodend <- paste(year(target),month(target),day(target),sep="")
+  periodstart <- paste(sprintf("%04d",year(source)),sprintf("%02d",month(source)),sprintf("%02d",day(source)),sep="")
+  periodend <- paste(sprintf("%04d",year(target)), sprintf("%02d",month(target)),sprintf("%02d",day(target)),sep="")
 
   cache_filename=paste(gsub(" ", "_", sos_site) ,"_",sos_parameter,"_",periodstart,"_",periodend,sep="")
 
@@ -191,11 +206,13 @@ while (target != sos_endperiod_utc) {
 	      .eventTime <- sosCreateEventTimeList(period)
 	     
 	      print (paste("Loading observations from SOS : ", cache_filename, sep="")) 
+
+
 	      myGetObservation <- getObservation(sos = sos,
-						 #offering = sosOfferings(sos)[[.procedure]],
+						 offering = sosOfferings(sos),
 						 featureOfInterest = .procedure,
 						 observedProperty = .observedProperty,
-						 responseFormat = .responseFormat,
+						 #responseFormat = .responseFormat,
 						 eventTime = .eventTime,
 						 verbose = FALSE,
 						 #verbose = .verbose,
@@ -203,50 +220,123 @@ while (target != sos_endperiod_utc) {
 	      save(myGetObservation, file=paste(cache_filename, "myGetObs", sep="_"))
 	      print (paste("Finished loading observations from SOS : ", "", sep="")) 
 	  
-	      restab <- t(data.frame(rep(NA,8)))
-	      colnames(restab) <- c("procedure","phentime","obsprop","result","resTime","resQual","parameter","metadata")
+	      restab <- t(data.frame(rep(NA,31)))
+	      colnames(restab) <- c(	"procedure",
+					"phentime_start_year",
+					"phentime_start_month",
+					"phentime_start_day",
+					"phentime_start_hour",
+					"phentime_start_min",
+					"phentime_start_sec",
+					"phentime_end_year",
+					"phentime_end_month",
+					"phentime_end_day",
+					"phentime_end_hour",
+					"phentime_end_min",
+					"phentime_end_sec",
+					"obsprop", 
+					"result", 
+					"resultUnit", 
+					"restime_start_year",
+					"restime_start_month",
+					"restime_start_day",
+					"restime_start_hour",
+					"restime_start_min",
+					"restime_start_sec",
+					"restime_end_year",
+					"restime_end_month",
+					"restime_end_day",
+					"restime_end_hour",
+					"restime_end_min",
+					"restime_end_sec",
+					"resQual",
+					"parameter",
+					"metadata")
 	      
 	      for (k in c(1:dim(summary(myGetObservation))[1])) {
 			
 			res00 <- data.frame(procedure=toString(myGetObservation[[k]]@procedure))
-			res00$phentime <- toString(myGetObservation[[k]]@phenomenonTime)
+			if (class(myGetObservation[[k]]@phenomenonTime) == "GmlTimePeriod") {
+				timestart=unclass(as.POSIXlt(myGetObservation[[k]]@phenomenonTime@begin@timePosition@time))
+				timeend=unclass(as.POSIXlt(myGetObservation[[k]]@phenomenonTime@end@timePosition@time))
+			} else {
+				timestart=unclass(as.POSIXlt(myGetObservation[[k]]@phenomenonTime@timePosition@time))
+				timeend=timestart
+			}
+			#res00$phentime <- toString(myGetObservation[[k]]@phenomenonTime)
+
+			res00$phentime_start_year	<- timestart$year+1900
+			res00$phentime_end_year		<- timeend$year+1900
+			res00$phentime_start_month	<- timestart$mon
+			res00$phentime_end_month	<- timeend$mon
+			res00$phentime_start_day 	<- timestart$mday
+			res00$phentime_end_day  	<- timeend$mday
+			res00$phentime_start_hour 	<- timestart$hour
+			res00$phentime_end_hour  	<- timeend$hour
+			res00$phentime_start_min 	<- timestart$min
+			res00$phentime_end_min  	<- timeend$min
+			res00$phentime_start_sec 	<- timestart$sec
+			res00$phentime_end_sec  	<- timeend$sec
+
 			res00$obsprop <-  unlist(myGetObservation[[k]]@observedProperty@href)
 			res00$result <- toString(myGetObservation[[k]]@result)
-			res00$resTime <- toString(myGetObservation[[k]]@resultTime)
+			res00$resultUnit <- toString(names(myGetObservation[[k]]@result))
+			#res00$resTime <- toString(myGetObservation[[k]]@resultTime)
+			if (class(myGetObservation[[k]]@resultTime) == "GmlTimePeriod") {
+				timestart=unclass(as.POSIXlt(myGetObservation[[k]]@resultTime@begin@timePosition@time))
+				timeend=unclass(as.POSIXlt(myGetObservation[[k]]@resultTime@end@timePosition@time))
+			} else {
+				timestart=unclass(as.POSIXlt(myGetObservation[[k]]@resultTime@timePosition@time))
+				timeend=timestart
+			}
+			res00$restime_start_year	<- timestart$year+1900
+			res00$restime_end_year		<- timeend$year+1900
+			res00$restime_start_month	<- timestart$mon
+			res00$restime_end_month		<- timeend$mon
+			res00$restime_start_day 	<- timestart$mday
+			res00$restime_end_day		<- timeend$mday
+			res00$restime_start_hour 	<- timestart$hour
+			res00$restime_end_hour  	<- timeend$hour
+			res00$restime_start_min 	<- timestart$min
+			res00$restime_end_min		<- timeend$min
+			res00$restime_start_sec 	<- timestart$sec
+			res00$restime_end_sec		<- timeend$sec
 			res00$resQual <- toString(myGetObservation[[k]]@resultQuality)
 			res00$parameter <- toString(myGetObservation[[k]]@parameter)
 			res00$metadata <- toString(myGetObservation[[k]]@metadata)
-			
+			#browser()	
 			restab <- rbind(restab,res00)
 	      }
+	      #browser()
 	      restab <- restab[-1,]
-	      restab <- restab[,c("procedure","phentime","obsprop","result")]
-	      colnames(restab) <- c("SITECODE","date","FIELDNAME","VALUE")
+	      restab <- restab[,c(	"procedure",
+					"phentime_start_year",
+					"phentime_start_month",
+					"phentime_start_day",
+					"phentime_start_hour",
+					"phentime_start_min",
+					"phentime_start_sec",
+					"obsprop","result")]
+	      colnames(restab) <- c("SITECODE","YEAR","MONTH", "DAY", "HOUR", "MIN", "SEC", "FIELDNAME","VALUE")
 	      #resultat$duplicated <- duplicated(resultat$date)
 	      #nrow(resultat)
 	      #resultat <- resultat[resultat$duplicated==F,]
 	      #nrow(resultat)
 	      #resultat$duplicated <- NULL
-	      datetemp <- data.frame(data=unlist(strsplit(restab$date," "),recursive=T))
-	      datetemp$check <- grepl("-",datetemp$data)
-	      datetemp <- datetemp[datetemp$check==TRUE,]
-	      datetemp$check <- NULL
-	      restab <- cbind(restab,datetemp)
-	      restab$DAY <- substr(restab$data,9,10)
-	      restab$MONTH <- substr(restab$data,6,7)
-	      restab$YEAR <- substr(restab$data,1,4)
-	      restab$data <- NULL
-	      restab$date <- NULL
+	      #browser()
 	      
 	      save(restab,file=cache_filename)
       }	
       restab00 <- rbind(restab00,restab)
       print(Sys.time())
-      source=target+seconds(1)
+      source=target + seconds(1)
       print (target)
-      target=target+months(1)
+      target=target %m+% months(1)
       print (source)
       print (target)
+      #browser()
+      if (target > sos_endperiod_utc)
+	done=TRUE
 }
 restab00 <- restab00[-1,]
 #resultat <- restab00[,c("procedure","phentime","obsprop","result")]
@@ -342,7 +432,16 @@ resultat$VALUE=vals
 #}
 
 tsdata <- resultat
-colnames(tsdata) <- c("SITECODE","VALUE","FIELDNAME","RID","DAY","MONTH","YEAR")
+
+# stay compatible with old shit
+cols=c("SITECODE","VALUE","FIELDNAME","RID","DAY","MONTH","YEAR")
+if (!("HOUR" %in% cols))
+	tsdata$HOUR=0
+if (!("MIN" %in% cols))
+	tsdata$MIN=0
+if (!("SEC" %in% cols))
+	tsdata$SEC=0
+colnames(tsdata) <- c("SITECODE","VALUE","FIELDNAME","RID","DAY","MONTH","YEAR", "HOUR", "MIN", "SEC")
 rownames(tsdata) <- seq(1,nrow(tsdata),1)
 tsdata$RID <- NULL
 }
@@ -381,23 +480,30 @@ paraloop <- unique(tsdata$FIELDNAME)
 
 resxx <- data.frame(t(rep(NA,10)))
 colnames(resxx) <- c("merge","FIELDNAME","VALUE","date","statistik","period","mean","startperiod","endperiod","grubbstest")
-resxx$date <- as.Date("1970-01-01",format = c("%Y-%m-%d"))
+resxx$date <- as.POSIXct("1970-01-01 00:00:00", tz="UTC")
+#resxx$date <- as.Date("1970-01-01 00:00:00",format = c("%Y-%m-%d %h:%m:%s"))
 
 #Suppress Graphics output
 pdf(file=NULL)
 
 for (i in paraloop) {
+	browser()
 	pardata <- tsdata[tsdata$FIELDNAME==i,]
 
 	print(i)
 
 	pardata$MONTH <- ifelse(nchar(pardata$MONTH)==1,paste("0",pardata$MONTH,sep=""),pardata$MONTH)
 	pardata$DAY <- ifelse(nchar(pardata$DAY)==1,paste("0",pardata$DAY,sep=""),pardata$DAY)
-	pardata$merge <- paste(pardata$YEAR,"-",pardata$MONTH,"-",pardata$DAY,sep="")
+	pardata$HOUR <- ifelse(nchar(pardata$HOUR)==1,paste("0",pardata$HOUR,sep=""),pardata$HOUR)
+	pardata$MIN <- ifelse(nchar(pardata$MIN)==1,paste("0",pardata$MIN,sep=""),pardata$MIN)
+	pardata$SEC <- ifelse(nchar(pardata$SEC)==1,paste("0",pardata$SEC,sep=""),pardata$SEC)
+	pardata$merge <- paste(	pardata$YEAR,"-", pardata$MONTH,"-", pardata$DAY," ",
+				pardata$HOUR,":",pardata$MIN,":",pardata$SEC,sep="")
 
 	pardata02 <- pardata[,c("merge","FIELDNAME","VALUE")]
 
-	pardata02$date <- as.Date(pardata02$merge,format = c("%Y-%m-%d"))
+	#pardata02$date <- as.Date(pardata02$merge,format = c("%Y-%m-%d %h:%m:%s"))
+	pardata02$date <- as.POSIXct(pardata02$merge,tz="UTC")
 
 	pardata02 <- pardata02[order(pardata02$date,decreasing=F),]
 	rownames(pardata02) <- seq(1,nrow(pardata02),1)
@@ -415,7 +521,8 @@ for (i in paraloop) {
 
 	res00 <- data.frame(t(rep(NA,10)))
 	colnames(res00) <- c("merge","FIELDNAME","VALUE","date","statistik","period","mean","startperiod","endperiod","grubbstest")
-	res00$date <- as.Date("1970-01-01",format = c("%Y-%m-%d"))
+	#res00$date <- as.Date("1970-01-01 00:00:00",format = c("%Y-%m-%d %h:%m:%s"))
+	res00$date <- as.POSIXct("1970-01-01 00:00:00", tz="UTC")
 
 
 
@@ -423,7 +530,8 @@ for (i in paraloop) {
 	  print(cv)
 	  res01 <- data.frame(t(rep(NA,5)))
 	  colnames(res01) <- c("merge","FIELDNAME","VALUE","date","statistik")
-	  res01$date <- as.Date("1970-01-01",format = c("%Y-%m-%d"))
+	  #res01$date <- as.Date("1970-01-01 00:00:00",format = c("%Y-%m-%d %h:%m:%s"))
+	  res01$date <- as.POSIXct("1970-01-01 00:00:00",tz="UTC")
 	  
 	  startperiod <- (start+stat_interval*cv)-(stat_movingwindows/2)
 	  endperiod <- (start+stat_interval*cv)+(stat_movingwindows/2)
