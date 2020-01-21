@@ -198,7 +198,7 @@ while (!done) {
   print (cache_filename)
   try ((loaded_object=load(cache_filename)), silent=TRUE) 
   print (loaded_object)
-  .loadCache=FALSE
+  .loadCache=TRUE
   if (.loadCache==FALSE || is.null(loaded_object) || loaded_object!="restab") { 
 	      period <- sosCreateTimePeriod(sos = sos,
 					    begin = source,
@@ -446,7 +446,9 @@ rownames(tsdata) <- seq(1,nrow(tsdata),1)
 tsdata$RID <- NULL
 }
 
-#write(tsdata$VALUE, stderr())
+#write(tsdata$VALUE, stderro))
+
+#browser()
 
 #############
 # Ausreisseranalyse
@@ -487,7 +489,7 @@ resxx$date <- as.POSIXct("1970-01-01 00:00:00", tz="UTC")
 pdf(file=NULL)
 
 for (i in paraloop) {
-	browser()
+	#browser()
 	pardata <- tsdata[tsdata$FIELDNAME==i,]
 
 	print(i)
@@ -508,13 +510,16 @@ for (i in paraloop) {
 	pardata02 <- pardata02[order(pardata02$date,decreasing=F),]
 	rownames(pardata02) <- seq(1,nrow(pardata02),1)
 
-	start <- min(pardata02$date)+(stat_movingwindows/2)
-	end <- max(pardata02$date)-(stat_movingwindows/2)
+	#get start and end dates wrt moving window
+	startd <- sort(unique(pardata02$date))[(stat_movingwindows/2)+1]
+	endd <- sort(unique(pardata02$date), decreasing=T)[(stat_movingwindows/2)+1]
+	#startd <- min(pardata02$date)+(stat_movingwindows/2)
+	#endd <- max(pardata02$date)-(stat_movingwindows/2)
 
 	# Tabelle mit dem wirklichen Start und Endzeitpunkt
-	tempdata <- pardata02[pardata02$date>=start&pardata02$date<=end,]
+	tempdata <- pardata02[pardata02$date>=startd&pardata02$date<=endd,]
 	# Anzahl der Zeitabschnitte, die auf Ausreisser untersucht werden
-	days <- unique(tempdata$date)
+	days <- unique(sort(tempdata$date))
 	cv <- length(days)/stat_interval
 
 	cv <- ifelse(cv<5,cv,5)
@@ -532,9 +537,11 @@ for (i in paraloop) {
 	  colnames(res01) <- c("merge","FIELDNAME","VALUE","date","statistik")
 	  #res01$date <- as.Date("1970-01-01 00:00:00",format = c("%Y-%m-%d %h:%m:%s"))
 	  res01$date <- as.POSIXct("1970-01-01 00:00:00",tz="UTC")
-	  
-	  startperiod <- (start+stat_interval*cv)-(stat_movingwindows/2)
-	  endperiod <- (start+stat_interval*cv)+(stat_movingwindows/2)
+		#>> Potential Problem	  
+	  #startperiod <- (startd+stat_interval*cv)-(stat_movingwindows/2)
+	  #endperiod <- (startd+stat_interval*cv)+(stat_movingwindows/2)
+	  startperiod <- days[1+stat_interval*cv]
+	  endperiod   <- days[1+stat_interval*cv+stat_movingwindows]
 
 	  outlierdata <- pardata02[pardata02$date>=startperiod&pardata02$date<=endperiod,]
 	  	temp01 <- data.frame(GmAMisc::outlier(outlierdata$VALUE,method="mean",addthres=TRUE)$flaggedData)
