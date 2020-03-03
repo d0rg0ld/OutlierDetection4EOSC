@@ -1,4 +1,28 @@
 options(encoding = "UTF-8")
+# from
+#}
+#addTaskCallback(function(expr, value, ok, visible) {
+#	cat('\n',as.character(Sys.time()), '\t') 
+#	TRUE 
+#})
+
+# from 
+# https://stackoverflow.com/questions/9341635/check-for-installed-packages-before-running-install-packages
+
+pkgTest <- function(x, mode="regular", extra="")
+{
+  if (!require(x,character.only = TRUE))
+  	if(mode == "regular") {
+  	    install.packages(x,dep=TRUE)
+  	    if(!require(x,character.only = TRUE)) stop("Package not found")
+  	} else {
+  		if (mode=="github") {
+    			pkgTest("remotes")
+    			install_github(x, extra)
+  		}
+	}
+}
+
 
 
 ###########################
@@ -21,8 +45,6 @@ options(encoding = "UTF-8")
 # sprung zwischen den einzelnen moving windows (alle 2 wochen ein moving window mit 40 tage)
 ##stat_interval <- 10
 # pfad wo die resultate exportiert werden
-
-source("pkgtest.R")
 
 cachepath <- "./qs/cache/" 
 
@@ -143,15 +165,315 @@ for ( k in seq(1,length(opt))) {
 
 #browser()
 if (type==1) {
+  pkgTest("remotes")
+  pkgTest("52North/sos4R", mode="github", extra="feature/0.4")
+  pkgTest("sos4R")
+  pkgTest("lubridate")
+  
+.verbose <- FALSE 
+.saveOriginal <- FALSE
+.version <- sos200_version
+.binding <- "KVP"
+.responseFormat <- "http://www.opengis.net/om/2.0"
 
-  source("getSos.R")
-  tsdata=getSos( FALSE, FALSE, sos200_version, "KVP", "http://www.opengis.net/om/2.0",
-		.sos, sos_site, sos_parameter, sos_startperiod, sos_endperiod,
-		cachepath, .loadCache)
+sos=NULL
+try(sos <- SOS(url = .sos, version = .version, verboseOutput = .verbose, binding = .binding))
+
+.site <- sos_site
+ 
+myoffering=NULL 
+try(myoffering <- sosOfferings(sos)[[sos_site]])
+
+.observedProperty <- list(sos_parameter)
+
+sos_startperiod <- as_datetime(sos_startperiod)
+sos_endperiod <- as_datetime(sos_endperiod)
+
+sos_startperiod_utc <- floor_date(sos_startperiod, unit="month")
+#print(unclass(sos_endperiod))
+#browser()
+sos_endperiod_utc <- (ceiling_date(sos_endperiod, unit="month")-seconds(1))
+
+print (paste("sos_startperiod : ",	sos_startperiod,	" sos_endperiod : ",	sos_endperiod, 		sep=""))
+print (paste("sos_startperiod_utc : ",	sos_startperiod_utc,	" sos_endperiod_utc : ",sos_endperiod_utc, 	sep=""))
+print (paste("sos_startperiod_utc : ",	sos_startperiod_utc,	" sos_endperiod_utc : ",sos_endperiod_utc-seconds(1), 	sep=""))
+
+#browser()
+source <- sos_startperiod_utc
+target <- source+months(1)-seconds(1)
+
+restab00 <- t(data.frame(rep(NA,10)))
+colnames(restab00) <- c("SITECODE", "OBSERVEDPROPERTY", "YEAR","MONTH", "DAY", "HOUR", "MIN", "SEC", "FIELDNAME","VALUE")
+
+print (paste("source : ",source," target : ",target, sep=""))
+done=FALSE
+while (!done) {
+  #browser()
+  print (source)
+  print (target)
+  periodstart <- paste(sprintf("%04d",year(source)),sprintf("%02d",month(source)),sprintf("%02d",day(source)),sep="")
+  periodend <- paste(sprintf("%04d",year(target)), sprintf("%02d",month(target)),sprintf("%02d",day(target)),sep="")
+
+  cache_filename=paste(gsub(" ", "_", sos_site) ,"_",sos_parameter,"_",periodstart,"_",periodend,sep="")
+
+  cache_filename=paste(cachepath,gsub("[://]","_", cache_filename), sep="")
+
+  loaded_object=NULL
+  print (cache_filename)
+  try ((loaded_object=load(cache_filename)), silent=TRUE) 
+  print (loaded_object)
+  if (.loadCache==FALSE || is.null(loaded_object) || loaded_object!="restab") { 
+	      period <- sosCreateTimePeriod(sos = sos,
+					    begin = source,
+					    end = target)
+	      .eventTime <- sosCreateEventTimeList(period)
+	    	print(.eventTime) 
+	      print (paste("Loading observations from SOS : ", cache_filename, sep="")) 
+
+
+	      myGetObservation <- getObservation(sos = sos,
+						 offering = sosOfferings(sos),
+						 featureOfInterest = .site,
+						 observedProperty = .observedProperty,
+						 #responseFormat = .responseFormat,
+						 eventTime = .eventTime,
+						 verbose = FALSE,
+						 #verbose = .verbose,
+						 saveOriginal = .saveOriginal)
+	      save(myGetObservation, file=paste(cache_filename, "myGetObs", sep="_"))
+	      print (paste("Finished loading observations from SOS : ", "", sep="")) 
+	  
+	      restab <- t(data.frame(rep(NA,32)))
+	      colnames(restab) <- c(	"foi",
+					"procedure",
+					"phentime_start_year",
+					"phentime_start_month",
+					"phentime_start_day",
+					"phentime_start_hour",
+					"phentime_start_min",
+					"phentime_start_sec",
+					"phentime_end_year",
+					"phentime_end_month",
+					"phentime_end_day",
+					"phentime_end_hour",
+					"phentime_end_min",
+					"phentime_end_sec",
+					"obsprop", 
+					"result", 
+					"resultUnit", 
+					"restime_start_year",
+					"restime_start_month",
+					"restime_start_day",
+					"restime_start_hour",
+					"restime_start_min",
+					"restime_start_sec",
+					"restime_end_year",
+					"restime_end_month",
+					"restime_end_day",
+					"restime_end_hour",
+					"restime_end_min",
+					"restime_end_sec",
+					"resQual",
+					"parameter",
+					"metadata")
+	      browser() 
+	      for (k in c(1:dim(summary(myGetObservation))[1])) {
+			
+			res00 <- data.frame(foi=toString(myGetObservation[[k]]@featureOfInterest@feature@identifier))
+
+			res00$procedure=toString(myGetObservation[[k]]@procedure)		
+
+			if (class(myGetObservation[[k]]@phenomenonTime) == "GmlTimePeriod") {
+				timestart=unclass(as.POSIXlt(myGetObservation[[k]]@phenomenonTime@begin@timePosition@time))
+				timeend=unclass(as.POSIXlt(myGetObservation[[k]]@phenomenonTime@end@timePosition@time))
+			} else {
+				timestart=unclass(as.POSIXlt(myGetObservation[[k]]@phenomenonTime@timePosition@time))
+				timeend=timestart
+			}
+			#res00$phentime <- toString(myGetObservation[[k]]@phenomenonTime)
+			#print(timestart)
+			res00$phentime_start_year	<- timestart$year+1900
+			res00$phentime_end_year		<- timeend$year+1900
+			res00$phentime_start_month	<- timestart$mon+1
+			res00$phentime_end_month	<- timeend$mon+1
+			res00$phentime_start_day 	<- timestart$mday
+			res00$phentime_end_day  	<- timeend$mday
+			res00$phentime_start_hour 	<- timestart$hour
+			res00$phentime_end_hour  	<- timeend$hour
+			res00$phentime_start_min 	<- timestart$min
+			res00$phentime_end_min  	<- timeend$min
+			res00$phentime_start_sec 	<- timestart$sec
+			res00$phentime_end_sec  	<- timeend$sec
+
+			res00$obsprop <-  unlist(myGetObservation[[k]]@observedProperty@href)
+			res00$result <- toString(myGetObservation[[k]]@result)
+			res00$resultUnit <- toString(names(myGetObservation[[k]]@result))
+			#res00$resTime <- toString(myGetObservation[[k]]@resultTime)
+			if (class(myGetObservation[[k]]@resultTime) == "GmlTimePeriod") {
+				timestart=unclass(as.POSIXlt(myGetObservation[[k]]@resultTime@begin@timePosition@time))
+				timeend=unclass(as.POSIXlt(myGetObservation[[k]]@resultTime@end@timePosition@time))
+			} else {
+				timestart=unclass(as.POSIXlt(myGetObservation[[k]]@resultTime@timePosition@time))
+				timeend=timestart
+			}
+			res00$restime_start_year	<- timestart$year+1900
+			res00$restime_end_year		<- timeend$year+1900
+			res00$restime_start_month	<- timestart$mon+1
+			res00$restime_end_month		<- timeend$mon+1
+			res00$restime_start_day 	<- timestart$mday
+			res00$restime_end_day		<- timeend$mday
+			res00$restime_start_hour 	<- timestart$hour
+			res00$restime_end_hour  	<- timeend$hour
+			res00$restime_start_min 	<- timestart$min
+			res00$restime_end_min		<- timeend$min
+			res00$restime_start_sec 	<- timestart$sec
+			res00$restime_end_sec		<- timeend$sec
+			res00$resQual <- toString(myGetObservation[[k]]@resultQuality)
+			res00$parameter <- toString(myGetObservation[[k]]@parameter)
+			res00$metadata <- toString(myGetObservation[[k]]@metadata)
+			#browser()	
+			restab <- rbind(restab,res00)
+	      }
+	      #browser()
+	      restab <- restab[-1,]
+	      restab <- restab[,c(	"foi",
+					"obsprop",
+					"phentime_start_year",
+					"phentime_start_month",
+					"phentime_start_day",
+					"phentime_start_hour",
+					"phentime_start_min",
+					"phentime_start_sec",
+					"procedure","result")]
+		# treat procedure as fieldname, dirty workaround
+	      colnames(restab) <- c("SITECODE","OBSERVEDPROPERTY","YEAR","MONTH", "DAY", "HOUR", "MIN", "SEC", "FIELDNAME","VALUE")
+	      #resultat$duplicated <- duplicated(resultat$date)
+	      #nrow(resultat)
+	      #resultat <- resultat[resultat$duplicated==F,]
+	      #nrow(resultat)
+	      #resultat$duplicated <- NULL
+	      #browser()
+	      
+	      save(restab,file=cache_filename)
+      }	
+      restab00 <- rbind(restab00,restab)
+      print(Sys.time())
+      source=target + seconds(1)
+      print (target)
+      target=target %m+% months(1)
+      print (source)
+      print (target)
+      #browser()
+      if (source> sos_endperiod_utc)
+	done=TRUE
+}
+restab00 <- restab00[-1,]
+#resultat <- restab00[,c("foi","phentime","obsprop","result")]
+#colnames(resultat) <- c("SITECODE","date","FIELDNAME","VALUE")
+#resultat$duplicated <- duplicated(resultat$date)
+#nrow(resultat)
+#resultat <- resultat[resultat$duplicated==F,]
+#nrow(resultat)
+#resultat$duplicated <- NULL
+#datetemp <- data.frame(data=unlist(strsplit(resultat$date," "),recursive=T))
+#datetemp$check <- grepl("-",datetemp$data)
+#datetemp <- datetemp[datetemp$check==TRUE,]
+#datetemp$check <- NULL
+#resultat <- cbind(resultat,datetemp)
+#resultat$DAY <- substr(resultat$data,9,10)
+#resultat$MONTH <- substr(resultat$data,6,7)
+#resultat$YEAR <- substr(resultat$data,1,4)
+#resultat$data <- NULL
+#resultat$date <- NULL
+
+#tsdata <- resultat[,c("SITECODE","VALUE","FIELDNAME","DAY","MONTH","YEAR")]
+tsdata <- restab00
+rownames(tsdata) <- seq(1,nrow(tsdata),1)
+tsdata$VALUE <- as.numeric(tsdata$VALUE)
+
 } else {
+  pkgTest("curl")
+  pkgTest("stringdist")
 
-  source("getFile.R")
-  tsdata=getFile(username, password, dav)
+
+  #Downloading and Unzipping files in R
+  #https://rpubs.com/otienodominic/398952
+  
+  # download eines bestimmten files
+  #dav = "https://docs.umweltbundesamt.at/s/PFK3eHkHNSMETg8/download"
+  # download des ganzen ordner inhalts mit curl_download auf definierten ordner
+  #dav <- "https://docs.umweltbundesamt.at/s/W4Fq5JWxG4QXQzs/download"
+
+
+  h <- new_handle()
+  handle_setopt(h, username = username)
+  handle_setopt(h, password = password)
+
+  tmpzip=tempfile(, fileext="zip") 
+  download.file(dav, destfile=tmpzip, mode="wb")
+  files=unzip(tmpzip, list=TRUE)
+  resultat=NULL
+  cnames=NULL
+  for (file in files[files$Length>0,]$Name) {
+    print (file)
+    tab=read.table(unz(tmpzip,file), stringsAsFactors = F, sep=";")
+    resultat=rbind(resultat,tab[-1,])
+    cnames=append(cnames,paste(tab[1,], collapse=";"))
+  }
+
+  unlink(tmpzip)
+
+  if (sum(stringdistmatrix(cnames)) > 0) {
+	#different colnames encountered, bail out
+	return (0)
+  }
+
+  colnames(resultat)=unlist(strsplit(cnames[1], ";"))
+
+
+  #rownames(resultat) <- 1
+  #temp <- seq(1,ncol(resultat),1)
+  #colnames(resultat) <- paste("par_",temp,sep="")
+
+	
+ # write(colnames(resultat), stderr())
+    
+#  for (xy in c(2:nrow(res))) {
+#    resultat01 <- t(data.frame(strsplit(res[xy,"data"],";")))
+#    rownames(resultat01) <- 1
+#    temp <- seq(1,ncol(resultat01),1)
+#    colnames(resultat01) <- paste("par_",temp,sep="")
+#    resultat <- rbind(resultat,resultat01)
+#    rm(temp)
+#  }
+#resultat <- data.frame(resultat)
+
+vals=as.numeric(gsub(",",".",resultat$VALUE))
+#write(vals, stderr())
+resultat$VALUE=vals
+#resultat$DAY=as.numeric(gsub(",",".",resultat$DAY))
+#resultat$MONTH=as.numeric(gsub(",",".",resultat$MONTH))
+#resultat$YEAR=as.numeric(gsub(",",".",resultat$YEAR))
+
+#  for (xy in c(1:ncol(resultat))) {
+#temp <- as.numeric(gsub(",",".",as.character(resultat[,xy])))
+#if (is.na(mean(temp))==TRUE) { resultat[,xy] <- resultat[,xy] } else { resultat[,xy] <- as.numeric(gsub(",",".",as.character(resultat[,xy]))) } 
+#}
+
+tsdata <- resultat
+
+# stay compatible with old shit
+cols=c("SITECODE","VALUE","FIELDNAME","RID","DAY","MONTH","YEAR")
+if (!("HOUR" %in% cols))
+	tsdata$HOUR=0
+if (!("MIN" %in% cols))
+	tsdata$MIN=0
+if (!("SEC" %in% cols))
+	tsdata$SEC=0
+colnames(tsdata) <- c("SITECODE","VALUE","FIELDNAME","RID","DAY","MONTH","YEAR", "HOUR", "MIN", "SEC")
+rownames(tsdata) <- seq(1,nrow(tsdata),1)
+tsdata$RID <- NULL
+tsdata$OBSERVEDPROPERTY=""
 }
 
 #write(tsdata$VALUE, stderro))
