@@ -1,3 +1,5 @@
+#This work is co-funded by the EOSC-hub project (Horizon 2020) under Grant number 777536.  
+
 options(encoding = "UTF-8")
 # from
 #}
