@@ -1,8 +1,8 @@
 <div class="row" style="display:flex">
-  <div class="column" style="flex:50%;padding: 5px">
+  <div class="column" style="flex:50%;padding:5px">
 	<img src="https://www.egi.eu/wp-content/uploads/2020/01/eu-logo.jpeg" alt="EU LOGO" height="200"> 
   </div>
-  <div class="column" style="flex:50%;padding: 5px">
+  <div class="column" style="flex:50%;padding:5px">
 	<img src="https://www.egi.eu/wp-content/uploads/2020/01/eosc-hub-v-web.png"  alt="EOSC HUB" height="200"> 
   </div>
 </div>
