@@ -117,6 +117,7 @@ def qs_blocking_get(sosendpoint, begin, end, parameter, site, windowwidth=None, 
     myts=makeTimeStamp()
 
     args=['/usr/bin/Rscript','../outlier_script/quality_check.R',
+                                        "-d", "../outlier_script/",
                                         "-e", sosendpoint,
                                         "-s", sites,
                                         "-p", parameters,
@@ -157,6 +158,7 @@ def qs_blocking_post(repourl, windowwidth=None, windowinterval=None):  # noqa: E
     myts=makeTimeStamp()
 
     args=['/usr/bin/Rscript','../outlier_script/quality_check.R',
+                                        "-d", "../outlier_script/",
 					"-r", repourl,
 					"-u", globVars.user,
 					"-c", globVars.password,
@@ -219,6 +221,7 @@ def qs_nonblocking_get(sosendpoint, begin, end, parameter, site, windowwidth=Non
     myts=makeTimeStamp()
 
     args=['/usr/bin/Rscript','../outlier_script/quality_check.R',
+                                        "-d", "../outlier_script/",
                                         "-e", sosendpoint,
                                         "-s", sites,
                                         "-p", parameters,
@@ -263,6 +266,7 @@ def qs_nonblocking_post(repourl, windowwidth=None, windowinterval=None, wait=Fal
     myts=makeTimeStamp()
 
     args=['/usr/bin/Rscript','../outlier_script/quality_check.R',
+                                        "-d", "../outlier_script/",
 					"-r", repourl,
 					"-u", globVars.user,
 					"-c", globVars.password,

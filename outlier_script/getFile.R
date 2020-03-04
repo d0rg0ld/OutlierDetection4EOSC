@@ -44,5 +44,5 @@ getFile <- function(username, password, dav) {
   rownames(tsdata) <- seq(1,nrow(tsdata),1)
   tsdata$RID <- NULL
   tsdata$OBSERVEDPROPERTY=""
-
+  return(tsdata)
 }

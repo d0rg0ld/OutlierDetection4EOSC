@@ -68,7 +68,7 @@ getSos <- function(verbose, saveOriginal, sosVersion, binding, responseFormat,
 							 eventTime = .eventTime,
 							 verbose = FALSE,
 							 #verbose = .verbose,
-							 saveOriginal = .saveOriginal)
+							 saveOriginal = saveOriginal)
 		      save(myGetObservation, file=paste(cache_filename, "myGetObs", sep="_"))
 		      print (paste("Finished loading observations from SOS : ", "", sep=""))
 

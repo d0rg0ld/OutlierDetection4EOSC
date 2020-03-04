@@ -447708,3 +447708,2303 @@ In library(package, lib.loc = lib.loc, character.only = TRUE, logical.return = T
 Execution halted
 Warning message:
 system call failed: No child processes 
+[1] "------------ BEGIN ---2020-03-02 10:27:47----------------"
+Paras: 
+[1] "endpoint: https://sensorweb.demo.52north.org/sensorwebtestbed/service"
+[1] "repourl: "
+[1] "site: ELV-WS2500"
+[1] "parameter: AirTemperature"
+[1] "from: 2015-06-01T00:00:00.000Z"
+[1] "to: 2015-06-05T23:59:59.000Z"
+[1] "window: 40"
+[1] "interval: 14"
+[1] "mode: 1"
+[1] "logfile: log.txt"
+[1] "outpathbase: ./qs/results/"
+[1] "timestamp: 20200302_102746"
+[1] "quiet: FALSE"
+[1] "help: FALSE"
+Loading required package: remotes
+Loading required package: 52North/sos4R
+Skipping install of 'sos4R' from a github remote, the SHA1 (396b71d5) has not changed since last install.
+  Use `force = TRUE` to force installation
+Loading required package: sos4R
+Loading required package: lubridate
+
+Attaching package: ‘lubridate’
+
+The following object is masked from ‘package:base’:
+
+    date
+
+[1] "sos_startperiod : 2012-05-31 23:00:00 sos_endperiod : 2012-06-30 22:59:59"
+[1] "sos_startperiod_utc : 2012-05-01 sos_endperiod_utc : 2012-06-30 23:59:59"
+[1] "sos_startperiod_utc : 2012-05-01 sos_endperiod_utc : 2012-06-30 23:59:58"
+[1] "source : 2012-05-01 target : 2012-05-31 23:59:59"
+[1] "2012-05-01 UTC"
+[1] "2012-05-31 23:59:59 UTC"
+[1] "./qs/cache/LTER_EU_AT_003_http___vocabs.lter-europe.net_EnvThes_22035_20120501_20120531"
+[1] "restab"
+[[1]]
+Object of class SosEventTime:
+	TM_During: GmlTimePeriod: [ GmlTimePosition [ time: 2012-05-01 ]
+	--> GmlTimePosition [ time: 2012-05-31 23:59:59 ] ] 
+
+[1] "Loading observations from SOS : ./qs/cache/LTER_EU_AT_003_http___vocabs.lter-europe.net_EnvThes_22035_20120501_20120531"
+[1] "Finished loading observations from SOS : "
+Called from: top level 
+[1] "2020-03-02 10:27:56 CET"
+[1] "2012-05-31 23:59:59 UTC"
+[1] "2012-06-01 UTC"
+[1] "2012-06-30 23:59:59 UTC"
+[1] "2012-06-01 UTC"
+[1] "2012-06-30 23:59:59 UTC"
+[1] "./qs/cache/LTER_EU_AT_003_http___vocabs.lter-europe.net_EnvThes_22035_20120601_20120630"
+[1] "restab"
+[[1]]
+Object of class SosEventTime:
+	TM_During: GmlTimePeriod: [ GmlTimePosition [ time: 2012-06-01 ]
+	--> GmlTimePosition [ time: 2012-06-30 23:59:59 ] ] 
+
+[1] "Loading observations from SOS : ./qs/cache/LTER_EU_AT_003_http___vocabs.lter-europe.net_EnvThes_22035_20120601_20120630"
+[1] "Finished loading observations from SOS : "
+Called from: top level 
+[1] "2020-03-02 10:27:59 CET"
+[1] "2012-06-30 23:59:59 UTC"
+[1] "2012-07-01 UTC"
+[1] "2012-07-30 23:59:59 UTC"
+Warning message:
+In library(package, lib.loc = lib.loc, character.only = TRUE, logical.return = TRUE,  :
+  there is no package called ‘52North/sos4R’
+Loading required package: chron
+
+Attaching package: ‘chron’
+
+The following objects are masked from ‘package:lubridate’:
+
+    days, hours, minutes, seconds, years
+
+Loading required package: GmAMisc
+Loading required package: maptools
+Loading required package: sp
+Checking rgeos availability: TRUE
+Loading required package: extremevalues
+Warning message:
+no DISPLAY variable so Tk is not available 
+Loading required package: univOutl
+Loading required package: robustbase
+Loading required package: Hmisc
+Loading required package: lattice
+Loading required package: survival
+
+Attaching package: ‘survival’
+
+The following object is masked from ‘package:robustbase’:
+
+    heart
+
+Loading required package: Formula
+Loading required package: ggplot2
+
+Attaching package: ‘Hmisc’
+
+The following object is masked from ‘package:maptools’:
+
+    label
+
+The following objects are masked from ‘package:base’:
+
+    format.pval, units
+
+Loading required package: OutlierDetection
+Warning messages:
+1: In rgl.init(initValue, onlyNULL) : RGL: unable to open X11 display
+2: 'rgl_init' failed, running with rgl.useNULL = TRUE 
+Loading required package: DMwR
+Loading required package: grid
+Registered S3 method overwritten by 'xts':
+  method     from
+  as.zoo.xts zoo 
+Registered S3 method overwritten by 'quantmod':
+  method            from
+  as.zoo.data.frame zoo 
+Registered S3 method overwritten by 'gdata':
+  method         from     
+  reorder.factor DescTools
+Loading required package: outliers
+
+Attaching package: ‘outliers’
+
+The following object is masked from ‘package:GmAMisc’:
+
+    outlier
+
+[1] "LTER_EU_AT_003_/1579859273023/LTER_AT/LTER_EU_AT_003/ATZOEAM0939_TEMPMEAN_TEST/AIR_http://vocabs.lter-europe.net/EnvThes/22035"
+[1] "29  in total"
+[1] "0  datapoints make  0  intervals"
+[1] 0
+[1] "2012-06-02  to  2012-06-10"
+[1] 1
+[1] "LTER_EU_AT_003_/1579860521662/LTER_AT/LTER_EU_AT_003/ATZOEAM0939_TEMPMEAN_TEST2/AIR_http://vocabs.lter-europe.net/EnvThes/22035"
+[1] "29  in total"
+[1] "0  datapoints make  0  intervals"
+[1] 0
+[1] "2012-06-02  to  2012-06-10"
+[1] 1
+[1] "LTER_EU_AT_003_/1579860990023/LTER_AT/LTER_EU_AT_003/ATZOEAM0939_TEMPMEAN_TEST3/AIR_http://vocabs.lter-europe.net/EnvThes/22035"
+[1] "30  in total"
+[1] "0  datapoints make  0  intervals"
+[1] 0
+[1] "2012-06-01 05:12:22  to  2012-06-10 05:12:22"
+[1] 1
+Warning messages:
+1: In rgl.init(initValue, onlyNULL) : RGL: unable to open X11 display
+2: 'rgl_init' failed, running with rgl.useNULL = TRUE
+Loading required package: zip
+
+Attaching package: ‘zip’
+
+The following objects are masked from ‘package:utils’:
+
+    unzip, zip
+
+[1] "ARE WE QUIET FALSE"
+[1] "------------ END ---2020-03-02 10:28:21----------------"
+[1] TRUE
+[1] "------------ BEGIN ---2020-03-03 16:35:27----------------"
+Paras: 
+[1] "endpoint: https://sensorweb.demo.52north.org/sensorwebtestbed/service"
+[1] "repourl: "
+[1] "site: ELV-WS2500"
+[1] "parameter: AirTemperature"
+[1] "from: 2015-06-01T00:00:00.000Z"
+[1] "to: 2015-06-05T23:59:59.000Z"
+[1] "window: 40"
+[1] "interval: 14"
+[1] "mode: 1"
+[1] "logfile: log.txt"
+[1] "outpathbase: ./qs/results/"
+[1] "timestamp: 20200303_163526"
+[1] "quiet: FALSE"
+[1] "directory: ../outlier_script/"
+[1] "help: FALSE"
+Loading required package: remotes
+Loading required package: 52North/sos4R
+Skipping install of 'sos4R' from a github remote, the SHA1 (396b71d5) has not changed since last install.
+  Use `force = TRUE` to force installation
+Loading required package: sos4R
+Loading required package: lubridate
+
+Attaching package: ‘lubridate’
+
+The following object is masked from ‘package:base’:
+
+    date
+
+[1] "source : 2012-05-01 target : 2012-05-31 23:59:59"
+[1] "2012-05-01 UTC"
+[1] "2012-05-31 23:59:59 UTC"
+[1] "./qs/cache/LTER_EU_AT_003_http___vocabs.lter-europe.net_EnvThes_22035_20120501_20120531"
+[1] "restab"
+[[1]]
+Object of class SosEventTime:
+	TM_During: GmlTimePeriod: [ GmlTimePosition [ time: 2012-05-01 ]
+	--> GmlTimePosition [ time: 2012-05-31 23:59:59 ] ] 
+
+[1] "Loading observations from SOS : ./qs/cache/LTER_EU_AT_003_http___vocabs.lter-europe.net_EnvThes_22035_20120501_20120531"
+Error in getObservation(sos = sos, offering = sosOfferings(sos), featureOfInterest = sos_site,  : 
+  object '.saveOriginal' not found
+Calls: getSos ... getObservation -> getObservation -> .local -> .getObservation_2.0.0
+In addition: Warning message:
+In library(package, lib.loc = lib.loc, character.only = TRUE, logical.return = TRUE,  :
+  there is no package called ‘52North/sos4R’
+Execution halted
+Warning message:
+system call failed: No child processes 
+[1] "------------ BEGIN ---2020-03-03 16:36:35----------------"
+Paras: 
+[1] "endpoint: https://sensorweb.demo.52north.org/sensorwebtestbed/service"
+[1] "repourl: "
+[1] "site: ELV-WS2500"
+[1] "parameter: AirTemperature"
+[1] "from: 2015-06-01T00:00:00.000Z"
+[1] "to: 2015-06-05T23:59:59.000Z"
+[1] "window: 40"
+[1] "interval: 14"
+[1] "mode: 1"
+[1] "logfile: log.txt"
+[1] "outpathbase: ./qs/results/"
+[1] "timestamp: 20200303_163634"
+[1] "quiet: FALSE"
+[1] "directory: ../outlier_script/"
+[1] "help: FALSE"
+Loading required package: remotes
+Loading required package: 52North/sos4R
+Skipping install of 'sos4R' from a github remote, the SHA1 (396b71d5) has not changed since last install.
+  Use `force = TRUE` to force installation
+Loading required package: sos4R
+Loading required package: lubridate
+
+Attaching package: ‘lubridate’
+
+The following object is masked from ‘package:base’:
+
+    date
+
+[1] "source : 2012-05-01 target : 2012-05-31 23:59:59"
+[1] "2012-05-01 UTC"
+[1] "2012-05-31 23:59:59 UTC"
+[1] "./qs/cache/LTER_EU_AT_003_http___vocabs.lter-europe.net_EnvThes_22035_20120501_20120531"
+[1] "restab"
+[[1]]
+Object of class SosEventTime:
+	TM_During: GmlTimePeriod: [ GmlTimePosition [ time: 2012-05-01 ]
+	--> GmlTimePosition [ time: 2012-05-31 23:59:59 ] ] 
+
+[1] "Loading observations from SOS : ./qs/cache/LTER_EU_AT_003_http___vocabs.lter-europe.net_EnvThes_22035_20120501_20120531"
+Error in getObservation(sos = sos, offering = sosOfferings(sos), featureOfInterest = sos_site,  : 
+  object '.saveOriginal' not found
+Calls: getSos ... getObservation -> getObservation -> .local -> .getObservation_2.0.0
+In addition: Warning message:
+In library(package, lib.loc = lib.loc, character.only = TRUE, logical.return = TRUE,  :
+  there is no package called ‘52North/sos4R’
+Execution halted
+Warning message:
+system call failed: No child processes 
+[1] "------------ BEGIN ---2020-03-03 16:37:15----------------"
+Paras: 
+[1] "endpoint: https://sensorweb.demo.52north.org/sensorwebtestbed/service"
+[1] "repourl: "
+[1] "site: ELV-WS2500"
+[1] "parameter: AirTemperature"
+[1] "from: 2015-06-01T00:00:00.000Z"
+[1] "to: 2015-06-05T23:59:59.000Z"
+[1] "window: 40"
+[1] "interval: 14"
+[1] "mode: 1"
+[1] "logfile: log.txt"
+[1] "outpathbase: ./qs/results/"
+[1] "timestamp: 20200303_163715"
+[1] "quiet: FALSE"
+[1] "directory: ../outlier_script/"
+[1] "help: FALSE"
+Loading required package: remotes
+Loading required package: 52North/sos4R
+Skipping install of 'sos4R' from a github remote, the SHA1 (396b71d5) has not changed since last install.
+  Use `force = TRUE` to force installation
+Loading required package: sos4R
+Loading required package: lubridate
+
+Attaching package: ‘lubridate’
+
+The following object is masked from ‘package:base’:
+
+    date
+
+[1] "source : 2012-05-01 target : 2012-05-31 23:59:59"
+[1] "2012-05-01 UTC"
+[1] "2012-05-31 23:59:59 UTC"
+[1] "./qs/cache/LTER_EU_AT_003_http___vocabs.lter-europe.net_EnvThes_22035_20120501_20120531"
+[1] "restab"
+[[1]]
+Object of class SosEventTime:
+	TM_During: GmlTimePeriod: [ GmlTimePosition [ time: 2012-05-01 ]
+	--> GmlTimePosition [ time: 2012-05-31 23:59:59 ] ] 
+
+[1] "Loading observations from SOS : ./qs/cache/LTER_EU_AT_003_http___vocabs.lter-europe.net_EnvThes_22035_20120501_20120531"
+Error in getObservation(sos = sos, offering = sosOfferings(sos), featureOfInterest = sos_site,  : 
+  object '.saveOriginal' not found
+Calls: getSos ... getObservation -> getObservation -> .local -> .getObservation_2.0.0
+In addition: Warning message:
+In library(package, lib.loc = lib.loc, character.only = TRUE, logical.return = TRUE,  :
+  there is no package called ‘52North/sos4R’
+Execution halted
+Warning message:
+system call failed: No child processes 
+[1] "------------ BEGIN ---2020-03-03 16:38:45----------------"
+Paras: 
+[1] "endpoint: https://sensorweb.demo.52north.org/sensorwebtestbed/service"
+[1] "repourl: "
+[1] "site: ELV-WS2500"
+[1] "parameter: AirTemperature"
+[1] "from: 2015-06-01T00:00:00.000Z"
+[1] "to: 2015-06-05T23:59:59.000Z"
+[1] "window: 40"
+[1] "interval: 14"
+[1] "mode: 1"
+[1] "logfile: log.txt"
+[1] "outpathbase: ./qs/results/"
+[1] "timestamp: 20200303_163845"
+[1] "quiet: FALSE"
+[1] "directory: ../outlier_script/"
+[1] "help: FALSE"
+Loading required package: remotes
+Loading required package: 52North/sos4R
+Skipping install of 'sos4R' from a github remote, the SHA1 (396b71d5) has not changed since last install.
+  Use `force = TRUE` to force installation
+Loading required package: sos4R
+Loading required package: lubridate
+
+Attaching package: ‘lubridate’
+
+The following object is masked from ‘package:base’:
+
+    date
+
+[1] "source : 2012-05-01 target : 2012-05-31 23:59:59"
+[1] "2012-05-01 UTC"
+[1] "2012-05-31 23:59:59 UTC"
+[1] "./qs/cache/LTER_EU_AT_003_http___vocabs.lter-europe.net_EnvThes_22035_20120501_20120531"
+[1] "restab"
+[[1]]
+Object of class SosEventTime:
+	TM_During: GmlTimePeriod: [ GmlTimePosition [ time: 2012-05-01 ]
+	--> GmlTimePosition [ time: 2012-05-31 23:59:59 ] ] 
+
+[1] "Loading observations from SOS : ./qs/cache/LTER_EU_AT_003_http___vocabs.lter-europe.net_EnvThes_22035_20120501_20120531"
+[1] "Finished loading observations from SOS : "
+[1] "2020-03-03 16:38:53 CET"
+[1] "2012-05-31 23:59:59 UTC"
+[1] "2012-06-01 UTC"
+[1] "2012-06-30 23:59:59 UTC"
+[1] "2012-06-01 UTC"
+[1] "2012-06-30 23:59:59 UTC"
+[1] "./qs/cache/LTER_EU_AT_003_http___vocabs.lter-europe.net_EnvThes_22035_20120601_20120630"
+[1] "restab"
+[[1]]
+Object of class SosEventTime:
+	TM_During: GmlTimePeriod: [ GmlTimePosition [ time: 2012-06-01 ]
+	--> GmlTimePosition [ time: 2012-06-30 23:59:59 ] ] 
+
+[1] "Loading observations from SOS : ./qs/cache/LTER_EU_AT_003_http___vocabs.lter-europe.net_EnvThes_22035_20120601_20120630"
+[1] "Finished loading observations from SOS : "
+[1] "2020-03-03 16:38:56 CET"
+[1] "2012-06-30 23:59:59 UTC"
+[1] "2012-07-01 UTC"
+[1] "2012-07-30 23:59:59 UTC"
+Warning message:
+In library(package, lib.loc = lib.loc, character.only = TRUE, logical.return = TRUE,  :
+  there is no package called ‘52North/sos4R’
+Loading required package: chron
+
+Attaching package: ‘chron’
+
+The following objects are masked from ‘package:lubridate’:
+
+    days, hours, minutes, seconds, years
+
+Loading required package: GmAMisc
+Loading required package: maptools
+Loading required package: sp
+Checking rgeos availability: TRUE
+Loading required package: extremevalues
+Warning message:
+no DISPLAY variable so Tk is not available 
+Loading required package: univOutl
+Loading required package: robustbase
+Loading required package: Hmisc
+Loading required package: lattice
+Loading required package: survival
+
+Attaching package: ‘survival’
+
+The following object is masked from ‘package:robustbase’:
+
+    heart
+
+Loading required package: Formula
+Loading required package: ggplot2
+
+Attaching package: ‘Hmisc’
+
+The following object is masked from ‘package:maptools’:
+
+    label
+
+The following objects are masked from ‘package:base’:
+
+    format.pval, units
+
+Loading required package: OutlierDetection
+Warning messages:
+1: In rgl.init(initValue, onlyNULL) : RGL: unable to open X11 display
+2: 'rgl_init' failed, running with rgl.useNULL = TRUE 
+Loading required package: DMwR
+Loading required package: grid
+Registered S3 method overwritten by 'xts':
+  method     from
+  as.zoo.xts zoo 
+Registered S3 method overwritten by 'quantmod':
+  method            from
+  as.zoo.data.frame zoo 
+Registered S3 method overwritten by 'gdata':
+  method         from     
+  reorder.factor DescTools
+Loading required package: outliers
+
+Attaching package: ‘outliers’
+
+The following object is masked from ‘package:GmAMisc’:
+
+    outlier
+
+[1] "LTER_EU_AT_003_/1579859273023/LTER_AT/LTER_EU_AT_003/ATZOEAM0939_TEMPMEAN_TEST/AIR_http://vocabs.lter-europe.net/EnvThes/22035"
+[1] "28  in total"
+[1] "0  datapoints make  0  intervals"
+[1] 0
+[1] "2012-06-02  to  2012-06-09"
+[1] 1
+[1] "LTER_EU_AT_003_/1579860521662/LTER_AT/LTER_EU_AT_003/ATZOEAM0939_TEMPMEAN_TEST2/AIR_http://vocabs.lter-europe.net/EnvThes/22035"
+[1] "28  in total"
+[1] "0  datapoints make  0  intervals"
+[1] 0
+[1] "2012-06-02  to  2012-06-09"
+[1] 1
+[1] "LTER_EU_AT_003_/1579860990023/LTER_AT/LTER_EU_AT_003/ATZOEAM0939_TEMPMEAN_TEST3/AIR_http://vocabs.lter-europe.net/EnvThes/22035"
+[1] "29  in total"
+[1] "0  datapoints make  0  intervals"
+[1] 0
+[1] "2012-06-01 05:12:22  to  2012-06-09 05:12:22"
+[1] 1
+Warning messages:
+1: In rgl.init(initValue, onlyNULL) : RGL: unable to open X11 display
+2: 'rgl_init' failed, running with rgl.useNULL = TRUE
+Loading required package: zip
+
+Attaching package: ‘zip’
+
+The following objects are masked from ‘package:utils’:
+
+    unzip, zip
+
+[1] "ARE WE QUIET FALSE"
+[1] "------------ END ---2020-03-03 16:39:12----------------"
+[1] TRUE
+[1] "------------ BEGIN ---2020-03-03 16:45:18----------------"
+Paras: 
+[1] "endpoint: https://sensorweb.demo.52north.org/sensorwebtestbed/service"
+[1] "repourl: "
+[1] "site: ELV-WS2500"
+[1] "parameter: AirTemperature"
+[1] "from: 2015-06-01T00:00:00.000Z"
+[1] "to: 2015-06-05T23:59:59.000Z"
+[1] "window: 40"
+[1] "interval: 14"
+[1] "mode: 1"
+[1] "logfile: log.txt"
+[1] "outpathbase: ./qs/results/"
+[1] "timestamp: 20200303_164517"
+[1] "quiet: FALSE"
+[1] "directory: ../outlier_script/"
+[1] "help: FALSE"
+Loading required package: remotes
+Loading required package: 52North/sos4R
+Skipping install of 'sos4R' from a github remote, the SHA1 (396b71d5) has not changed since last install.
+  Use `force = TRUE` to force installation
+Loading required package: sos4R
+Loading required package: lubridate
+
+Attaching package: ‘lubridate’
+
+The following object is masked from ‘package:base’:
+
+    date
+
+[1] "source : 2012-05-01 target : 2012-05-31 23:59:59"
+[1] "2012-05-01 UTC"
+[1] "2012-05-31 23:59:59 UTC"
+[1] "./qs/cache/LTER_EU_AT_003_http___vocabs.lter-europe.net_EnvThes_22035_20120501_20120531"
+[1] "restab"
+[[1]]
+Object of class SosEventTime:
+	TM_During: GmlTimePeriod: [ GmlTimePosition [ time: 2012-05-01 ]
+	--> GmlTimePosition [ time: 2012-05-31 23:59:59 ] ] 
+
+[1] "Loading observations from SOS : ./qs/cache/LTER_EU_AT_003_http___vocabs.lter-europe.net_EnvThes_22035_20120501_20120531"
+[1] "Finished loading observations from SOS : "
+[1] "2020-03-03 16:45:25 CET"
+[1] "2012-05-31 23:59:59 UTC"
+[1] "2012-06-01 UTC"
+[1] "2012-06-30 23:59:59 UTC"
+[1] "2012-06-01 UTC"
+[1] "2012-06-30 23:59:59 UTC"
+[1] "./qs/cache/LTER_EU_AT_003_http___vocabs.lter-europe.net_EnvThes_22035_20120601_20120630"
+[1] "restab"
+[[1]]
+Object of class SosEventTime:
+	TM_During: GmlTimePeriod: [ GmlTimePosition [ time: 2012-06-01 ]
+	--> GmlTimePosition [ time: 2012-06-30 23:59:59 ] ] 
+
+[1] "Loading observations from SOS : ./qs/cache/LTER_EU_AT_003_http___vocabs.lter-europe.net_EnvThes_22035_20120601_20120630"
+[1] "Finished loading observations from SOS : "
+[1] "2020-03-03 16:45:29 CET"
+[1] "2012-06-30 23:59:59 UTC"
+[1] "2012-07-01 UTC"
+[1] "2012-07-30 23:59:59 UTC"
+Warning message:
+In library(package, lib.loc = lib.loc, character.only = TRUE, logical.return = TRUE,  :
+  there is no package called ‘52North/sos4R’
+Loading required package: chron
+
+Attaching package: ‘chron’
+
+The following objects are masked from ‘package:lubridate’:
+
+    days, hours, minutes, seconds, years
+
+Loading required package: GmAMisc
+Loading required package: maptools
+Loading required package: sp
+Checking rgeos availability: TRUE
+Loading required package: extremevalues
+Warning message:
+no DISPLAY variable so Tk is not available 
+Loading required package: univOutl
+Loading required package: robustbase
+Loading required package: Hmisc
+Loading required package: lattice
+Loading required package: survival
+
+Attaching package: ‘survival’
+
+The following object is masked from ‘package:robustbase’:
+
+    heart
+
+Loading required package: Formula
+Loading required package: ggplot2
+
+Attaching package: ‘Hmisc’
+
+The following object is masked from ‘package:maptools’:
+
+    label
+
+The following objects are masked from ‘package:base’:
+
+    format.pval, units
+
+Loading required package: OutlierDetection
+Warning messages:
+1: In rgl.init(initValue, onlyNULL) : RGL: unable to open X11 display
+2: 'rgl_init' failed, running with rgl.useNULL = TRUE 
+Loading required package: DMwR
+Loading required package: grid
+Registered S3 method overwritten by 'xts':
+  method     from
+  as.zoo.xts zoo 
+Registered S3 method overwritten by 'quantmod':
+  method            from
+  as.zoo.data.frame zoo 
+Registered S3 method overwritten by 'gdata':
+  method         from     
+  reorder.factor DescTools
+Loading required package: outliers
+
+Attaching package: ‘outliers’
+
+The following object is masked from ‘package:GmAMisc’:
+
+    outlier
+
+[1] "LTER_EU_AT_003_/1579859273023/LTER_AT/LTER_EU_AT_003/ATZOEAM0939_TEMPMEAN_TEST/AIR_http://vocabs.lter-europe.net/EnvThes/22035"
+[1] "28  in total"
+[1] "0  datapoints make  0  intervals"
+[1] 0
+[1] "2012-06-02  to  2012-06-09"
+[1] 1
+[1] "LTER_EU_AT_003_/1579860521662/LTER_AT/LTER_EU_AT_003/ATZOEAM0939_TEMPMEAN_TEST2/AIR_http://vocabs.lter-europe.net/EnvThes/22035"
+[1] "28  in total"
+[1] "0  datapoints make  0  intervals"
+[1] 0
+[1] "2012-06-02  to  2012-06-09"
+[1] 1
+[1] "LTER_EU_AT_003_/1579860990023/LTER_AT/LTER_EU_AT_003/ATZOEAM0939_TEMPMEAN_TEST3/AIR_http://vocabs.lter-europe.net/EnvThes/22035"
+[1] "29  in total"
+[1] "0  datapoints make  0  intervals"
+[1] 0
+[1] "2012-06-01 05:12:22  to  2012-06-09 05:12:22"
+[1] 1
+Warning messages:
+1: In rgl.init(initValue, onlyNULL) : RGL: unable to open X11 display
+2: 'rgl_init' failed, running with rgl.useNULL = TRUE
+Loading required package: zip
+
+Attaching package: ‘zip’
+
+The following objects are masked from ‘package:utils’:
+
+    unzip, zip
+
+[1] "ARE WE QUIET FALSE"
+[1] "------------ END ---2020-03-03 16:45:44----------------"
+[1] TRUE
+[1] "------------ BEGIN ---2020-03-03 17:20:27----------------"
+Error in file(filename, "r", encoding = encoding) : 
+  cannot open the connection
+Calls: source -> file
+In addition: Warning message:
+In file(filename, "r", encoding = encoding) :
+  cannot open file '/home/cloudadm/outlierDetection/webserver/pkgtest.R': No such file or directory
+Execution halted
+Warning message:
+system call failed: No child processes 
+[1] "------------ BEGIN ---2020-03-03 17:21:04----------------"
+Error in file(filename, "r", encoding = encoding) : 
+  cannot open the connection
+Calls: source -> file
+In addition: Warning message:
+In file(filename, "r", encoding = encoding) :
+  cannot open file '/home/cloudadm/outlierDetection/webserver/pkgtest.R': No such file or directory
+Execution halted
+Warning message:
+system call failed: No child processes 
+[1] "------------ BEGIN ---2020-03-03 17:21:28----------------"
+Error in file(filename, "r", encoding = encoding) : 
+  cannot open the connection
+Calls: source -> file
+In addition: Warning message:
+In file(filename, "r", encoding = encoding) :
+  cannot open file '/home/cloudadm/outlierDetection/webserver/pkgtest.R': No such file or directory
+Execution halted
+Warning message:
+system call failed: No child processes 
+[1] "------------ BEGIN ---2020-03-03 17:25:39----------------"
+Error in file(filename, "r", encoding = encoding) : 
+  cannot open the connection
+Calls: source -> file
+In addition: Warning message:
+In file(filename, "r", encoding = encoding) :
+  cannot open file '/home/cloudadm/outlierDetection/webserver/pkgtest.R': No such file or directory
+Execution halted
+Warning message:
+system call failed: No child processes 
+[1] "------------ BEGIN ---2020-03-03 17:31:10----------------"
+Paras: 
+[1] "endpoint: http://ltercwn01.umweltbundesamt.at:8080/cwn.all.sos2/service"
+[1] "repourl: https://b2drop.eudat.eu/s/6kdjM6BwYkEX4nZ/download"
+[1] "site: ZOE_0551P00"
+[1] "parameter: SurfaceWaterConcentration_DOC_0.2m"
+[1] "from: 2018-01-01T00:00:00+01:00"
+[1] "to: 2018-01-31T23:59:59+01:00"
+[1] "window: 40"
+[1] "interval: 14"
+[1] "mode: 2"
+[1] "logfile: log.txt"
+[1] "outpathbase: ./qs/results/"
+[1] "timestamp: 20200303_173109"
+[1] "quiet: FALSE"
+[1] "directory: ../outlier_script/"
+[1] "help: FALSE"
+Loading required package: remotes
+Loading required package: 52North/sos4R
+Skipping install of 'sos4R' from a github remote, the SHA1 (396b71d5) has not changed since last install.
+  Use `force = TRUE` to force installation
+Loading required package: sos4R
+Loading required package: lubridate
+
+Attaching package: ‘lubridate’
+
+The following object is masked from ‘package:base’:
+
+    date
+
+[1] "source : 2012-05-01 target : 2012-05-31 23:59:59"
+[1] "2012-05-01 UTC"
+[1] "2012-05-31 23:59:59 UTC"
+[1] "./qs/cache/LTER_EU_AT_003_http___vocabs.lter-europe.net_EnvThes_22035_20120501_20120531"
+[1] "restab"
+[[1]]
+Object of class SosEventTime:
+	TM_During: GmlTimePeriod: [ GmlTimePosition [ time: 2012-05-01 ]
+	--> GmlTimePosition [ time: 2012-05-31 23:59:59 ] ] 
+
+[1] "Loading observations from SOS : ./qs/cache/LTER_EU_AT_003_http___vocabs.lter-europe.net_EnvThes_22035_20120501_20120531"
+[1] "Finished loading observations from SOS : "
+[1] "2020-03-03 17:31:17 CET"
+[1] "2012-05-31 23:59:59 UTC"
+[1] "2012-06-01 UTC"
+[1] "2012-06-30 23:59:59 UTC"
+[1] "2012-06-01 UTC"
+[1] "2012-06-30 23:59:59 UTC"
+[1] "./qs/cache/LTER_EU_AT_003_http___vocabs.lter-europe.net_EnvThes_22035_20120601_20120630"
+[1] "restab"
+[[1]]
+Object of class SosEventTime:
+	TM_During: GmlTimePeriod: [ GmlTimePosition [ time: 2012-06-01 ]
+	--> GmlTimePosition [ time: 2012-06-30 23:59:59 ] ] 
+
+[1] "Loading observations from SOS : ./qs/cache/LTER_EU_AT_003_http___vocabs.lter-europe.net_EnvThes_22035_20120601_20120630"
+[1] "Finished loading observations from SOS : "
+[1] "2020-03-03 17:31:20 CET"
+[1] "2012-06-30 23:59:59 UTC"
+[1] "2012-07-01 UTC"
+[1] "2012-07-30 23:59:59 UTC"
+Warning message:
+In library(package, lib.loc = lib.loc, character.only = TRUE, logical.return = TRUE,  :
+  there is no package called ‘52North/sos4R’
+Loading required package: chron
+
+Attaching package: ‘chron’
+
+The following objects are masked from ‘package:lubridate’:
+
+    days, hours, minutes, seconds, years
+
+Loading required package: GmAMisc
+Loading required package: maptools
+Loading required package: sp
+Checking rgeos availability: TRUE
+Loading required package: extremevalues
+Warning message:
+no DISPLAY variable so Tk is not available 
+Loading required package: univOutl
+Loading required package: robustbase
+Loading required package: Hmisc
+Loading required package: lattice
+Loading required package: survival
+
+Attaching package: ‘survival’
+
+The following object is masked from ‘package:robustbase’:
+
+    heart
+
+Loading required package: Formula
+Loading required package: ggplot2
+
+Attaching package: ‘Hmisc’
+
+The following object is masked from ‘package:maptools’:
+
+    label
+
+The following objects are masked from ‘package:base’:
+
+    format.pval, units
+
+Loading required package: OutlierDetection
+Warning messages:
+1: In rgl.init(initValue, onlyNULL) : RGL: unable to open X11 display
+2: 'rgl_init' failed, running with rgl.useNULL = TRUE 
+Loading required package: DMwR
+Loading required package: grid
+Registered S3 method overwritten by 'xts':
+  method     from
+  as.zoo.xts zoo 
+Registered S3 method overwritten by 'quantmod':
+  method            from
+  as.zoo.data.frame zoo 
+Registered S3 method overwritten by 'gdata':
+  method         from     
+  reorder.factor DescTools
+Loading required package: outliers
+
+Attaching package: ‘outliers’
+
+The following object is masked from ‘package:GmAMisc’:
+
+    outlier
+
+[1] "LTER_EU_AT_003_/1579859273023/LTER_AT/LTER_EU_AT_003/ATZOEAM0939_TEMPMEAN_TEST/AIR_http://vocabs.lter-europe.net/EnvThes/22035"
+[1] "28  in total"
+[1] "0  datapoints make  0  intervals"
+[1] 0
+[1] "2012-06-02  to  2012-06-09"
+[1] 1
+[1] "LTER_EU_AT_003_/1579860521662/LTER_AT/LTER_EU_AT_003/ATZOEAM0939_TEMPMEAN_TEST2/AIR_http://vocabs.lter-europe.net/EnvThes/22035"
+[1] "28  in total"
+[1] "0  datapoints make  0  intervals"
+[1] 0
+[1] "2012-06-02  to  2012-06-09"
+[1] 1
+[1] "LTER_EU_AT_003_/1579860990023/LTER_AT/LTER_EU_AT_003/ATZOEAM0939_TEMPMEAN_TEST3/AIR_http://vocabs.lter-europe.net/EnvThes/22035"
+[1] "29  in total"
+[1] "0  datapoints make  0  intervals"
+[1] 0
+[1] "2012-06-01 05:12:22  to  2012-06-09 05:12:22"
+[1] 1
+Warning messages:
+1: In rgl.init(initValue, onlyNULL) : RGL: unable to open X11 display
+2: 'rgl_init' failed, running with rgl.useNULL = TRUE
+Loading required package: zip
+
+Attaching package: ‘zip’
+
+The following objects are masked from ‘package:utils’:
+
+    unzip, zip
+
+[1] "ARE WE QUIET FALSE"
+[1] "------------ END ---2020-03-03 17:31:36----------------"
+[1] TRUE
+[1] "------------ BEGIN ---2020-03-03 17:37:40----------------"
+Paras: 
+[1] "endpoint: http://ltercwn01.umweltbundesamt.at:8080/cwn.all.sos2/service"
+[1] "repourl: https://b2drop.eudat.eu/s/6kdjM6BwYkEX4nZ/download"
+[1] "site: ZOE_0551P00"
+[1] "parameter: SurfaceWaterConcentration_DOC_0.2m"
+[1] "from: 2018-01-01T00:00:00+01:00"
+[1] "to: 2018-01-31T23:59:59+01:00"
+[1] "window: 40"
+[1] "interval: 14"
+[1] "mode: 2"
+[1] "logfile: log.txt"
+[1] "outpathbase: ./qs/results/"
+[1] "timestamp: 20200303_173740"
+[1] "quiet: FALSE"
+[1] "directory: ../outlier_script/"
+[1] "help: FALSE"
+Loading required package: remotes
+Loading required package: 52North/sos4R
+Skipping install of 'sos4R' from a github remote, the SHA1 (396b71d5) has not changed since last install.
+  Use `force = TRUE` to force installation
+Loading required package: sos4R
+Loading required package: lubridate
+
+Attaching package: ‘lubridate’
+
+The following object is masked from ‘package:base’:
+
+    date
+
+[1] "source : 2012-05-01 target : 2012-05-31 23:59:59"
+[1] "2012-05-01 UTC"
+[1] "2012-05-31 23:59:59 UTC"
+[1] "./qs/cache/LTER_EU_AT_003_http___vocabs.lter-europe.net_EnvThes_22035_20120501_20120531"
+[1] "restab"
+[[1]]
+Object of class SosEventTime:
+	TM_During: GmlTimePeriod: [ GmlTimePosition [ time: 2012-05-01 ]
+	--> GmlTimePosition [ time: 2012-05-31 23:59:59 ] ] 
+
+[1] "Loading observations from SOS : ./qs/cache/LTER_EU_AT_003_http___vocabs.lter-europe.net_EnvThes_22035_20120501_20120531"
+[1] "Finished loading observations from SOS : "
+[1] "2020-03-03 17:37:48 CET"
+[1] "2012-05-31 23:59:59 UTC"
+[1] "2012-06-01 UTC"
+[1] "2012-06-30 23:59:59 UTC"
+[1] "2012-06-01 UTC"
+[1] "2012-06-30 23:59:59 UTC"
+[1] "./qs/cache/LTER_EU_AT_003_http___vocabs.lter-europe.net_EnvThes_22035_20120601_20120630"
+[1] "restab"
+[[1]]
+Object of class SosEventTime:
+	TM_During: GmlTimePeriod: [ GmlTimePosition [ time: 2012-06-01 ]
+	--> GmlTimePosition [ time: 2012-06-30 23:59:59 ] ] 
+
+[1] "Loading observations from SOS : ./qs/cache/LTER_EU_AT_003_http___vocabs.lter-europe.net_EnvThes_22035_20120601_20120630"
+[1] "Finished loading observations from SOS : "
+[1] "2020-03-03 17:37:51 CET"
+[1] "2012-06-30 23:59:59 UTC"
+[1] "2012-07-01 UTC"
+[1] "2012-07-30 23:59:59 UTC"
+Warning message:
+In library(package, lib.loc = lib.loc, character.only = TRUE, logical.return = TRUE,  :
+  there is no package called ‘52North/sos4R’
+Loading required package: chron
+
+Attaching package: ‘chron’
+
+The following objects are masked from ‘package:lubridate’:
+
+    days, hours, minutes, seconds, years
+
+Loading required package: GmAMisc
+Loading required package: maptools
+Loading required package: sp
+Checking rgeos availability: TRUE
+Loading required package: extremevalues
+Warning message:
+no DISPLAY variable so Tk is not available 
+Loading required package: univOutl
+Loading required package: robustbase
+Loading required package: Hmisc
+Loading required package: lattice
+Loading required package: survival
+
+Attaching package: ‘survival’
+
+The following object is masked from ‘package:robustbase’:
+
+    heart
+
+Loading required package: Formula
+Loading required package: ggplot2
+
+Attaching package: ‘Hmisc’
+
+The following object is masked from ‘package:maptools’:
+
+    label
+
+The following objects are masked from ‘package:base’:
+
+    format.pval, units
+
+Loading required package: OutlierDetection
+Warning messages:
+1: In rgl.init(initValue, onlyNULL) : RGL: unable to open X11 display
+2: 'rgl_init' failed, running with rgl.useNULL = TRUE 
+Loading required package: DMwR
+Loading required package: grid
+Registered S3 method overwritten by 'xts':
+  method     from
+  as.zoo.xts zoo 
+Registered S3 method overwritten by 'quantmod':
+  method            from
+  as.zoo.data.frame zoo 
+Registered S3 method overwritten by 'gdata':
+  method         from     
+  reorder.factor DescTools
+Loading required package: outliers
+
+Attaching package: ‘outliers’
+
+The following object is masked from ‘package:GmAMisc’:
+
+    outlier
+
+[1] "LTER_EU_AT_003_/1579859273023/LTER_AT/LTER_EU_AT_003/ATZOEAM0939_TEMPMEAN_TEST/AIR_http://vocabs.lter-europe.net/EnvThes/22035"
+[1] "28  in total"
+[1] "0  datapoints make  0  intervals"
+[1] 0
+[1] "2012-06-02  to  2012-06-09"
+[1] 1
+[1] "LTER_EU_AT_003_/1579860521662/LTER_AT/LTER_EU_AT_003/ATZOEAM0939_TEMPMEAN_TEST2/AIR_http://vocabs.lter-europe.net/EnvThes/22035"
+[1] "28  in total"
+[1] "0  datapoints make  0  intervals"
+[1] 0
+[1] "2012-06-02  to  2012-06-09"
+[1] 1
+[1] "LTER_EU_AT_003_/1579860990023/LTER_AT/LTER_EU_AT_003/ATZOEAM0939_TEMPMEAN_TEST3/AIR_http://vocabs.lter-europe.net/EnvThes/22035"
+[1] "29  in total"
+[1] "0  datapoints make  0  intervals"
+[1] 0
+[1] "2012-06-01 05:12:22  to  2012-06-09 05:12:22"
+[1] 1
+Warning messages:
+1: In rgl.init(initValue, onlyNULL) : RGL: unable to open X11 display
+2: 'rgl_init' failed, running with rgl.useNULL = TRUE
+Loading required package: zip
+
+Attaching package: ‘zip’
+
+The following objects are masked from ‘package:utils’:
+
+    unzip, zip
+
+[1] "ARE WE QUIET FALSE"
+[1] "------------ END ---2020-03-03 17:38:07----------------"
+[1] TRUE
+[1] "------------ BEGIN ---2020-03-03 17:41:18----------------"
+Paras: 
+[1] "endpoint: http://ltercwn01.umweltbundesamt.at:8080/cwn.all.sos2/service"
+[1] "repourl: https://b2drop.eudat.eu/s/6kdjM6BwYkEX4nZ/download"
+[1] "site: ZOE_0551P00"
+[1] "parameter: SurfaceWaterConcentration_DOC_0.2m"
+[1] "from: 2018-01-01T00:00:00+01:00"
+[1] "to: 2018-01-31T23:59:59+01:00"
+[1] "window: 40"
+[1] "interval: 14"
+[1] "mode: 2"
+[1] "logfile: log.txt"
+[1] "outpathbase: ./qs/results/"
+[1] "timestamp: 20200303_174117"
+[1] "quiet: FALSE"
+[1] "directory: ../outlier_script/"
+[1] "help: FALSE"
+Loading required package: remotes
+Loading required package: 52North/sos4R
+Skipping install of 'sos4R' from a github remote, the SHA1 (396b71d5) has not changed since last install.
+  Use `force = TRUE` to force installation
+Loading required package: sos4R
+Loading required package: lubridate
+
+Attaching package: ‘lubridate’
+
+The following object is masked from ‘package:base’:
+
+    date
+
+[1] "source : 2012-05-01 target : 2012-05-31 23:59:59"
+[1] "2012-05-01 UTC"
+[1] "2012-05-31 23:59:59 UTC"
+[1] "./qs/cache/LTER_EU_AT_003_http___vocabs.lter-europe.net_EnvThes_22035_20120501_20120531"
+[1] "restab"
+[[1]]
+Object of class SosEventTime:
+	TM_During: GmlTimePeriod: [ GmlTimePosition [ time: 2012-05-01 ]
+	--> GmlTimePosition [ time: 2012-05-31 23:59:59 ] ] 
+
+[1] "Loading observations from SOS : ./qs/cache/LTER_EU_AT_003_http___vocabs.lter-europe.net_EnvThes_22035_20120501_20120531"
+[1] "Finished loading observations from SOS : "
+[1] "2020-03-03 17:41:25 CET"
+[1] "2012-05-31 23:59:59 UTC"
+[1] "2012-06-01 UTC"
+[1] "2012-06-30 23:59:59 UTC"
+[1] "2012-06-01 UTC"
+[1] "2012-06-30 23:59:59 UTC"
+[1] "./qs/cache/LTER_EU_AT_003_http___vocabs.lter-europe.net_EnvThes_22035_20120601_20120630"
+[1] "restab"
+[[1]]
+Object of class SosEventTime:
+	TM_During: GmlTimePeriod: [ GmlTimePosition [ time: 2012-06-01 ]
+	--> GmlTimePosition [ time: 2012-06-30 23:59:59 ] ] 
+
+[1] "Loading observations from SOS : ./qs/cache/LTER_EU_AT_003_http___vocabs.lter-europe.net_EnvThes_22035_20120601_20120630"
+[1] "Finished loading observations from SOS : "
+[1] "2020-03-03 17:41:28 CET"
+[1] "2012-06-30 23:59:59 UTC"
+[1] "2012-07-01 UTC"
+[1] "2012-07-30 23:59:59 UTC"
+Warning message:
+In library(package, lib.loc = lib.loc, character.only = TRUE, logical.return = TRUE,  :
+  there is no package called ‘52North/sos4R’
+Loading required package: chron
+
+Attaching package: ‘chron’
+
+The following objects are masked from ‘package:lubridate’:
+
+    days, hours, minutes, seconds, years
+
+Loading required package: GmAMisc
+Loading required package: maptools
+Loading required package: sp
+Checking rgeos availability: TRUE
+Loading required package: extremevalues
+Warning message:
+no DISPLAY variable so Tk is not available 
+Loading required package: univOutl
+Loading required package: robustbase
+Loading required package: Hmisc
+Loading required package: lattice
+Loading required package: survival
+
+Attaching package: ‘survival’
+
+The following object is masked from ‘package:robustbase’:
+
+    heart
+
+Loading required package: Formula
+Loading required package: ggplot2
+
+Attaching package: ‘Hmisc’
+
+The following object is masked from ‘package:maptools’:
+
+    label
+
+The following objects are masked from ‘package:base’:
+
+    format.pval, units
+
+Loading required package: OutlierDetection
+Warning messages:
+1: In rgl.init(initValue, onlyNULL) : RGL: unable to open X11 display
+2: 'rgl_init' failed, running with rgl.useNULL = TRUE 
+Loading required package: DMwR
+Loading required package: grid
+Registered S3 method overwritten by 'xts':
+  method     from
+  as.zoo.xts zoo 
+Registered S3 method overwritten by 'quantmod':
+  method            from
+  as.zoo.data.frame zoo 
+Registered S3 method overwritten by 'gdata':
+  method         from     
+  reorder.factor DescTools
+Loading required package: outliers
+
+Attaching package: ‘outliers’
+
+The following object is masked from ‘package:GmAMisc’:
+
+    outlier
+
+[1] "LTER_EU_AT_003_/1579859273023/LTER_AT/LTER_EU_AT_003/ATZOEAM0939_TEMPMEAN_TEST/AIR_http://vocabs.lter-europe.net/EnvThes/22035"
+[1] "28  in total"
+[1] "0  datapoints make  0  intervals"
+[1] 0
+[1] "2012-06-02  to  2012-06-09"
+[1] 1
+[1] "LTER_EU_AT_003_/1579860521662/LTER_AT/LTER_EU_AT_003/ATZOEAM0939_TEMPMEAN_TEST2/AIR_http://vocabs.lter-europe.net/EnvThes/22035"
+[1] "28  in total"
+[1] "0  datapoints make  0  intervals"
+[1] 0
+[1] "2012-06-02  to  2012-06-09"
+[1] 1
+[1] "LTER_EU_AT_003_/1579860990023/LTER_AT/LTER_EU_AT_003/ATZOEAM0939_TEMPMEAN_TEST3/AIR_http://vocabs.lter-europe.net/EnvThes/22035"
+[1] "29  in total"
+[1] "0  datapoints make  0  intervals"
+[1] 0
+[1] "2012-06-01 05:12:22  to  2012-06-09 05:12:22"
+[1] 1
+Warning messages:
+1: In rgl.init(initValue, onlyNULL) : RGL: unable to open X11 display
+2: 'rgl_init' failed, running with rgl.useNULL = TRUE
+Loading required package: zip
+
+Attaching package: ‘zip’
+
+The following objects are masked from ‘package:utils’:
+
+    unzip, zip
+
+[1] "ARE WE QUIET FALSE"
+[1] "------------ END ---2020-03-03 17:41:44----------------"
+[1] TRUE
+[1] "------------ BEGIN ---2020-03-03 17:42:02----------------"
+Paras: 
+[1] "endpoint: http://ltercwn01.umweltbundesamt.at:8080/cwn.all.sos2/service"
+[1] "repourl: https://b2drop.eudat.eu/s/6kdjM6BwYkEX4nZ/download"
+[1] "site: ZOE_0551P00"
+[1] "parameter: SurfaceWaterConcentration_DOC_0.2m"
+[1] "from: 2018-01-01T00:00:00+01:00"
+[1] "to: 2018-01-31T23:59:59+01:00"
+[1] "window: 40"
+[1] "interval: 14"
+[1] "mode: 2"
+[1] "logfile: log.txt"
+[1] "outpathbase: ./qs/results/"
+[1] "timestamp: 20200303_174201"
+[1] "quiet: FALSE"
+[1] "directory: ../outlier_script/"
+[1] "help: FALSE"
+Loading required package: remotes
+Loading required package: 52North/sos4R
+Skipping install of 'sos4R' from a github remote, the SHA1 (396b71d5) has not changed since last install.
+  Use `force = TRUE` to force installation
+Loading required package: sos4R
+Loading required package: lubridate
+
+Attaching package: ‘lubridate’
+
+The following object is masked from ‘package:base’:
+
+    date
+
+[1] "source : 2012-05-01 target : 2012-05-31 23:59:59"
+[1] "2012-05-01 UTC"
+[1] "2012-05-31 23:59:59 UTC"
+[1] "./qs/cache/LTER_EU_AT_003_http___vocabs.lter-europe.net_EnvThes_22035_20120501_20120531"
+[1] "restab"
+[[1]]
+Object of class SosEventTime:
+	TM_During: GmlTimePeriod: [ GmlTimePosition [ time: 2012-05-01 ]
+	--> GmlTimePosition [ time: 2012-05-31 23:59:59 ] ] 
+
+[1] "Loading observations from SOS : ./qs/cache/LTER_EU_AT_003_http___vocabs.lter-europe.net_EnvThes_22035_20120501_20120531"
+[1] "Finished loading observations from SOS : "
+[1] "2020-03-03 17:42:09 CET"
+[1] "2012-05-31 23:59:59 UTC"
+[1] "2012-06-01 UTC"
+[1] "2012-06-30 23:59:59 UTC"
+[1] "2012-06-01 UTC"
+[1] "2012-06-30 23:59:59 UTC"
+[1] "./qs/cache/LTER_EU_AT_003_http___vocabs.lter-europe.net_EnvThes_22035_20120601_20120630"
+[1] "restab"
+[[1]]
+Object of class SosEventTime:
+	TM_During: GmlTimePeriod: [ GmlTimePosition [ time: 2012-06-01 ]
+	--> GmlTimePosition [ time: 2012-06-30 23:59:59 ] ] 
+
+[1] "Loading observations from SOS : ./qs/cache/LTER_EU_AT_003_http___vocabs.lter-europe.net_EnvThes_22035_20120601_20120630"
+[1] "Finished loading observations from SOS : "
+[1] "2020-03-03 17:42:12 CET"
+[1] "2012-06-30 23:59:59 UTC"
+[1] "2012-07-01 UTC"
+[1] "2012-07-30 23:59:59 UTC"
+Warning message:
+In library(package, lib.loc = lib.loc, character.only = TRUE, logical.return = TRUE,  :
+  there is no package called ‘52North/sos4R’
+Loading required package: chron
+
+Attaching package: ‘chron’
+
+The following objects are masked from ‘package:lubridate’:
+
+    days, hours, minutes, seconds, years
+
+Loading required package: GmAMisc
+Loading required package: maptools
+Loading required package: sp
+Checking rgeos availability: TRUE
+Loading required package: extremevalues
+Warning message:
+no DISPLAY variable so Tk is not available 
+Loading required package: univOutl
+Loading required package: robustbase
+Loading required package: Hmisc
+Loading required package: lattice
+Loading required package: survival
+
+Attaching package: ‘survival’
+
+The following object is masked from ‘package:robustbase’:
+
+    heart
+
+Loading required package: Formula
+Loading required package: ggplot2
+
+Attaching package: ‘Hmisc’
+
+The following object is masked from ‘package:maptools’:
+
+    label
+
+The following objects are masked from ‘package:base’:
+
+    format.pval, units
+
+Loading required package: OutlierDetection
+Warning messages:
+1: In rgl.init(initValue, onlyNULL) : RGL: unable to open X11 display
+2: 'rgl_init' failed, running with rgl.useNULL = TRUE 
+Loading required package: DMwR
+Loading required package: grid
+Registered S3 method overwritten by 'xts':
+  method     from
+  as.zoo.xts zoo 
+Registered S3 method overwritten by 'quantmod':
+  method            from
+  as.zoo.data.frame zoo 
+Registered S3 method overwritten by 'gdata':
+  method         from     
+  reorder.factor DescTools
+Loading required package: outliers
+
+Attaching package: ‘outliers’
+
+The following object is masked from ‘package:GmAMisc’:
+
+    outlier
+
+[1] "LTER_EU_AT_003_/1579859273023/LTER_AT/LTER_EU_AT_003/ATZOEAM0939_TEMPMEAN_TEST/AIR_http://vocabs.lter-europe.net/EnvThes/22035"
+[1] "28  in total"
+[1] "0  datapoints make  0  intervals"
+[1] 0
+[1] "2012-06-02  to  2012-06-09"
+[1] 1
+[1] "LTER_EU_AT_003_/1579860521662/LTER_AT/LTER_EU_AT_003/ATZOEAM0939_TEMPMEAN_TEST2/AIR_http://vocabs.lter-europe.net/EnvThes/22035"
+[1] "28  in total"
+[1] "0  datapoints make  0  intervals"
+[1] 0
+[1] "2012-06-02  to  2012-06-09"
+[1] 1
+[1] "LTER_EU_AT_003_/1579860990023/LTER_AT/LTER_EU_AT_003/ATZOEAM0939_TEMPMEAN_TEST3/AIR_http://vocabs.lter-europe.net/EnvThes/22035"
+[1] "29  in total"
+[1] "0  datapoints make  0  intervals"
+[1] 0
+[1] "2012-06-01 05:12:22  to  2012-06-09 05:12:22"
+[1] 1
+Warning messages:
+1: In rgl.init(initValue, onlyNULL) : RGL: unable to open X11 display
+2: 'rgl_init' failed, running with rgl.useNULL = TRUE
+Loading required package: zip
+
+Attaching package: ‘zip’
+
+The following objects are masked from ‘package:utils’:
+
+    unzip, zip
+
+[1] "ARE WE QUIET FALSE"
+[1] "------------ END ---2020-03-03 17:42:27----------------"
+[1] TRUE
+[1] "------------ BEGIN ---2020-03-03 17:43:40----------------"
+Paras: 
+[1] "endpoint: http://ltercwn01.umweltbundesamt.at:8080/cwn.all.sos2/service"
+[1] "repourl: https://b2drop.eudat.eu/s/6kdjM6BwYkEX4nZ/download"
+[1] "site: ZOE_0551P00"
+[1] "parameter: SurfaceWaterConcentration_DOC_0.2m"
+[1] "from: 2018-01-01T00:00:00+01:00"
+[1] "to: 2018-01-31T23:59:59+01:00"
+[1] "window: 40"
+[1] "interval: 14"
+[1] "mode: 2"
+[1] "logfile: log.txt"
+[1] "outpathbase: ./qs/results/"
+[1] "timestamp: 20200303_174340"
+[1] "quiet: FALSE"
+[1] "directory: ../outlier_script/"
+[1] "help: FALSE"
+Loading required package: curl
+Loading required package: stringdist
+trying URL 'https://b2drop.eudat.eu/s/6kdjM6BwYkEX4nZ/download'
+downloaded 119 KB
+
+[1] "EOSC/eLTER_CDN_Daten_humidity_20191029.csv"
+[1] "EOSC/eLTER_CDN_Daten_sunduration_20191029.csv"
+[1] "EOSC/eLTER_CDN_Daten_temperature_20191029.csv"
+Loading required package: chron
+Loading required package: GmAMisc
+Loading required package: maptools
+Loading required package: sp
+Checking rgeos availability: TRUE
+Loading required package: extremevalues
+Warning message:
+no DISPLAY variable so Tk is not available 
+Loading required package: univOutl
+Loading required package: robustbase
+Loading required package: Hmisc
+Loading required package: lattice
+Loading required package: survival
+
+Attaching package: ‘survival’
+
+The following object is masked from ‘package:robustbase’:
+
+    heart
+
+Loading required package: Formula
+Loading required package: ggplot2
+
+Attaching package: ‘Hmisc’
+
+The following object is masked from ‘package:maptools’:
+
+    label
+
+The following objects are masked from ‘package:base’:
+
+    format.pval, units
+
+Loading required package: OutlierDetection
+Warning messages:
+1: In rgl.init(initValue, onlyNULL) : RGL: unable to open X11 display
+2: 'rgl_init' failed, running with rgl.useNULL = TRUE 
+Loading required package: DMwR
+Loading required package: grid
+Registered S3 method overwritten by 'xts':
+  method     from
+  as.zoo.xts zoo 
+Registered S3 method overwritten by 'quantmod':
+  method            from
+  as.zoo.data.frame zoo 
+Registered S3 method overwritten by 'gdata':
+  method         from     
+  reorder.factor DescTools
+Loading required package: outliers
+
+Attaching package: ‘outliers’
+
+The following object is masked from ‘package:GmAMisc’:
+
+    outlier
+
+Error in tsdata$SITECODE : $ operator is invalid for atomic vectors
+Execution halted
+Warning message:
+system call failed: No child processes 
+[1] "------------ BEGIN ---2020-03-03 17:51:05----------------"
+Paras: 
+[1] "endpoint: http://ltercwn01.umweltbundesamt.at:8080/cwn.all.sos2/service"
+[1] "repourl: https://b2drop.eudat.eu/s/6kdjM6BwYkEX4nZ/download"
+[1] "site: ZOE_0551P00"
+[1] "parameter: SurfaceWaterConcentration_DOC_0.2m"
+[1] "from: 2018-01-01T00:00:00+01:00"
+[1] "to: 2018-01-31T23:59:59+01:00"
+[1] "window: 40"
+[1] "interval: 14"
+[1] "mode: 2"
+[1] "logfile: log.txt"
+[1] "outpathbase: ./qs/results/"
+[1] "timestamp: 20200303_175104"
+[1] "quiet: FALSE"
+[1] "directory: ../outlier_script/"
+[1] "help: FALSE"
+Loading required package: curl
+Loading required package: stringdist
+trying URL 'https://b2drop.eudat.eu/s/6kdjM6BwYkEX4nZ/download'
+downloaded 119 KB
+
+[1] "EOSC/eLTER_CDN_Daten_humidity_20191029.csv"
+[1] "EOSC/eLTER_CDN_Daten_sunduration_20191029.csv"
+[1] "EOSC/eLTER_CDN_Daten_temperature_20191029.csv"
+NULL
+Loading required package: chron
+Loading required package: GmAMisc
+Loading required package: maptools
+Loading required package: sp
+Checking rgeos availability: TRUE
+Loading required package: extremevalues
+Warning message:
+no DISPLAY variable so Tk is not available 
+Loading required package: univOutl
+Loading required package: robustbase
+Loading required package: Hmisc
+Loading required package: lattice
+Loading required package: survival
+
+Attaching package: ‘survival’
+
+The following object is masked from ‘package:robustbase’:
+
+    heart
+
+Loading required package: Formula
+Loading required package: ggplot2
+
+Attaching package: ‘Hmisc’
+
+The following object is masked from ‘package:maptools’:
+
+    label
+
+The following objects are masked from ‘package:base’:
+
+    format.pval, units
+
+Loading required package: OutlierDetection
+Warning messages:
+1: In rgl.init(initValue, onlyNULL) : RGL: unable to open X11 display
+2: 'rgl_init' failed, running with rgl.useNULL = TRUE 
+Loading required package: DMwR
+Loading required package: grid
+Registered S3 method overwritten by 'xts':
+  method     from
+  as.zoo.xts zoo 
+Registered S3 method overwritten by 'quantmod':
+  method            from
+  as.zoo.data.frame zoo 
+Registered S3 method overwritten by 'gdata':
+  method         from     
+  reorder.factor DescTools
+Loading required package: outliers
+
+Attaching package: ‘outliers’
+
+The following object is masked from ‘package:GmAMisc’:
+
+    outlier
+
+Error in tsdata$SITECODE : $ operator is invalid for atomic vectors
+Execution halted
+Warning message:
+system call failed: No child processes 
+[1] "------------ BEGIN ---2020-03-03 17:51:42----------------"
+Paras: 
+[1] "endpoint: http://ltercwn01.umweltbundesamt.at:8080/cwn.all.sos2/service"
+[1] "repourl: https://b2drop.eudat.eu/s/6kdjM6BwYkEX4nZ/download"
+[1] "site: ZOE_0551P00"
+[1] "parameter: SurfaceWaterConcentration_DOC_0.2m"
+[1] "from: 2018-01-01T00:00:00+01:00"
+[1] "to: 2018-01-31T23:59:59+01:00"
+[1] "window: 40"
+[1] "interval: 14"
+[1] "mode: 2"
+[1] "logfile: log.txt"
+[1] "outpathbase: ./qs/results/"
+[1] "timestamp: 20200303_175141"
+[1] "quiet: FALSE"
+[1] "directory: ../outlier_script/"
+[1] "help: FALSE"
+Loading required package: curl
+Loading required package: stringdist
+trying URL 'https://b2drop.eudat.eu/s/6kdjM6BwYkEX4nZ/download'
+downloaded 119 KB
+
+[1] "EOSC/eLTER_CDN_Daten_humidity_20191029.csv"
+[1] "EOSC/eLTER_CDN_Daten_sunduration_20191029.csv"
+[1] "EOSC/eLTER_CDN_Daten_temperature_20191029.csv"
+NULL
+Loading required package: chron
+Loading required package: GmAMisc
+Loading required package: maptools
+Loading required package: sp
+Checking rgeos availability: TRUE
+Loading required package: extremevalues
+Warning message:
+no DISPLAY variable so Tk is not available 
+Loading required package: univOutl
+Loading required package: robustbase
+Loading required package: Hmisc
+Loading required package: lattice
+Loading required package: survival
+
+Attaching package: ‘survival’
+
+The following object is masked from ‘package:robustbase’:
+
+    heart
+
+Loading required package: Formula
+Loading required package: ggplot2
+
+Attaching package: ‘Hmisc’
+
+The following object is masked from ‘package:maptools’:
+
+    label
+
+The following objects are masked from ‘package:base’:
+
+    format.pval, units
+
+Loading required package: OutlierDetection
+Warning messages:
+1: In rgl.init(initValue, onlyNULL) : RGL: unable to open X11 display
+2: 'rgl_init' failed, running with rgl.useNULL = TRUE 
+Loading required package: DMwR
+Loading required package: grid
+Registered S3 method overwritten by 'xts':
+  method     from
+  as.zoo.xts zoo 
+Registered S3 method overwritten by 'quantmod':
+  method            from
+  as.zoo.data.frame zoo 
+Registered S3 method overwritten by 'gdata':
+  method         from     
+  reorder.factor DescTools
+Loading required package: outliers
+
+Attaching package: ‘outliers’
+
+The following object is masked from ‘package:GmAMisc’:
+
+    outlier
+
+Error in tsdata$SITECODE : $ operator is invalid for atomic vectors
+Execution halted
+Warning message:
+system call failed: No child processes 
+[1] "------------ BEGIN ---2020-03-03 17:52:12----------------"
+Paras: 
+[1] "endpoint: http://ltercwn01.umweltbundesamt.at:8080/cwn.all.sos2/service"
+[1] "repourl: https://b2drop.eudat.eu/s/6kdjM6BwYkEX4nZ/download"
+[1] "site: ZOE_0551P00"
+[1] "parameter: SurfaceWaterConcentration_DOC_0.2m"
+[1] "from: 2018-01-01T00:00:00+01:00"
+[1] "to: 2018-01-31T23:59:59+01:00"
+[1] "window: 40"
+[1] "interval: 14"
+[1] "mode: 2"
+[1] "logfile: log.txt"
+[1] "outpathbase: ./qs/results/"
+[1] "timestamp: 20200303_175211"
+[1] "quiet: FALSE"
+[1] "directory: ../outlier_script/"
+[1] "help: FALSE"
+Error in df() : argument "x" is missing, with no default
+Execution halted
+Warning message:
+system call failed: No child processes 
+[1] "------------ BEGIN ---2020-03-03 17:52:28----------------"
+Paras: 
+[1] "endpoint: http://ltercwn01.umweltbundesamt.at:8080/cwn.all.sos2/service"
+[1] "repourl: https://b2drop.eudat.eu/s/6kdjM6BwYkEX4nZ/download"
+[1] "site: ZOE_0551P00"
+[1] "parameter: SurfaceWaterConcentration_DOC_0.2m"
+[1] "from: 2018-01-01T00:00:00+01:00"
+[1] "to: 2018-01-31T23:59:59+01:00"
+[1] "window: 40"
+[1] "interval: 14"
+[1] "mode: 2"
+[1] "logfile: log.txt"
+[1] "outpathbase: ./qs/results/"
+[1] "timestamp: 20200303_175228"
+[1] "quiet: FALSE"
+[1] "directory: ../outlier_script/"
+[1] "help: FALSE"
+Loading required package: curl
+Loading required package: stringdist
+trying URL 'https://b2drop.eudat.eu/s/6kdjM6BwYkEX4nZ/download'
+downloaded 119 KB
+
+[1] "EOSC/eLTER_CDN_Daten_humidity_20191029.csv"
+[1] "EOSC/eLTER_CDN_Daten_sunduration_20191029.csv"
+[1] "EOSC/eLTER_CDN_Daten_temperature_20191029.csv"
+NULL
+Loading required package: chron
+Loading required package: GmAMisc
+Loading required package: maptools
+Loading required package: sp
+Checking rgeos availability: TRUE
+Loading required package: extremevalues
+Warning message:
+no DISPLAY variable so Tk is not available 
+Loading required package: univOutl
+Loading required package: robustbase
+Loading required package: Hmisc
+Loading required package: lattice
+Loading required package: survival
+
+Attaching package: ‘survival’
+
+The following object is masked from ‘package:robustbase’:
+
+    heart
+
+Loading required package: Formula
+Loading required package: ggplot2
+
+Attaching package: ‘Hmisc’
+
+The following object is masked from ‘package:maptools’:
+
+    label
+
+The following objects are masked from ‘package:base’:
+
+    format.pval, units
+
+Loading required package: OutlierDetection
+Warning messages:
+1: In rgl.init(initValue, onlyNULL) : RGL: unable to open X11 display
+2: 'rgl_init' failed, running with rgl.useNULL = TRUE 
+Loading required package: DMwR
+Loading required package: grid
+Registered S3 method overwritten by 'xts':
+  method     from
+  as.zoo.xts zoo 
+Registered S3 method overwritten by 'quantmod':
+  method            from
+  as.zoo.data.frame zoo 
+Registered S3 method overwritten by 'gdata':
+  method         from     
+  reorder.factor DescTools
+Loading required package: outliers
+
+Attaching package: ‘outliers’
+
+The following object is masked from ‘package:GmAMisc’:
+
+    outlier
+
+Error in tsdata$SITECODE : $ operator is invalid for atomic vectors
+Execution halted
+Warning message:
+system call failed: No child processes 
+[1] "------------ BEGIN ---2020-03-03 17:52:59----------------"
+Paras: 
+[1] "endpoint: http://ltercwn01.umweltbundesamt.at:8080/cwn.all.sos2/service"
+[1] "repourl: https://b2drop.eudat.eu/s/6kdjM6BwYkEX4nZ/download"
+[1] "site: ZOE_0551P00"
+[1] "parameter: SurfaceWaterConcentration_DOC_0.2m"
+[1] "from: 2018-01-01T00:00:00+01:00"
+[1] "to: 2018-01-31T23:59:59+01:00"
+[1] "window: 40"
+[1] "interval: 14"
+[1] "mode: 2"
+[1] "logfile: log.txt"
+[1] "outpathbase: ./qs/results/"
+[1] "timestamp: 20200303_175259"
+[1] "quiet: FALSE"
+[1] "directory: ../outlier_script/"
+[1] "help: FALSE"
+Loading required package: curl
+Loading required package: stringdist
+trying URL 'https://b2drop.eudat.eu/s/6kdjM6BwYkEX4nZ/download'
+downloaded 119 KB
+
+[1] "EOSC/eLTER_CDN_Daten_humidity_20191029.csv"
+[1] "EOSC/eLTER_CDN_Daten_sunduration_20191029.csv"
+[1] "EOSC/eLTER_CDN_Daten_temperature_20191029.csv"
+ [1] "SITECODE"         "VALUE"            "FIELDNAME"        "DAY"             
+ [5] "MONTH"            "YEAR"             "HOUR"             "MIN"             
+ [9] "SEC"              "OBSERVEDPROPERTY"
+Loading required package: chron
+Loading required package: GmAMisc
+Loading required package: maptools
+Loading required package: sp
+Checking rgeos availability: TRUE
+Loading required package: extremevalues
+Warning message:
+no DISPLAY variable so Tk is not available 
+Loading required package: univOutl
+Loading required package: robustbase
+Loading required package: Hmisc
+Loading required package: lattice
+Loading required package: survival
+
+Attaching package: ‘survival’
+
+The following object is masked from ‘package:robustbase’:
+
+    heart
+
+Loading required package: Formula
+Loading required package: ggplot2
+
+Attaching package: ‘Hmisc’
+
+The following object is masked from ‘package:maptools’:
+
+    label
+
+The following objects are masked from ‘package:base’:
+
+    format.pval, units
+
+Loading required package: OutlierDetection
+Warning messages:
+1: In rgl.init(initValue, onlyNULL) : RGL: unable to open X11 display
+2: 'rgl_init' failed, running with rgl.useNULL = TRUE 
+Loading required package: DMwR
+Loading required package: grid
+Registered S3 method overwritten by 'xts':
+  method     from
+  as.zoo.xts zoo 
+Registered S3 method overwritten by 'quantmod':
+  method            from
+  as.zoo.data.frame zoo 
+Registered S3 method overwritten by 'gdata':
+  method         from     
+  reorder.factor DescTools
+Loading required package: outliers
+
+Attaching package: ‘outliers’
+
+The following object is masked from ‘package:GmAMisc’:
+
+    outlier
+
+[1] "LTER_EU_AT_003_ATZOEAM0939_HH_"
+[1] "781  in total"
+[1] "741  datapoints make  52.9285714285714  intervals"
+[1] 0
+[1] "1995-10-04  to  1995-11-21"
+[1] 1
+[1] "1995-10-18  to  1995-12-05"
+[1] 2
+[1] "1995-11-09  to  1995-12-19"
+[1] 3
+[1] "1995-11-23  to  1996-01-02"
+[1] 4
+[1] "1995-12-07  to  1996-01-16"
+[1] 5
+[1] "1995-12-21  to  1996-01-30"
+[1] 6
+[1] "1996-01-04  to  1996-02-13"
+[1] 7
+[1] "1996-01-18  to  1996-02-27"
+[1] 8
+[1] "1996-02-01  to  1996-03-18"
+[1] 9
+[1] "1996-02-15  to  1996-04-01"
+[1] 10
+[1] "1996-02-29  to  1996-04-15"
+[1] 11
+[1] "1996-03-20  to  1996-04-29"
+[1] 12
+[1] "1996-04-03  to  1996-05-13"
+[1] 13
+[1] "1996-04-17  to  1996-05-27"
+[1] 14
+[1] "1996-05-01  to  1996-06-10"
+[1] 15
+[1] "1996-05-15  to  1996-07-07"
+[1] 16
+[1] "1996-05-29  to  1996-07-21"
+[1] 17
+[1] "1996-06-12  to  1996-08-04"
+[1] 18
+[1] "1996-07-09  to  1996-08-18"
+[1] 19
+[1] "1996-07-23  to  1996-09-01"
+[1] 20
+[1] "1996-08-06  to  1996-09-15"
+[1] 21
+[1] "1996-08-20  to  1996-09-29"
+[1] 22
+[1] "1996-09-03  to  1996-10-13"
+[1] 23
+[1] "1996-09-17  to  1996-10-27"
+[1] 24
+[1] "1996-10-01  to  1996-11-11"
+[1] 25
+[1] "1996-10-15  to  1996-11-29"
+[1] 26
+[1] "1996-10-29  to  1996-12-13"
+[1] 27
+[1] "1996-11-13  to  1996-12-27"
+[1] 28
+[1] "1996-12-01  to  1997-01-10"
+[1] 29
+[1] "1996-12-15  to  1997-01-24"
+[1] 30
+[1] "1996-12-29  to  1997-02-07"
+[1] 31
+[1] "1997-01-12  to  1997-02-21"
+[1] 32
+[1] "1997-01-26  to  1997-03-07"
+[1] 33
+[1] "1997-02-09  to  1997-03-21"
+[1] 34
+[1] "1997-02-23  to  1997-04-04"
+[1] 35
+[1] "1997-03-09  to  1997-04-18"
+[1] 36
+[1] "1997-03-23  to  1997-05-02"
+[1] 37
+[1] "1997-04-06  to  1997-05-16"
+[1] 38
+[1] "1997-04-20  to  1997-05-30"
+[1] 39
+[1] "1997-05-04  to  1997-06-13"
+[1] 40
+[1] "1997-05-18  to  1997-06-27"
+[1] 41
+[1] "1997-06-01  to  1997-07-11"
+[1] 42
+[1] "1997-06-15  to  1997-07-25"
+[1] 43
+[1] "1997-06-29  to  1997-08-08"
+[1] 44
+[1] "1997-07-13  to  1997-08-23"
+[1] 45
+[1] "1997-07-27  to  1997-09-09"
+[1] 46
+[1] "1997-08-10  to  1997-09-23"
+[1] 47
+[1] "1997-08-25  to  1997-10-07"
+[1] 48
+[1] "1997-09-11  to  1997-10-21"
+[1] 49
+[1] "1997-09-25  to  1997-11-05"
+[1] 50
+[1] "1997-10-09  to  1997-11-19"
+[1] 51
+[1] "1997-10-23  to  1997-12-03"
+[1] 52
+[1] "1997-11-07  to  1997-12-09"
+[1] 53
+[1] "1997-11-21  to  1997-12-09"
+[1] "LTER_EU_AT_003_ATZOEAM0939_SOLD_"
+[1] "814  in total"
+[1] "774  datapoints make  55.2857142857143  intervals"
+[1] 0
+[1] "1995-09-07  to  1995-10-17"
+[1] 1
+[1] "1995-09-21  to  1995-11-09"
+[1] 2
+[1] "1995-10-05  to  1995-11-23"
+[1] 3
+[1] "1995-10-19  to  1995-12-07"
+[1] 4
+[1] "1995-11-11  to  1995-12-21"
+[1] 5
+[1] "1995-11-25  to  1996-01-04"
+[1] 6
+[1] "1995-12-09  to  1996-01-18"
+[1] 7
+[1] "1995-12-23  to  1996-02-01"
+[1] 8
+[1] "1996-01-06  to  1996-02-15"
+[1] 9
+[1] "1996-01-20  to  1996-02-29"
+[1] 10
+[1] "1996-02-03  to  1996-03-20"
+[1] 11
+[1] "1996-02-17  to  1996-04-03"
+[1] 12
+[1] "1996-03-02  to  1996-04-17"
+[1] 13
+[1] "1996-03-22  to  1996-05-01"
+[1] 14
+[1] "1996-04-05  to  1996-05-15"
+[1] 15
+[1] "1996-04-19  to  1996-05-29"
+[1] 16
+[1] "1996-05-03  to  1996-06-12"
+[1] 17
+[1] "1996-05-17  to  1996-07-09"
+[1] 18
+[1] "1996-05-31  to  1996-07-23"
+[1] 19
+[1] "1996-06-14  to  1996-08-06"
+[1] 20
+[1] "1996-07-11  to  1996-08-20"
+[1] 21
+[1] "1996-07-25  to  1996-09-03"
+[1] 22
+[1] "1996-08-08  to  1996-09-17"
+[1] 23
+[1] "1996-08-22  to  1996-10-01"
+[1] 24
+[1] "1996-09-05  to  1996-10-15"
+[1] 25
+[1] "1996-09-19  to  1996-10-29"
+[1] 26
+[1] "1996-10-03  to  1996-11-12"
+[1] 27
+[1] "1996-10-17  to  1996-11-26"
+[1] 28
+[1] "1996-10-31  to  1996-12-10"
+[1] 29
+[1] "1996-11-14  to  1996-12-24"
+[1] 30
+[1] "1996-11-28  to  1997-01-07"
+[1] 31
+[1] "1996-12-12  to  1997-01-21"
+[1] 32
+[1] "1996-12-26  to  1997-02-04"
+[1] 33
+[1] "1997-01-09  to  1997-02-18"
+[1] 34
+[1] "1997-01-23  to  1997-03-04"
+[1] 35
+[1] "1997-02-06  to  1997-03-18"
+[1] 36
+[1] "1997-02-20  to  1997-04-01"
+[1] 37
+[1] "1997-03-06  to  1997-04-15"
+[1] 38
+[1] "1997-03-20  to  1997-04-29"
+[1] 39
+[1] "1997-04-03  to  1997-05-13"
+[1] 40
+[1] "1997-04-17  to  1997-05-27"
+[1] 41
+[1] "1997-05-01  to  1997-06-10"
+[1] 42
+[1] "1997-05-15  to  1997-06-24"
+[1] 43
+[1] "1997-05-29  to  1997-07-08"
+[1] 44
+[1] "1997-06-12  to  1997-07-22"
+[1] 45
+[1] "1997-06-26  to  1997-08-05"
+[1] 46
+[1] "1997-07-10  to  1997-08-19"
+[1] 47
+[1] "1997-07-24  to  1997-09-02"
+[1] 48
+[1] "1997-08-07  to  1997-09-19"
+[1] 49
+[1] "1997-08-21  to  1997-10-03"
+[1] 50
+[1] "1997-09-04  to  1997-10-17"
+[1] 51
+[1] "1997-09-21  to  1997-10-31"
+[1] 52
+[1] "1997-10-05  to  1997-11-14"
+[1] 53
+[1] "1997-10-19  to  1997-11-28"
+[1] 54
+[1] "1997-11-02  to  1997-12-09"
+[1] 55
+[1] "1997-11-16  to  1997-12-09"
+[1] 56
+[1] "1997-11-30  to  1997-12-09"
+[1] "LTER_EU_AT_003_ATZOEAM0939_TEMPMEAN_"
+[1] "778  in total"
+[1] "738  datapoints make  52.7142857142857  intervals"
+[1] 0
+[1] "1995-10-04  to  1995-11-21"
+[1] 1
+[1] "1995-10-18  to  1995-12-05"
+[1] 2
+[1] "1995-11-09  to  1995-12-19"
+[1] 3
+[1] "1995-11-23  to  1996-01-02"
+[1] 4
+[1] "1995-12-07  to  1996-01-16"
+[1] 5
+[1] "1995-12-21  to  1996-01-30"
+[1] 6
+[1] "1996-01-04  to  1996-02-16"
+[1] 7
+[1] "1996-01-18  to  1996-03-01"
+[1] 8
+[1] "1996-02-02  to  1996-03-22"
+[1] 9
+[1] "1996-02-18  to  1996-04-05"
+[1] 10
+[1] "1996-03-03  to  1996-04-19"
+[1] 11
+[1] "1996-03-24  to  1996-05-03"
+[1] 12
+[1] "1996-04-07  to  1996-05-17"
+[1] 13
+[1] "1996-04-21  to  1996-05-31"
+[1] 14
+[1] "1996-05-05  to  1996-06-14"
+[1] 15
+[1] "1996-05-19  to  1996-07-11"
+[1] 16
+[1] "1996-06-02  to  1996-07-25"
+[1] 17
+[1] "1996-06-16  to  1996-08-08"
+[1] 18
+[1] "1996-07-13  to  1996-08-22"
+[1] 19
+[1] "1996-07-27  to  1996-09-05"
+[1] 20
+[1] "1996-08-10  to  1996-09-19"
+[1] 21
+[1] "1996-08-24  to  1996-10-03"
+[1] 22
+[1] "1996-09-07  to  1996-10-17"
+[1] 23
+[1] "1996-09-21  to  1996-10-31"
+[1] 24
+[1] "1996-10-05  to  1996-11-15"
+[1] 25
+[1] "1996-10-19  to  1996-12-03"
+[1] 26
+[1] "1996-11-02  to  1996-12-17"
+[1] 27
+[1] "1996-11-17  to  1996-12-31"
+[1] 28
+[1] "1996-12-05  to  1997-01-14"
+[1] 29
+[1] "1996-12-19  to  1997-01-28"
+[1] 30
+[1] "1997-01-02  to  1997-02-11"
+[1] 31
+[1] "1997-01-16  to  1997-02-25"
+[1] 32
+[1] "1997-01-30  to  1997-03-11"
+[1] 33
+[1] "1997-02-13  to  1997-03-25"
+[1] 34
+[1] "1997-02-27  to  1997-04-08"
+[1] 35
+[1] "1997-03-13  to  1997-04-22"
+[1] 36
+[1] "1997-03-27  to  1997-05-06"
+[1] 37
+[1] "1997-04-10  to  1997-05-20"
+[1] 38
+[1] "1997-04-24  to  1997-06-03"
+[1] 39
+[1] "1997-05-08  to  1997-06-17"
+[1] 40
+[1] "1997-05-22  to  1997-07-01"
+[1] 41
+[1] "1997-06-05  to  1997-07-15"
+[1] 42
+[1] "1997-06-19  to  1997-07-29"
+[1] 43
+[1] "1997-07-03  to  1997-08-12"
+[1] 44
+[1] "1997-07-17  to  1997-08-27"
+[1] 45
+[1] "1997-07-31  to  1997-09-13"
+[1] 46
+[1] "1997-08-14  to  1997-09-27"
+[1] 47
+[1] "1997-08-29  to  1997-10-11"
+[1] 48
+[1] "1997-09-15  to  1997-10-25"
+[1] 49
+[1] "1997-09-29  to  1997-11-09"
+[1] 50
+[1] "1997-10-13  to  1997-11-23"
+[1] 51
+[1] "1997-10-27  to  1997-12-07"
+[1] 52
+[1] "1997-11-11  to  1997-12-10"
+[1] 53
+[1] "1997-11-25  to  1997-12-10"
+There were 49 warnings (use warnings() to see them)
+Warning messages:
+1: In univOutl::LocScaleB(outlierdata$VALUE, k = 2, method = vb,  ... :
+  Estimated scale measure is 0 
+
+                it will be substituted with |0.05*Median|
+2: In univOutl::LocScaleB(outlierdata$VALUE, k = 2, method = vb,  ... :
+  Estimated scale measure is 0 
+
+                it will be substituted with |0.05*Median|
+3: In univOutl::LocScaleB(outlierdata$VALUE, k = 3, method = vb,  ... :
+  Estimated scale measure is 0 
+
+                it will be substituted with |0.05*Median|
+4: In univOutl::LocScaleB(outlierdata$VALUE, k = 3, method = vb,  ... :
+  Estimated scale measure is 0 
+
+                it will be substituted with |0.05*Median|
+5: In univOutl::LocScaleB(outlierdata$VALUE, k = 2, method = vb,  ... :
+  Estimated scale measure is 0 
+
+                it will be substituted with |0.05*Median|
+6: In univOutl::LocScaleB(outlierdata$VALUE, k = 2, method = vb,  ... :
+  Estimated scale measure is 0 
+
+                it will be substituted with |0.05*Median|
+7: In univOutl::LocScaleB(outlierdata$VALUE, k = 3, method = vb,  ... :
+  Estimated scale measure is 0 
+
+                it will be substituted with |0.05*Median|
+8: In univOutl::LocScaleB(outlierdata$VALUE, k = 3, method = vb,  ... :
+  Estimated scale measure is 0 
+
+                it will be substituted with |0.05*Median|
+9: In univOutl::LocScaleB(outlierdata$VALUE, k = 2, method = vb,  ... :
+  Estimated scale measure is 0 
+
+                it will be substituted with |0.05*Median|
+10: In univOutl::LocScaleB(outlierdata$VALUE, k = 2, method = vb,  ... :
+  Estimated scale measure is 0 
+
+                it will be substituted with |0.05*Median|
+11: In univOutl::LocScaleB(outlierdata$VALUE, k = 3, method = vb,  ... :
+  Estimated scale measure is 0 
+
+                it will be substituted with |0.05*Median|
+12: In univOutl::LocScaleB(outlierdata$VALUE, k = 3, method = vb,  ... :
+  Estimated scale measure is 0 
+
+                it will be substituted with |0.05*Median|
+13: In univOutl::LocScaleB(outlierdata$VALUE, k = 2, method = vb,  ... :
+  Estimated scale measure is 0 
+
+                it will be substituted with |0.05*Median|
+14: In univOutl::LocScaleB(outlierdata$VALUE, k = 2, method = vb,  ... :
+  Estimated scale measure is 0 
+
+                it will be substituted with |0.05*Median|
+15: In univOutl::LocScaleB(outlierdata$VALUE, k = 3, method = vb,  ... :
+  Estimated scale measure is 0 
+
+                it will be substituted with |0.05*Median|
+16: In univOutl::LocScaleB(outlierdata$VALUE, k = 3, method = vb,  ... :
+  Estimated scale measure is 0 
+
+                it will be substituted with |0.05*Median|
+17: In univOutl::LocScaleB(outlierdata$VALUE, k = 2, method = vb,  ... :
+  Estimated scale measure is 0 
+
+                it will be substituted with |0.05*Median|
+18: In univOutl::LocScaleB(outlierdata$VALUE, k = 2, method = vb,  ... :
+  Estimated scale measure is 0 
+
+                it will be substituted with |0.05*Median|
+19: In univOutl::LocScaleB(outlierdata$VALUE, k = 3, method = vb,  ... :
+  Estimated scale measure is 0 
+
+                it will be substituted with |0.05*Median|
+20: In univOutl::LocScaleB(outlierdata$VALUE, k = 3, method = vb,  ... :
+  Estimated scale measure is 0 
+
+                it will be substituted with |0.05*Median|
+21: In univOutl::LocScaleB(outlierdata$VALUE, k = 2, method = vb,  ... :
+  Estimated scale measure is 0 
+
+                it will be substituted with |0.05*Median|
+22: In univOutl::LocScaleB(outlierdata$VALUE, k = 2, method = vb,  ... :
+  Estimated scale measure is 0 
+
+                it will be substituted with |0.05*Median|
+23: In univOutl::LocScaleB(outlierdata$VALUE, k = 3, method = vb,  ... :
+  Estimated scale measure is 0 
+
+                it will be substituted with |0.05*Median|
+24: In univOutl::LocScaleB(outlierdata$VALUE, k = 3, method = vb,  ... :
+  Estimated scale measure is 0 
+
+                it will be substituted with |0.05*Median|
+25: In univOutl::LocScaleB(outlierdata$VALUE, k = 2, method = vb,  ... :
+  Estimated scale measure is 0 
+
+                it will be substituted with |0.05*Median|
+26: In univOutl::LocScaleB(outlierdata$VALUE, k = 2, method = vb,  ... :
+  Estimated scale measure is 0 
+
+                it will be substituted with |0.05*Median|
+27: In univOutl::LocScaleB(outlierdata$VALUE, k = 3, method = vb,  ... :
+  Estimated scale measure is 0 
+
+                it will be substituted with |0.05*Median|
+28: In univOutl::LocScaleB(outlierdata$VALUE, k = 3, method = vb,  ... :
+  Estimated scale measure is 0 
+
+                it will be substituted with |0.05*Median|
+29: In univOutl::LocScaleB(outlierdata$VALUE, k = 2, method = vb,  ... :
+  Estimated scale measure is 0 
+
+                it will be substituted with |0.05*Median|
+30: In univOutl::LocScaleB(outlierdata$VALUE, k = 2, method = vb,  ... :
+  Estimated scale measure is 0 
+
+                it will be substituted with |0.05*Median|
+31: In univOutl::LocScaleB(outlierdata$VALUE, k = 3, method = vb,  ... :
+  Estimated scale measure is 0 
+
+                it will be substituted with |0.05*Median|
+32: In univOutl::LocScaleB(outlierdata$VALUE, k = 3, method = vb,  ... :
+  Estimated scale measure is 0 
+
+                it will be substituted with |0.05*Median|
+33: In univOutl::LocScaleB(outlierdata$VALUE, k = 2, method = vb,  ... :
+  Estimated scale measure is 0 
+
+                it will be substituted with |0.05*Median|
+34: In univOutl::LocScaleB(outlierdata$VALUE, k = 2, method = vb,  ... :
+  Estimated scale measure is 0 
+
+                it will be substituted with |0.05*Median|
+35: In univOutl::LocScaleB(outlierdata$VALUE, k = 3, method = vb,  ... :
+  Estimated scale measure is 0 
+
+                it will be substituted with |0.05*Median|
+36: In univOutl::LocScaleB(outlierdata$VALUE, k = 3, method = vb,  ... :
+  Estimated scale measure is 0 
+
+                it will be substituted with |0.05*Median|
+37: In univOutl::LocScaleB(outlierdata$VALUE, k = 2, method = vb,  ... :
+  Estimated scale measure is 0 
+
+                it will be substituted with |0.05*Median|
+38: In univOutl::LocScaleB(outlierdata$VALUE, k = 2, method = vb,  ... :
+  Estimated scale measure is 0 
+
+                it will be substituted with |0.05*Median|
+39: In univOutl::LocScaleB(outlierdata$VALUE, k = 3, method = vb,  ... :
+  Estimated scale measure is 0 
+
+                it will be substituted with |0.05*Median|
+40: In univOutl::LocScaleB(outlierdata$VALUE, k = 3, method = vb,  ... :
+  Estimated scale measure is 0 
+
+                it will be substituted with |0.05*Median|
+41: In univOutl::LocScaleB(outlierdata$VALUE, k = 2, method = vb,  ... :
+  Estimated scale measure is 0 
+
+                it will be substituted with |0.05*Median|
+42: In univOutl::LocScaleB(outlierdata$VALUE, k = 2, method = vb,  ... :
+  Estimated scale measure is 0 
+
+                it will be substituted with |0.05*Median|
+43: In univOutl::LocScaleB(outlierdata$VALUE, k = 3, method = vb,  ... :
+  Estimated scale measure is 0 
+
+                it will be substituted with |0.05*Median|
+44: In univOutl::LocScaleB(outlierdata$VALUE, k = 3, method = vb,  ... :
+  Estimated scale measure is 0 
+
+                it will be substituted with |0.05*Median|
+45: In univOutl::LocScaleB(outlierdata$VALUE, k = 2, method = vb,  ... :
+  Estimated scale measure is 0 
+
+                it will be substituted with |0.05*Median|
+46: In univOutl::LocScaleB(outlierdata$VALUE, k = 2, method = vb,  ... :
+  Estimated scale measure is 0 
+
+                it will be substituted with |0.05*Median|
+47: In univOutl::LocScaleB(outlierdata$VALUE, k = 3, method = vb,  ... :
+  Estimated scale measure is 0 
+
+                it will be substituted with |0.05*Median|
+48: In univOutl::LocScaleB(outlierdata$VALUE, k = 3, method = vb,  ... :
+  Estimated scale measure is 0 
+
+                it will be substituted with |0.05*Median|
+49: In sqrt(s) : NaNs produced
+Loading required package: zip
+
+Attaching package: ‘zip’
+
+The following objects are masked from ‘package:utils’:
+
+    unzip, zip
+
+[1] "ARE WE QUIET FALSE"
+[1] "------------ END ---2020-03-03 17:58:27----------------"
+[1] TRUE

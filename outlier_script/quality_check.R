@@ -22,7 +22,6 @@ options(encoding = "UTF-8")
 ##stat_interval <- 10
 # pfad wo die resultate exportiert werden
 
-source("pkgtest.R")
 
 cachepath <- "./qs/cache/" 
 
@@ -58,7 +57,9 @@ option_list = list(
 	make_option(c("-z", "--timestamp"), type="character", default="", 
               help="Init timestamp", metavar="character"),
 	make_option(c("-q", "--quiet"), type="logical", default=FALSE, 
-              help="Be quiet [default= %default]", metavar="logical")
+              help="Be quiet [default= %default]", metavar="logical"),
+	make_option(c("-d", "--directory"), type="character", default=getwd(), 
+              help="Working directory of script", metavar="character")
 ) 
  
 opt_parser = OptionParser(option_list=option_list)
@@ -72,6 +73,9 @@ sink(con, append=TRUE)
 sink(con, append=TRUE, type="message")
 
 print (paste("------------ BEGIN ---",Sys.time(),"----------------", sep=""))
+
+setwd(opt$directory)
+source(paste(getwd(),"pkgtest.R", sep="/"))
 
 #parameter passing
 .sos <- opt$endpoint
@@ -88,29 +92,29 @@ password = opt$credential
 respath=opt$outpathbase
 myts=opt$timestamp
 
-#DEBUG OVERRIDE
-.sos <- "https://sensorweb.demo.52north.org/sensorwebtestbed/service" 
-sos_site	<- "ELV-WS2500"
-sos_parameter	<- "AirTemperature"
-sos_startperiod	<- "2015-06-01T00:00:00+01:00"
-sos_endperiod	<- "2015-06-05T23:59:59+01:00"
-
-.sos <- "https://lter-at-sos.sos.cdn.lter-europe.net/service"
-sos_site        <- "LTER_EU_AT_003"
-sos_parameter	<- "http://vocabs.lter-europe.net/EnvThes/22035"
-sos_startperiod	<- "2012-06-01T00:00:00+01:00"
-sos_endperiod	<- "2012-06-30T23:59:59+01:00"
-
-# <sos:procedure>/1579860990023/LTER_AT/LTER_EU_AT_003/ATZOEAM0939_TEMPMEAN_TEST3/AIR</sos:procedure>
-
-stat_movingwindows <- 40
-stat_interval <- 14
-type <- 1
-dav <- ""
-username = ""
-password = ""
+##DEBUG OVERRIDE
+#.sos <- "https://sensorweb.demo.52north.org/sensorwebtestbed/service" 
+#sos_site	<- "ELV-WS2500"
+#sos_parameter	<- "AirTemperature"
+#sos_startperiod	<- "2015-06-01T00:00:00+01:00"
+#sos_endperiod	<- "2015-06-05T23:59:59+01:00"
+#
+#.sos <- "https://lter-at-sos.sos.cdn.lter-europe.net/service"
+#sos_site        <- "LTER_EU_AT_003"
+#sos_parameter	<- "http://vocabs.lter-europe.net/EnvThes/22035"
+#sos_startperiod	<- "2012-06-01T00:00:00+01:00"
+#sos_endperiod	<- "2012-06-30T23:59:59+01:00"
+#
+## <sos:procedure>/1579860990023/LTER_AT/LTER_EU_AT_003/ATZOEAM0939_TEMPMEAN_TEST3/AIR</sos:procedure>
+#
+#stat_movingwindows <- 40
+#stat_interval <- 14
+#type <- 1
+#dav <- ""
+#username = ""
+#password = ""
 respath="./qs/results/"
-myts="20200122_143300"
+#myts="20200122_143300"
 
 .loadCache=FALSE
 
@@ -140,20 +144,20 @@ for ( k in seq(1,length(opt))) {
 	}
 }
 
-
+tsdata=""
 #browser()
 if (type==1) {
 
-  source("getSos.R")
+  source(paste(getwd(),"getSos.R", sep="/"))
   tsdata=getSos( FALSE, FALSE, sos200_version, "KVP", "http://www.opengis.net/om/2.0",
 		.sos, sos_site, sos_parameter, sos_startperiod, sos_endperiod,
 		cachepath, .loadCache)
 } else {
 
-  source("getFile.R")
+  source(paste(getwd(),"getFile.R", sep="/"))
   tsdata=getFile(username, password, dav)
 }
-
+print(colnames(tsdata))
 #write(tsdata$VALUE, stderro))
 
 #browser()
