@@ -53,6 +53,11 @@ venv/
 
 # Django stuff:
 *.log
+log.txt
+
+#internal files
+results/*
+cache/*
 
 # Sphinx documentation
 docs/_build/

@@ -25,7 +25,6 @@ options(encoding = "UTF-8")
 # pfad wo die resultate exportiert werden
 
 
-cachepath <- "./qs/cache/" 
 
 library("optparse")
  
@@ -54,8 +53,10 @@ option_list = list(
               help="SOS (1) or File based (2) [default= %default]", metavar="integer"),
 	make_option(c("-l", "--logfile"), type="character", default="log.txt", 
               help="Log output to file [default= %default]", metavar="character"),
-	make_option(c("-o", "--outpathbase"), type="character", default="./qs/results/", 
+	make_option(c("-o", "--outpathbase"), type="character", default="../results/", 
               help="result directory [default= %default]", metavar="character"),
+	make_option(c("-b", "--bufferdir"), type="character", default="../cache/", 
+              help="cache directory [default= %default]", metavar="character"),
 	make_option(c("-z", "--timestamp"), type="character", default="", 
               help="Init timestamp", metavar="character"),
 	make_option(c("-q", "--quiet"), type="logical", default=FALSE, 
@@ -92,6 +93,7 @@ dav <- opt$repourl
 username = opt$username
 password = opt$credential
 respath=opt$outpathbase
+cachepath=opt$bufferdir
 myts=opt$timestamp
 
 ##DEBUG OVERRIDE
@@ -115,7 +117,6 @@ myts=opt$timestamp
 #dav <- ""
 #username = ""
 #password = ""
-respath="./qs/results/"
 #myts="20200122_143300"
 
 .loadCache=FALSE
@@ -423,7 +424,7 @@ for (i in paraloop) {
 	    outlierdata$lofactors <- DMwR::lofactor(outlierdata$VALUE,k=2)
 
 	  outlierdata <- outlierdata[order(outlierdata$lofactors,decreasing=T),]
-	  res02 <- outlierdata[c(1:5),]
+	  res02 <- outlierdata[c(1:min(5,nrow(outlierdata))),]
 	  res02$lofactors <- NULL
 	  res02$statistik <- paste("DMwR_lofactor_2",sep="")
 	  

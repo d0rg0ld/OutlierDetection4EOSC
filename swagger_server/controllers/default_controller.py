@@ -1,5 +1,4 @@
 import sys, os
-sys.path.append(os.path.abspath("/home/cloudadm/qualityServerSecBin/swagger_server/controllers/"))
 
 	
 from datetime import datetime
@@ -11,15 +10,13 @@ import os
 import code
 
 from swagger_server import util
-from flask import jsonify
+from flask import jsonify, request
 
-import globVars
+from .. import globVars
 
 import json
 
 usr=None
-
-result_path="./qs/results/"
 
 def get_secret(user):
         usr=user
@@ -51,21 +48,30 @@ def call_blocking(args):
     return resdata
 
 def call_nonblocking(args):
+
+
+    #https://stackoverflow.com/questions/16807603/python-non-blocking-non-defunct-process
+
     sys.stderr.write(repr(args))
     sys.stderr.write("\n")
 
 
-    proc = subprocess.Popen(args,stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, universal_newlines=True)
+    pid = subprocess.Popen(args,stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, universal_newlines=True).pid
 
-    sys.stderr.write('pid : ' +  str(proc.pid))
 
-    return proc.pid
+
+    sys.stderr.write('pid : ' +  str(pid))
+
+    return pid
 
 	
 def makeTimeStamp():
     mydt=datetime.now()
-    myts=str(mydt.year)+str(mydt.month)+str(mydt.day)+"_"+str(mydt.hour)+str(mydt.minute)+str(mydt.second)
+    myts=str(mydt.year)+str(mydt.month).zfill(2)+str(mydt.day).zfill(2)+"_"+str(mydt.hour).zfill(2)+str(mydt.minute).zfill(2)+str(mydt.second).zfill(2)
     return myts 
+
+def makeNonblockingLocationReponse(pid, timestamp):
+	return { "Location": request.base_url.replace("qs_nonblocking", "qs_checkstatus")+"?pid="+str(pid)+"&timestamp="+timestamp }
 
 def qs_blocking_get(sosendpoint, begin, end, parameter, site, windowwidth=None, windowinterval=None):  # noqa: E501
     """Retrieve a parameter from one station from start to end
@@ -108,7 +114,8 @@ def qs_blocking_get(sosendpoint, begin, end, parameter, site, windowwidth=None, 
 
     myts=makeTimeStamp()
 
-    args=['/usr/bin/Rscript','/home/cloudadm/outlier_script/quality_check.R',
+    args=['/usr/bin/Rscript',globVars.scriptdir + '/quality_check.R',
+                                        "-d", globVars.scriptdir,
                                         "-e", sosendpoint,
                                         "-s", sites,
                                         "-p", parameters,
@@ -117,7 +124,8 @@ def qs_blocking_get(sosendpoint, begin, end, parameter, site, windowwidth=None, 
                                         "-w", str(windowwidth),
                                         "-i", str(windowinterval),
 					"-z", myts,
-					"-o", result_path,
+					"-o", globVars.resultdir,
+					"-b", globVars.cachedir,
                                         "-m", "1"]
 
 
@@ -148,14 +156,16 @@ def qs_blocking_post(repourl, windowwidth=None, windowinterval=None):  # noqa: E
     
     myts=makeTimeStamp()
 
-    args=['/usr/bin/Rscript','/home/cloudadm/outlier_script/quality_check.R',
+    args=['/usr/bin/Rscript',globVars.scriptdir + '/quality_check.R',
+                                        "-d", globVars.scriptdir,
 					"-r", repourl,
 					"-u", globVars.user,
 					"-c", globVars.password,
                                         "-w", str(windowwidth),
                                         "-i", str(windowinterval),
 					"-z", myts,
-					"-o", result_path,
+					"-o", globVars.resultdir,
+					"-b", globVars.cachedir,
                                         "-m", "2"]
 
     resdata=call_blocking(args)
@@ -210,7 +220,8 @@ def qs_nonblocking_get(sosendpoint, begin, end, parameter, site, windowwidth=Non
 
     myts=makeTimeStamp()
 
-    args=['/usr/bin/Rscript','/home/cloudadm/outlier_script/quality_check.R',
+    args=['/usr/bin/Rscript',globVars.scriptdir + '/quality_check.R',
+                                        "-d", globVars.scriptdir,
                                         "-e", sosendpoint,
                                         "-s", sites,
                                         "-p", parameters,
@@ -220,13 +231,17 @@ def qs_nonblocking_get(sosendpoint, begin, end, parameter, site, windowwidth=Non
                                         "-i", str(windowinterval),
 					"-z", myts,
 					"-q", True,
-					"-o", result_path,
+					"-o", globVars.resultdir,
+					"-b", globVars.cachedir,
                                         "-m", "1"]
 
 
     pid=call_nonblocking(args)
 
-    return make_jsonresponse(myts, pid), 202
+    resp= makeNonblockingLocationReponse(pid, myts)
+
+
+    return resp, 202, resp
 
 
 
@@ -251,27 +266,30 @@ def qs_nonblocking_post(repourl, windowwidth=None, windowinterval=None, wait=Fal
 
     myts=makeTimeStamp()
 
-    args=['/usr/bin/Rscript','/home/cloudadm/outlier_script/quality_check.R',
+    args=['/usr/bin/Rscript',globVars.scriptdir + '/quality_check.R',
+                                        "-d", globVars.scriptdir,
 					"-r", repourl,
 					"-u", globVars.user,
 					"-c", globVars.password,
                                         "-w", str(windowwidth),
                                         "-i", str(windowinterval),
-					"-q", 1,
+					"-q", str(True),
 					"-z", myts,
-					"-o", result_path,
+					"-o", globVars.resultdir,
+					"-b", globVars.cachedir,
                                         "-m", "2"]
 
     pid=call_nonblocking(args)
 
-    return make_jsonresponse(myts, pid), 202
+    #return make_jsonresponse(myts, pid), 202
+    job_id = str(pid)+"_"+myts
 
+    resp= makeNonblockingLocationReponse(pid, myts)
+    return resp, 202, resp
 
     return 'do some magic!'
 
 def qs_checkstatus(pid, timestamp):
-	print ("PID : " + str(pid))
-	print ("TIMESTAMP : " + timestamp)
 
 	#check if pid is still running
 	running=False
@@ -287,13 +305,16 @@ def qs_checkstatus(pid, timestamp):
 	if running:
 		return  make_jsonresponse(timestamp, pid), 202
 	else:
-		print ("Check " + result_path+"/"+str(pid)+"_"+timestamp+ "/"+str(pid)+".done")
-		if os.path.exists(result_path+"/"+str(pid)+"_"+timestamp+ "/"+str(pid)+".done"):
-			for file in os.listdir(result_path+"/"+str(pid)+"_"+timestamp+ "/"):
+		print ("Check " + globVars.resultdir+"/"+str(pid)+"_"+timestamp+ "/"+str(pid)+".done")
+		if os.path.exists(globVars.resultdir+"/"+str(pid)+"_"+timestamp+ "/"+str(pid)+".done"):
+			for file in os.listdir(globVars.resultdir+"/"+str(pid)+"_"+timestamp+ "/"):
 				if file.endswith(".zip"):
-					with open(result_path+"/"+str(pid)+"_"+timestamp+ "/"+file, "rb") as zipfile:
+					with open(globVars.resultdir+"/"+str(pid)+"_"+timestamp+ "/"+file, "rb") as zipfile:
         					resdata=zipfile.read()
 					print ("returning zip content of length " + str(len(resdata)))
 					return resdata , 200
 		print ("error")
 		return make_jsonresponse(timestamp, pid), 500
+
+def qs_download(pid, timestamp):
+	return make_jsonresponse(timestamp, pid), 500

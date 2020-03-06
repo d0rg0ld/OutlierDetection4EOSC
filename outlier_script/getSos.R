@@ -47,7 +47,7 @@ getSos <- function(verbose, saveOriginal, sosVersion, binding, responseFormat,
 
 	  cache_filename=paste(gsub(" ", "_", sos_site) ,"_",sos_parameter,"_",periodstart,"_",periodend,sep="")
 
-	  cache_filename=paste(cachepath,gsub("[://]","_", cache_filename), sep="")
+	  cache_filename=paste(cachepath,gsub("[://]","_", cache_filename), sep="/")
 
 	  loaded_object=NULL
 	  print (cache_filename)

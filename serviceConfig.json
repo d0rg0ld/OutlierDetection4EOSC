@@ -1,0 +1,7 @@
+{
+	"ServiceConfig":{
+		"cache":"cache",
+		"results":"results",
+		"script":"outlier_script"
+	}
+}

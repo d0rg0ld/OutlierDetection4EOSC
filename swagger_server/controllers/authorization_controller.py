@@ -1,5 +1,5 @@
 import sys, os
-from . import globVars
+from .. import globVars
 
 from typing import List
 """
