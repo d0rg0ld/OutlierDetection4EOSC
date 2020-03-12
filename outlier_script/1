@@ -7,8 +7,7 @@ getSos <- function(verbose, saveOriginal, sosVersion, binding, responseFormat,
 			cachepath, loadCache, offeringOnly, sos_verbose) {
 
 	pkgTest("remotes")
-	#pkgTest("52North/sos4R", mode="github", extra="feature/0.4")
-	pkgTest("d0rg0ld/sos4R", mode="github", extra="feature/0.4")
+	pkgTest("52North/sos4R", mode="github", extra="feature/0.4")
 	pkgTest("sos4R")
 	pkgTest("lubridate")
 	
@@ -30,8 +29,8 @@ getSos <- function(verbose, saveOriginal, sosVersion, binding, responseFormat,
 	source <- sos_startperiod_utc
 	target <- source+months(1)-seconds(1)
 
-	restab00 <- t(data.frame(rep(NA,8)))
-	colnames(restab00) <- c("YEAR","MONTH", "DAY", "HOUR", "MIN", "SEC", "FIELDNAME","VALUE")
+	restab00 <- t(data.frame(rep(NA,10)))
+	colnames(restab00) <- c("SITECODE", "OBSERVEDPROPERTY", "YEAR","MONTH", "DAY", "HOUR", "MIN", "SEC", "FIELDNAME","VALUE")
 
 	print (paste("source : ",source," target : ",target, sep=""))
 	done=FALSE
@@ -62,23 +61,18 @@ getSos <- function(verbose, saveOriginal, sosVersion, binding, responseFormat,
 		      myGetObservation <- NULL
 		      if (offeringOnly) {
                         print ("Calling SOS with offeringOnly")
-			#print (sos_offering)
+			print (sos_offering)
 			myOffering <- sosOfferings(sos)[[sos_offering]]
-			#print (myOffering)
-			#print (slotNames(myOffering))
-			#print (myOffering@procedure)
-			#print (myOffering@observableProperty)
-			#print (myOffering@featureOfInterest)
+			print (myOffering)
 			print ("Getting Observations")
 		      	myGetObservation <- getObservation(sos = sos,
 							 offering = myOffering,
-							 procedure=list(myOffering@procedure),
-							 #observedProperty=list(myOffering@observableProperty),
-							 #featureOfInterest=myOffering@featureOfInterest,
+							 procedure=myOffering@procedure,
+							 observedProperty=myOffering@observedProperty,
+							 featureOfInterest=myOffering@featureOfInterest,
 							 eventTime = .eventTime,
 							 #verbose = sos_verbose,
 							 #verbose = .verbose,
-							 retrieveFOI = FALSE,
 							 saveOriginal = saveOriginal)
 		      } else {
 			#with procedure or without
@@ -141,9 +135,9 @@ getSos <- function(verbose, saveOriginal, sosVersion, binding, responseFormat,
 						"metadata")
 
 		      for (k in c(1:dim(summary(myGetObservation))[1])) {
-				res00 <- data.frame(foi=myGetObservation[[k]]@featureOfInterest@href)
-				if (is.na(myGetObservation[[k]]@featureOfInterest@href))
-					res00 <- data.frame(foi=myGetObservation[[k]]@featureOfInterest@feature@identifier)
+
+				res00 <- data.frame(foi=toString(myGetObservation[[k]]@featureOfInterest@feature@identifier))
+
 				res00$procedure=toString(myGetObservation[[k]]@procedure)
 
 				if (class(myGetObservation[[k]]@phenomenonTime) == "GmlTimePeriod") {
@@ -194,6 +188,8 @@ getSos <- function(verbose, saveOriginal, sosVersion, binding, responseFormat,
 				res00$resQual <- toString(myGetObservation[[k]]@resultQuality)
 				res00$parameter <- toString(myGetObservation[[k]]@parameter)
 				res00$metadata <- toString(myGetObservation[[k]]@metadata)
+				res00$resUnit <- toString(myGetObservation[[k]]@metadata)
+				res00$uom <- toString(myGetObservation[[k]]@result@uom)
 				#browser()
 				restab <- rbind(restab,res00)
 		      }
@@ -207,24 +203,11 @@ getSos <- function(verbose, saveOriginal, sosVersion, binding, responseFormat,
 						"phentime_start_hour",
 						"phentime_start_min",
 						"phentime_start_sec",
-						"procedure","result", "resultUnit")]
+						"procedure","result", "resUnit")]
 			# treat procedure as fieldname, dirty workaround
 		      colnames(restab) <- c("SITECODE","OBSERVEDPROPERTY",
 						"YEAR","MONTH", "DAY", "HOUR", "MIN", "SEC", 
-						"FIELDNAME","VALUE", "UNIT")
-
-		      if (offeringOnly) {
-			restab$SITECODE=NULL
-			restab$OBSERVEDPROPERTY=NULL
-			restab$UNIT=NULL
-			restab$FIELDNAME=sos_offering
-		      } else {
-			restab$FIELDNAME=paste(restab$SITECODE, restab$OBSERVEDPROPERTY, restab$FIELDNAME, restab$UNIT, sep="_")
-			restab$SITECODE=NULL
-			restab$OBSERVEDPROPERTY=NULL
-			restab$UNIT=NULL
-		      } 
-		
+						"FIELDNAME","VALUE")
 
 		      save(restab,file=cache_filename)
 	      }
@@ -244,9 +227,6 @@ getSos <- function(verbose, saveOriginal, sosVersion, binding, responseFormat,
 	tsdata <- restab00
 	rownames(tsdata) <- seq(1,nrow(tsdata),1)
 	tsdata$VALUE <- as.numeric(tsdata$VALUE)
-
-	
-
 	return(tsdata)
 		
 }

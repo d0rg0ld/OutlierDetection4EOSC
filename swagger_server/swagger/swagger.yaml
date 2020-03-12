@@ -7,7 +7,7 @@ servers:
 paths:
   /qs_blocking:
     get:
-      summary: Retrieve a parameter from one station from start to end
+      summary: Retrieve observations from SOS endpoint 
       operationId: qs_blocking_get
       parameters:
       - name: sosendpoint
@@ -36,20 +36,50 @@ paths:
           format: date-time
       - name: parameter
         in: query
-        required: true
+        required: false
         style: form
         explode: true
         schema:
           type: array
+          default: []
           items:
             type: string
-      - name: site
+      - name: procedure
         in: query
-        required: true
+        required: false
         style: form
         explode: true
         schema:
           type: array
+          default: []
+          items:
+            type: string
+      - name: offering
+        in: query
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: array
+          default: []
+          items:
+            type: string
+      - name: offeringonly
+        in: query
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: boolean
+          default: false
+      - name: site
+        in: query
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: array
+          default: []
           items:
             type: string
       - name: windowwidth
@@ -70,6 +100,15 @@ paths:
           minimum: 1
           type: integer
           default: 10
+      - name: span
+        in: query
+        required: false
+        style: form
+        explode: true
+        schema:
+          minimum: 0 
+          type: number
+          default: 0.06
       responses:
         "200":
           description: All is well
@@ -110,6 +149,15 @@ paths:
           minimum: 1
           type: integer
           default: 10
+      - name: span
+        in: query
+        required: false
+        style: form
+        explode: true
+        schema:
+          minimum: 0 
+          type: number
+          default: 0.06
       responses:
         "200":
           description: All is well
@@ -153,20 +201,50 @@ paths:
           format: date-time
       - name: parameter
         in: query
-        required: true
+        required: false
         style: form
         explode: true
         schema:
           type: array
+          default: []
           items:
             type: string
-      - name: site
+      - name: procedure
         in: query
-        required: true
+        required: false
         style: form
         explode: true
         schema:
           type: array
+          default: []
+          items:
+            type: string
+      - name: offering
+        in: query
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: array
+          default: []
+          items:
+            type: string
+      - name: offeringonly
+        in: query
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: boolean
+          default: false
+      - name: site
+        in: query
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: array
+          default: []
           items:
             type: string
       - name: windowwidth
@@ -187,6 +265,15 @@ paths:
           minimum: 1
           type: integer
           default: 10
+      - name: span
+        in: query
+        required: false
+        style: form
+        explode: true
+        schema:
+          minimum: 0 
+          type: number
+          default: 0.06
       responses:
         "202":
           description: All is well
@@ -226,6 +313,15 @@ paths:
           minimum: 1
           type: integer
           default: 10
+      - name: span
+        in: query
+        required: false
+        style: form
+        explode: true
+        schema:
+          minimum: 0 
+          type: number
+          default: 0.06
       responses:
         "202":
           description: All is well
@@ -296,7 +392,6 @@ paths:
                 x-content-type: application/zip
       x-openapi-router-controller: swagger_server.controllers.default_controller
 components:
-  schemas: {}
   parameters:
     windowParam:
       name: windowwidth

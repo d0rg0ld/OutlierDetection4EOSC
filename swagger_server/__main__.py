@@ -9,7 +9,7 @@ from swagger_server import encoder
 from . import globVars
 
 CERT = 'certs/cert.pem'
-KEY = 'certs/key.pem'
+KEY = 'certs/key_nopass.pem'
 
 def main():
     #https://stackoverflow.com/questions/16807603/python-non-blocking-non-defunct-process

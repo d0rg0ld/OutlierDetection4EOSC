@@ -47,6 +47,7 @@ getFile <- function(username, password, dav) {
   colnames(tsdata) <- c("SITECODE","VALUE","FIELDNAME","RID","DAY","MONTH","YEAR", "HOUR", "MIN", "SEC")
   rownames(tsdata) <- seq(1,nrow(tsdata),1)
   tsdata$RID <- NULL
-  tsdata$OBSERVEDPROPERTY=""
+  tsdata$FIELDNAME <- paste(tsdata$SITECODE, tsdata$FIELDNAME, sep="_")
+  tsdata$SITECODE <- NULL 
   return(tsdata)
 }

@@ -1,4 +1,7 @@
-FROM python:3.6-alpine
+FROM rocker/shiny:3.5.1
+
+RUN apt-get update -y
+RUN apt-get install -y python3-pip r-cran-littler r-cran-optparse libssl-dev
 
 RUN mkdir -p /usr/src/app
 WORKDIR /usr/src/app

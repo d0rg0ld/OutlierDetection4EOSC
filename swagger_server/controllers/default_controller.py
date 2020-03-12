@@ -73,7 +73,7 @@ def makeTimeStamp():
 def makeNonblockingLocationReponse(pid, timestamp):
 	return { "Location": request.base_url.replace("qs_nonblocking", "qs_checkstatus")+"?pid="+str(pid)+"&timestamp="+timestamp }
 
-def qs_blocking_get(sosendpoint, begin, end, parameter, site, windowwidth=None, windowinterval=None):  # noqa: E501
+def qs_blocking_get(sosendpoint, begin, end, parameter, procedure, offering, offeringonly, site, windowwidth=None, windowinterval=None, span=0.06):  # noqa: E501
     """Retrieve a parameter from one station from start to end
 
      # noqa: E501
@@ -101,24 +101,38 @@ def qs_blocking_get(sosendpoint, begin, end, parameter, site, windowwidth=None, 
 
     sys.stderr.write(os.getcwd()+"\n")
 
-    sites=site[0]
-    parameters=parameter[0]
+    sites=None
+    parameters=None
+    procedures=None
+    offerings=None
 
-    if len(site)>1:
+    if len(site)>0:
+        sites=site[0]
         for s in site[1:]:
                 sites=sites+","+s
 
-    if len(parameter)>1:
+    if len(parameter)>0:
+        parameters= parameter[0]
         for p in parameter[1:]:
                 parameters=parameters+","+p
+    
+    if len(procedure)>0:
+        procedures= procedure[0]
+        for p in procedure[1:]:
+                procedures=procedures+","+p
+    
+    if len(offering)>0:
+        offerings=offering[0]
+        for o in offering[1:]:
+                offerings=offerings+","+o
 
     myts=makeTimeStamp()
+
 
     args=['/usr/bin/Rscript',globVars.scriptdir + '/quality_check.R',
                                         "-d", globVars.scriptdir,
                                         "-e", sosendpoint,
-                                        "-s", sites,
-                                        "-p", parameters,
+					"-S", str(span),
                                         "-f", begin,
                                         "-t", end,
                                         "-w", str(windowwidth),
@@ -127,7 +141,24 @@ def qs_blocking_get(sosendpoint, begin, end, parameter, site, windowwidth=None, 
 					"-o", globVars.resultdir,
 					"-b", globVars.cachedir,
                                         "-m", "1"]
+    if offeringonly:
+        args.append("-y")
 
+    if sites:
+        args.append("-s")
+        args.append(sites)
+    if parameters:
+        args.append("-p")
+        args.append(parameters)
+    if procedures:
+        args.append("-P")
+        args.append(procedures)
+    if offerings:
+        args.append("-O")
+        args.append(offerings)
+
+
+    print (repr(args))
 
     resdata=call_blocking(args)
 
@@ -179,7 +210,7 @@ def make_jsonresponse(ts, pid):
     
     return { "timestamp" : ts, "pid" : pid}
 
-def qs_nonblocking_get(sosendpoint, begin, end, parameter, site, windowwidth=None, windowinterval=None, wait=False):  # noqa: E501
+def qs_nonblocking_get(sosendpoint, begin, end, parameter, procedure, offering, offeringonly, site, windowwidth=None, windowinterval=None, span=0.06, wait=False):  # noqa: E501
     """Retrieve a parameter from one station from start to end
 
      # noqa: E501
@@ -209,32 +240,60 @@ def qs_nonblocking_get(sosendpoint, begin, end, parameter, site, windowwidth=Non
 
     sites=site[0]
     parameters=parameter[0]
+    procedures=procedure[0]
+    offerings=offering[0]
 
-    if len(site)>1:
+    if len(site)>0:
+        sites=site[0]
         for s in site[1:]:
                 sites=sites+","+s
 
-    if len(parameter)>1:
+    if len(parameter)>0:
+        parameters= parameter[0]
         for p in parameter[1:]:
                 parameters=parameters+","+p
+    
+    if len(procedure)>0:
+        procedures= procedure[0]
+        for p in procedure[1:]:
+                procedures=procedures+","+p
+    
+    if len(offering)>0:
+        offerings=offering[0]
+        for o in offering[1:]:
+                offerings=offerings+","+o
 
     myts=makeTimeStamp()
 
     args=['/usr/bin/Rscript',globVars.scriptdir + '/quality_check.R',
                                         "-d", globVars.scriptdir,
                                         "-e", sosendpoint,
-                                        "-s", sites,
-                                        "-p", parameters,
+					"-S", span,
                                         "-f", begin,
                                         "-t", end,
                                         "-w", str(windowwidth),
                                         "-i", str(windowinterval),
 					"-z", myts,
-					"-q", True,
+					"-q",
 					"-o", globVars.resultdir,
 					"-b", globVars.cachedir,
                                         "-m", "1"]
 
+    if offeringonly:
+        args.append("-y")
+
+    if sites:
+        args.append("-s")
+       	args.append(sites)
+    if parameters:
+        args.append("-p")
+        args.append(parameters)
+    if procedures:
+        args.append("-P")
+        args.append(procedures)
+    if offerings:
+        args.append("-O")
+        args.append(offerings)
 
     pid=call_nonblocking(args)
 
@@ -273,7 +332,7 @@ def qs_nonblocking_post(repourl, windowwidth=None, windowinterval=None, wait=Fal
 					"-c", globVars.password,
                                         "-w", str(windowwidth),
                                         "-i", str(windowinterval),
-					"-q", str(True),
+					"-q",
 					"-z", myts,
 					"-o", globVars.resultdir,
 					"-b", globVars.cachedir,
