@@ -60,7 +60,7 @@ getSos <- function(verbose, saveOriginal, sosVersion, binding, responseFormat,
 		      print (paste("Loading observations from SOS : ", cache_filename, sep=""))
 
 		      myGetObservation <- NULL
-		      if (offeringOnly) {
+		      if (offeringOnly==1) {
                         print ("Calling SOS with offeringOnly")
 			#print (sos_offering)
 			myOffering <- sosOfferings(sos)[[sos_offering]]
@@ -213,7 +213,7 @@ getSos <- function(verbose, saveOriginal, sosVersion, binding, responseFormat,
 						"YEAR","MONTH", "DAY", "HOUR", "MIN", "SEC", 
 						"FIELDNAME","VALUE", "UNIT")
 
-		      if (offeringOnly) {
+		      if (offeringOnly==1) {
 			restab$SITECODE=NULL
 			restab$OBSERVEDPROPERTY=NULL
 			restab$UNIT=NULL

@@ -583,7 +583,7 @@ outlierAnalysis <- function(tsdata, stat_movingwindows, stat_overlap, span_num, 
 		  # 6. methode: OutlierDetection::depthout - Takes a dataset and finds its outliers using depth-based method
 		  # nur bivariat
 		  # bivariate
-		  windows(40,30)
+		  #windows(40,30)
 		  outlierdata <- outlierdata[order(outlierdata$timestamp,decreasing=F),]
 		  res02 = vector()
 		  res991 <- tryCatch(
@@ -923,6 +923,6 @@ outlierAnalysis <- function(tsdata, stat_movingwindows, stat_overlap, span_num, 
 		# löschen nicht mehr benötigter objekte
 		rm(res00,res9999,qs_res,ts_full_temp,para,quanttemp,ts_full,taba,pardata01)
 	}
-	rm(sample,pathvector,resi00,paraloop,homepath,pathres,respath,respath_final,ct_num,span_num,stat_movingwindows,stat_movingwindows_mod,stat_overlap)
+	rm(sample,pathvector,resi00,paraloop,homepath,respath,respath_final,ct_num,span_num,stat_movingwindows,stat_movingwindows_mod,stat_overlap)
 	return(pathres)
 }

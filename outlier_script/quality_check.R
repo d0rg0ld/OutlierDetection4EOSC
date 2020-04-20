@@ -179,9 +179,9 @@ write.table(tsdata, paste("DUMMYDUMP_", mypid,".tsv", sep=""), sep="\t", row.nam
 
 source(paste(getwd(), "outlierAnalysis.R", sep="/"))
 filelist=outlierAnalysis(tsdata, stat_movingwindows, stat_interval, stat_span, respath)
-print(filelist)
-sys.exit(1)
-warnings()
+print(strsplit(filelist, ";"))
+#sys.exit(1)
+#warnings()
 
 pkgTest("zip")
 zipfile=paste(sos_site, "_", gsub("\\/", "", sos_parameter), "_", gsub(" ", "_", sos_startperiod), "_", gsub(" ", "_", sos_endperiod), "_", stat_movingwindows, "_", stat_interval,sep="")
@@ -193,7 +193,7 @@ zipfile=paste(respath, zipfile, ".zip", sep="")
 #print(zipfile)
 #print(filelist)
 #print (unlist(filelist))
-zipr(zipfile, unlist(filelist))
+zipr(zipfile, unlist(strsplit(filelist, ";")))
 
 print (paste("ARE WE QUIET ", opt$quiet, sep=""))
 print (paste("------------ END ---",Sys.time(),"----------------", sep=""))
