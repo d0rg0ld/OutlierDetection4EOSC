@@ -6,13 +6,13 @@ outlierAnalysis <- function(tsdata, stat_movingwindows, stat_overlap, span_num, 
 	pkgTest("OutlierDetection")
 	pkgTest("DMwR")
 	pkgTest("EnvStats")		
-	# parameter fÃ¼r die eine ausreiÃeranalyse durchgefÃ¼hrt werden kann
+	# parameter für die eine ausreißeranalyse durchgeführt werden kann
 	paraloop <- unique(tsdata$FIELDNAME)
 
 	# vektor mit den pfaden der ergebnisfiles
 	pathres <- NULL
 
-	# tabelle an die die ergebnisse der kommenden schleifen angehÃ¤ngt werden
+	# tabelle an die die ergebnisse der kommenden schleifen angehängt werden
 	#resi00 <- data.frame(t(rep(NA,38)))
 	#resi00 <- data.frame(matrix(ncol=38), nrow=0)
 	resi00 <- NULL
@@ -42,9 +42,9 @@ outlierAnalysis <- function(tsdata, stat_movingwindows, stat_overlap, span_num, 
 		pardata00$timestamp <- chron(paste(pardata00$DAY,"-",pardata00$MONTH,"-",pardata00$YEAR,sep=""),paste(pardata00$HOUR,":",pardata00$MIN,":",pardata00$SEC,sep=""),
 						 format=c(dates="d-m-y",times="h:m:s"))
 
-		# tabelle mit den spalten die benÃ¶tigt werden 
+		# tabelle mit den spalten die benötigt werden 
 		pardata01 <- pardata00[,c("timestamp","FIELDNAME","VALUE")]
-		# lÃ¶schen der NAs
+		# löschen der NAs
 		pardata01 <- pardata01[is.na(pardata01$VALUE)==F,]
 		# ordnen nach zeit aufsteigend
 		pardata01 <- pardata01[order(pardata01$timestamp,decreasing=F),]
@@ -52,24 +52,24 @@ outlierAnalysis <- function(tsdata, stat_movingwindows, stat_overlap, span_num, 
 		
 		rownames(pardata01) <- seq(1,nrow(pardata01),1)
 
-		# berechnung der zeitlichen auflÃ¶sung der messungen (= messintervall) -> neue spalte mit zeitstempel aber um einen 
-		# eintrag verschoben (erster eintrag wird gelÃ¶scht)
+		# berechnung der zeitlichen auflösung der messungen (= messintervall) -> neue spalte mit zeitstempel aber um einen 
+		# eintrag verschoben (erster eintrag wird gelöscht)
 		pardata01$timeperiod <- c(pardata01$timestamp[-1],NA)
-		# zeitliche differenz zwischen 2 aufeinanderfolgende zeitstempeln  (= zeitliche auflÃ¶sung der messreihe) 
+		# zeitliche differenz zwischen 2 aufeinanderfolgende zeitstempeln  (= zeitliche auflösung der messreihe) 
 		pardata01$timediff <- as.numeric(pardata01$timestamp-pardata01$timeperiod)
-		# zeitliche auflÃ¶sung umgerechnet in minuten und gerundet auf volle "ganze" minuten
+		# zeitliche auflösung umgerechnet in minuten und gerundet auf volle "ganze" minuten
 		pardata01$timediff <- round((24*60)*abs(pardata01$timediff),digits=0)
-		# umwandeln in faktoren (="gruppen"), bestimmung der hÃ¤ufigkeiten der gruppen und sortieren hinsichtlich der hÃ¤ufigkeiten der gruppen 
+		# umwandeln in faktoren (="gruppen"), bestimmung der häufigkeiten der gruppen und sortieren hinsichtlich der häufigkeiten der gruppen 
 		quanttemp <- aggregate(as.character(pardata01$timediff),list(as.character(pardata01$timediff)),length)
 		colnames(quanttemp) <- c("timediff_min","freq")
-		# ordnen nach hÃ¤ufigkeit (absteigend)
+		# ordnen nach häufigkeit (absteigend)
 		quanttemp <- quanttemp[order(quanttemp$freq,decreasing=T),]
 		# umwandeln der zeitangabe in stunden
 		quanttemp$timediff_h <- as.numeric(quanttemp$timediff)/60
-		# bestimmung der gruppe mit der grÃ¶Ãten hÃ¤ufigkeit (= das zeitintervall mit der 
-		# grÃ¶Ãten hÃ¤ufigkeit = zeitliche auflÃ¶sung der messungen)
+		# bestimmung der gruppe mit der größten häufigkeit (= das zeitintervall mit der 
+		# größten häufigkeit = zeitliche auflösung der messungen)
 		#quanttemp <- quanttemp[length(quanttemp)]
-		# lÃ¶schen der spalten timediff und timeperiod (= werden nicht mehr benÃ¶tigt)
+		# löschen der spalten timediff und timeperiod (= werden nicht mehr benötigt)
 		pardata01$timediff <- NULL
 		pardata01$timeperiod <- NULL
 
@@ -78,15 +78,15 @@ outlierAnalysis <- function(tsdata, stat_movingwindows, stat_overlap, span_num, 
 		#pardata01 <- pardata01[pardata01$years==2012,]
 		nrow(pardata01)
 		pardata01$years <- NULL
-		# lÃ¶schen der objekte die nicht mehr benÃ¶tigt werden
+		# löschen der objekte die nicht mehr benötigt werden
 		rm(pardata00)
 
-		# generierung einer vollstÃ¤ndige zeitreihe
+		# generierung einer vollständige zeitreihe
 		# anfang der untersuchten zeitreihe
 		start_ts <- min(pardata01$timestamp)
 		# ende der untersuchten zeitreihe
 		end_ts <- max(pardata01$timestamp)
-		# potentielle lÃ¤nge der zeitreihe definiert durch anfang und ende und der jeweiligen zeitlichen auflÃ¶sung
+		# potentielle länge der zeitreihe definiert durch anfang und ende und der jeweiligen zeitlichen auflösung
 		# der zeitreihe (= messintervall), welche oben bestimmt wurde
 
 		#print ("ORDER ")
@@ -101,47 +101,47 @@ outlierAnalysis <- function(tsdata, stat_movingwindows, stat_overlap, span_num, 
 		  ts_full$timestamp <- chron(ts_full$timestamp, times="00:00:00", format=c(dates="d-m-y",times="h:m:s"))
 
 		#print ("ORDER done")
-		# "merge" -> spalte mit der datensatz mit anderem verbunden wird (= primÃ¤rschlÃ¼ssel)
+		# "merge" -> spalte mit der datensatz mit anderem verbunden wird (= primärschlüssel)
 		ts_full$merge <- as.character(ts_full$timestamp)
-		# lÃ¶schen nicht mehr benÃ¶tigter objekte
+		# löschen nicht mehr benötigter objekte
 		rm(start_ts,end_ts)
 
-		# anhÃ¤ngen der messwerte an die gesamte zeitreihe
+		# anhängen der messwerte an die gesamte zeitreihe
 		pardata02 <- pardata01
-		# "merge" -> spalte mit der der datensatz mit anderem verbunden wird (= primÃ¤rschlÃ¼ssel)
+		# "merge" -> spalte mit der der datensatz mit anderem verbunden wird (= primärschlüssel)
 		pardata02$merge <- as.character(pardata02$timestamp)
-		# lÃ¶schen der spalte (= wird nicht mehr benÃ¶tigt)
+		# löschen der spalte (= wird nicht mehr benötigt)
 		pardata02$timestamp <- NULL
-		# verbinden der potentiellen mit der tatsÃ¤chlichen zeitreihe
+		# verbinden der potentiellen mit der tatsächlichen zeitreihe
 		ts_full <- merge(ts_full,pardata02,by.x="merge",by.y="merge",all.x=T)
 		# ordnen der gesamten zeitreihe
 		ts_full <- ts_full[order(ts_full$timestamp,decreasing=F),]
-		# lÃ¶schen der spalte (= wird nicht mehr benÃ¶tigt)
+		# löschen der spalte (= wird nicht mehr benötigt)
 		ts_full$merge <- NULL
-		# lÃ¶schen unnÃ¶tiger objekte
+		# löschen unnötiger objekte
 		rm(pardata02)
 
 		# gesamte zeitreihe (halbstundenwerte)
 		ts_full$temp_resolution <- quanttemp[1,"timediff_min"]
 
-		# 1. analyseergebnis: absolute verÃ¤nderung zum davorliegenden als auch nÃ¤chsten messwert und ermittlung ob die verÃ¤nderungen 
-		# auffÃ¤llig sind (95er bzw. 75er perzentile) und ermittlung der anzahl der NAs innerhalb 2er moving windows (+- 2 messwerte bzw- +- 7 messwerte)
+		# 1. analyseergebnis: absolute veränderung zum davorliegenden als auch nächsten messwert und ermittlung ob die veränderungen 
+		# auffällig sind (95er bzw. 75er perzentile) und ermittlung der anzahl der NAs innerhalb 2er moving windows (+- 2 messwerte bzw- +- 7 messwerte)
 		loopres <- data.frame(t(rep(NA,10)))
 		colnames(loopres) <- c("timestamp","FIELDNAME","VALUE","temp_resolution","slopediffback","slopediffforward","Nas2","Nas7",
 				       "slopediffback_grp","slopediffforward_grp")
 		loopres$timestamp <- chron("01-01-70","12:00:00",format=c(dates="d-m-y",times="h:m:s"))
-		# vektor mit den zeitlichen auflÃ¶sungen
+		# vektor mit den zeitlichen auflösungen
 		temp_res_loop <- unique(ts_full$temp_resolution)
-		# das gehÃ¶rt noch dokumentiert
+		# das gehört noch dokumentiert
 
 		for (df in temp_res_loop) {
-			# tabelle mit der jeweiligen zeitlichen auflÃ¶sung
+			# tabelle mit der jeweiligen zeitlichen auflösung
 			looptab <- ts_full[ts_full$temp_resolution==df,]
 			# ordnen der gesamten zeitreihe
 			looptab <- looptab[order(looptab$timestamp,decreasing=F),]
 			# vergeben einer fortlaufenden nummer
 			rownames(looptab) <- seq(1,nrow(looptab),1)
-			# objekte an die die ergebnisse der schleife angehÃ¤ngt werden
+			# objekte an die die ergebnisse der schleife angehängt werden
 			res01 <- NA
 			res02 <- NA
 			res03 <- NA
@@ -149,31 +149,31 @@ outlierAnalysis <- function(tsdata, stat_movingwindows, stat_overlap, span_num, 
 			res05 <- NA
 
 			for (nm in seq(2,nrow(looptab),1)) {
-			  # zeitliche differenz zwischen den beiden messungen (=zeitliche auflÃ¶sung) 
+			  # zeitliche differenz zwischen den beiden messungen (=zeitliche auflösung) 
 			  timedifftemp <- round(looptab[nm,"timestamp"]-looptab[nm-1,"timestamp"],digits=1)
-			  # anhÃ¤ngen des ergebnis an res01
+			  # anhängen des ergebnis an res01
 			  res01 <- c(res01,timedifftemp)
 			  # absolute differenz zum zeitlich davorliegenden messwert
 			  slopediffback <- round(looptab[nm,"VALUE"]-looptab[nm-1,"VALUE"],digits=3)
-			  # anhÃ¤ngen des ergebnis an res02
+			  # anhängen des ergebnis an res02
 			  res02 <- c(res02,slopediffback)
 			  # absolute differenz zum zeitlich darauffolgenden messwert
 			  slopediffforward <- round(looptab[nm+1,"VALUE"]-looptab[nm,"VALUE"],digits=3)
-			  # anhÃ¤ngen des ergebnis an res03
+			  # anhängen des ergebnis an res03
 			  res03 <- c(res03,slopediffforward)
 			  # ermittlung des relativen anteils der NAs in einem window - bzw. +2 messwerte vom aktuellen messwert (dh messwert +/- 2 messwerte) 
 			  if ((nm-2)<0) { low <- 0 } else { low <- nm-2 }
 			  NAs2temp <- looptab[c((low):(nm+2)),] 
 			  # berechnung des ratios
 			  NAs2ratio <- (length(na.exclude(NAs2temp[,"VALUE"])))/nrow(NAs2temp)
-			  # anhÃ¤ngen des ergebnis an res04
+			  # anhängen des ergebnis an res04
 			  res04 <- c(res04,NAs2ratio)
 			  # ermittlung des relativen anteils der NAs in einem window - bzw. +7 messwerte vom aktuellen messwert (dh messwert +/- 7 messwerte) 
 			  if ((nm-7)<0) { low <- 0 } else { low <- nm-7 }
 			  NAs7temp <- looptab[c((low):(nm+7)),] 
 			  # berechnung des ratios
 			  NAs7ratio <- (length(na.exclude(NAs7temp[,"VALUE"])))/nrow(NAs7temp)
-			  # anhÃ¤ngen des ergebnis an res05
+			  # anhängen des ergebnis an res05
 			  res05 <- c(res05,NAs7ratio)
 			}
 			# check ob zeitliche intervalle zwischen den messungen stimmen
@@ -187,51 +187,51 @@ outlierAnalysis <- function(tsdata, stat_movingwindows, stat_overlap, span_num, 
 			rm(res01,res02,res03,res04,res05,low,NAs2temp,NAs2ratio,NAs7temp,NAs7ratio,
 			   timedifftemp,slopediffback,slopediffforward,nm)
 
-			# gruppierung der obsoluten verÃ¤nderungen zum davorliegenden messwert getrennt nach zu- bzw. abnahme - 5/95er 
-			# extreme abweichung 25/75 deutliche abweichung sonst normal und 0 = keine verÃ¤nderung
+			# gruppierung der obsoluten veränderungen zum davorliegenden messwert getrennt nach zu- bzw. abnahme - 5/95er 
+			# extreme abweichung 25/75 deutliche abweichung sonst normal und 0 = keine veränderung
 			quantile_back <- looptab[is.na(looptab$slopediffback)==F,]
-			# klassifizierung der davorliegenden verÃ¤nderung (getrennt nach positiven und negativen verÃ¤nderungen) 
-			# zuerst davorliegende wert war hÃ¶her -> dh verÃ¤nderung ist eine abnahme -> messwert - verÃ¤nderung = davorliegender messwert
+			# klassifizierung der davorliegenden veränderung (getrennt nach positiven und negativen veränderungen) 
+			# zuerst davorliegende wert war höher -> dh veränderung ist eine abnahme -> messwert - veränderung = davorliegender messwert
 			quantile_back_neg <- quantile_back[quantile_back$slopediffback<0,]
 			# 5er perzentile
 			neg_05 <- quantile(quantile_back_neg$slopediffback,probs=seq(0,1,0.05))[2]
 			# 25er perzentile 
 			neg_25 <- quantile(quantile_back_neg$slopediffback,probs=seq(0,1,0.05))[6]
-			# zuerst davorliegende wert war niedriger -> dh verÃ¤nderung ist eine zunahme -> messwert - verÃ¤nderung = davorliegender messwert
+			# zuerst davorliegende wert war niedriger -> dh veränderung ist eine zunahme -> messwert - veränderung = davorliegender messwert
 			quantile_back_pos <- quantile_back[quantile_back$slopediffback>0,]
 			# 95er perzentile
 			pos_95 <- quantile(quantile_back_pos$slopediffback,probs=seq(0,1,0.05))[20]
 			# 75er perzentile 
 			pos_75 <- quantile(quantile_back_pos$slopediffback,probs=seq(0,1,0.05))[16]
 			# hier: gruppierung
-			# wenn verÃ¤nderung 0, dann bleibt alles gleich 
+			# wenn veränderung 0, dann bleibt alles gleich 
 			looptab$slopediffback_grp <- ifelse(looptab$slopediffback==0,"zero change",NA)
-			# 3 gruppen: ... extreme >/< 95 perzentil bzw ..... high: zwischen 75 and 95 perzentil, wenn 0 = keine verÃ¤nderung, sonst normal 
+			# 3 gruppen: ... extreme >/< 95 perzentil bzw ..... high: zwischen 75 and 95 perzentil, wenn 0 = keine veränderung, sonst normal 
 			looptab$slopediffback_grp <- ifelse(looptab$slopediffback<=neg_05,"decrease extreme",looptab$slopediffback_grp)
 			looptab$slopediffback_grp <- ifelse(looptab$slopediffback>neg_05&looptab$slopediffback<=neg_25,"decrease high",looptab$slopediffback_grp)
 			looptab$slopediffback_grp <- ifelse(looptab$slopediffback>=pos_95,"increase extreme",looptab$slopediffback_grp)
 			looptab$slopediffback_grp <- ifelse(looptab$slopediffback<pos_95&looptab$slopediffback>=pos_75,"increase high",looptab$slopediffback_grp)
 			looptab$slopediffback_grp <- ifelse(is.na(looptab$slopediffback_grp)==T,"normal",looptab$slopediffback_grp)
 
-			# gruppierung der obsoluten verÃ¤nderungen zum folgenden messwert getrennt nach zu- bzw. abnahme - 5/95er 
-			# extreme abweichung 25/75 deutliche abweichung sonst normal und 0 = keine verÃ¤nderung
+			# gruppierung der obsoluten veränderungen zum folgenden messwert getrennt nach zu- bzw. abnahme - 5/95er 
+			# extreme abweichung 25/75 deutliche abweichung sonst normal und 0 = keine veränderung
 			quantile_forward <- looptab[is.na(looptab$slopediffforward)==F,]
-			# klassifizierung der folgenden verÃ¤nderung (getrennt nach positiven und negativen verÃ¤nderungen) 
-			# zuerst nÃ¤chster wert war niedriger -> dh verÃ¤nderung ist eine abnahme -> messwert + verÃ¤nderung = folgender messwert
+			# klassifizierung der folgenden veränderung (getrennt nach positiven und negativen veränderungen) 
+			# zuerst nächster wert war niedriger -> dh veränderung ist eine abnahme -> messwert + veränderung = folgender messwert
 			quantile_forward_neg <- quantile_forward[quantile_forward$slopediffforward<0,]
 			# 5er perzentile 
 			neg_05 <- quantile(quantile_forward_neg$slopediffforward,probs=seq(0,1,0.05))[2]
 			# 25er perzentile
 			neg_25 <- quantile(quantile_forward_neg$slopediffforward,probs=seq(0,1,0.05))[6]
-			# dann nÃ¤chster wert war hÃ¶her -> dh verÃ¤nderung ist eine zunahme -> messwert + verÃ¤nderung = folgender messwert
+			# dann nächster wert war höher -> dh veränderung ist eine zunahme -> messwert + veränderung = folgender messwert
 			quantile_forward_pos <- quantile_forward[quantile_forward$slopediffforward>0,]
 			# 95er perzentile
 			pos_95 <- quantile(quantile_forward_pos$slopediffforward,probs=seq(0,1,0.05))[20]
 			# 75er perzentile
 			pos_75 <- quantile(quantile_forward_pos$slopediffforward,probs=seq(0,1,0.05))[16]
-			# wenn verÃ¤nderung 0, dann bleibt alles gleich 
+			# wenn veränderung 0, dann bleibt alles gleich 
 			looptab$slopediffforward_grp <- ifelse(looptab$slopediffforward==0,"zero change",NA)
-			# 3 gruppen: ... extreme >/< 95 perzentil bzw ..... high: zwischen 75 and 95 perzentil, wenn 0 = keine verÃ¤nderung, sonst normal 
+			# 3 gruppen: ... extreme >/< 95 perzentil bzw ..... high: zwischen 75 and 95 perzentil, wenn 0 = keine veränderung, sonst normal 
 			looptab$slopediffforward_grp <- ifelse(looptab$slopediffforward<=neg_05,"decrease extreme",looptab$slopediffforward_grp)
 			looptab$slopediffforward_grp <- ifelse(looptab$slopediffforward>neg_05&looptab$slopediffforward<=neg_25,"decrease high",looptab$slopediffforward_grp)
 			looptab$slopediffforward_grp <- ifelse(looptab$slopediffforward>=pos_95,"increase extreme",looptab$slopediffforward_grp)
@@ -242,29 +242,29 @@ outlierAnalysis <- function(tsdata, stat_movingwindows, stat_overlap, span_num, 
 			loopres <- rbind(loopres,looptab)
 		}
 
-		# lÃ¶chen der 1. zeile mit NAs
+		# löchen der 1. zeile mit NAs
 		ts_full <- loopres[-1,]
-		# lÃ¶schen von objekten die nicht mehr benÃ¶tigt werden
+		# löschen von objekten die nicht mehr benötigt werden
 		rm(neg_05,neg_25,pos_75,pos_95,quantile_back,quantile_back_neg,
 		   quantile_back_pos,quantile_forward,quantile_forward_neg,quantile_forward_pos,loopres,looptab,df,temp_res_loop)
 
-		# ausreiÃeranalyse  
-		# resultat der analyse: metadaten fÃ¼r jedes zeitfenster (start, ende, pot. anzahl der
-		# messwerte, tatsÃ¤chlich vorhandene anzahl der messwerte, ...)!!! 
+		# ausreißeranalyse  
+		# resultat der analyse: metadaten für jedes zeitfenster (start, ende, pot. anzahl der
+		# messwerte, tatsächlich vorhandene anzahl der messwerte, ...)!!! 
 		qs_res <- data.frame(t(rep(NA,11)))
 		colnames(qs_res) <- c("para","period","start","end","tempres","potlength","actlength","rat",
 				      "shapiro_overall","shapiro_red","cov")
 		qs_res$start <- chron("01-01-1970","12:00:00",format=c(dates="d-m-y",times="h:m:s"))
 		qs_res$end <- chron("01-01-1970","12:00:00",format=c(dates="d-m-y",times="h:m:s"))
 
-		# resultat der analyse: alle ausreiÃer (definiert durch parameter, wert, zeitstempel und methode)
+		# resultat der analyse: alle ausreißer (definiert durch parameter, wert, zeitstempel und methode)
 		res00 <- data.frame(t(rep(NA,9)))
 		colnames(res00) <- c("FIELDNAME","VALUE","timestamp","statistik","temp_resolution","period","mean","startperiod","endperiod")
 		res00$timestamp <- chron("01-01-1970","12:00:00",format=c(dates="d-m-y",times="h:m:s"))
 		res00$startperiod <- chron("01-01-1970","12:00:00",format=c(dates="d-m-y",times="h:m:s"))
 		res00$endperiod <- chron("01-01-1970","12:00:00",format=c(dates="d-m-y",times="h:m:s"))
 
-		# resultat der analyse: alle moving windows in denen eine bestimmte methode nicht durchgeÃ¼hrt werden konnte
+		# resultat der analyse: alle moving windows in denen eine bestimmte methode nicht durchgeührt werden konnte
 		res9999 <- data.frame(t(rep(NA,5)))
 		colnames(res9999) <- c("FIELDNAME","statistik","period","startperiod","endperiod")
 		res9999$startperiod <- chron("01-01-1970","12:00:00",format=c(dates="d-m-y",times="h:m:s"))
@@ -277,12 +277,12 @@ outlierAnalysis <- function(tsdata, stat_movingwindows, stat_overlap, span_num, 
 		# vergabe einer laufenden nummer
 		rownames(taba) <- seq(1,nrow(taba),1)
 
-		# Anzahl der moving windows unter berÃ¼cksichtigung der zeitlichen Ã¼berlappung
+		# Anzahl der moving windows unter berücksichtigung der zeitlichen überlappung
 		# vekor mit allen zeiteinheiten (dh zeitstempel)
 		veca <- unique(substr(as.character(taba$timestamp),2,9))
-		# berechnung der anzahl der mÃ¶glichen moving winsows: anzahl der zeitstempel durch lÃ¤nge des moving windows minus der zeitlichen Ã¼berlappung
+		# berechnung der anzahl der möglichen moving winsows: anzahl der zeitstempel durch länge des moving windows minus der zeitlichen überlappung
 		vecb <- length(veca)/(stat_movingwindows-stat_overlap)
-		# neuberechung der lÃ¤nge der moving windows, damit sich eine ganze zahl an moving windows ergibt 
+		# neuberechung der länge der moving windows, damit sich eine ganze zahl an moving windows ergibt 
 		# unterschied ist minimal
 		stat_movingwindows_mod <- length(veca)/ceil(vecb)
 		# vecb <- length(veca)/(stat_movingwindows_mod)
@@ -290,18 +290,18 @@ outlierAnalysis <- function(tsdata, stat_movingwindows, stat_overlap, span_num, 
 		# vector mit der laufenden nummern der moving windows 
 		sample <- seq(1,ceil(vecb),1)
 		# zum testen der analyse werden nicht alle moving windows analysiert
-		# zufÃ¤llige auswahl einer definierten anzahl an moving windows
+		# zufällige auswahl einer definierten anzahl an moving windows
 		rm(veca,vecb)
 
 		for (runb in sample) {
 		  #print(runb)
-		  # tabelle an die die messwerte die als ausreiÃer bestimmt wurden 
-		  # angehÃ¤ngt werden + die methode mit der die analyse durchfÃ¼hrt wurde (="statistik")
+		  # tabelle an die die messwerte die als ausreißer bestimmt wurden 
+		  # angehängt werden + die methode mit der die analyse durchführt wurde (="statistik")
 		  res01 <- data.frame(t(rep(NA,4)))
 		  colnames(res01) <- c("FIELDNAME","VALUE","timestamp","statistik")
 		  res01$timestamp <- chron("01-01-1970","12:00:00",format=c(dates="d-m-y",times="h:m:s"))
 
-		  # tabelle an die die methoden inkl moving windows, die nicht angewendet werden kÃ¶nnen angehÃ¤ngt werden
+		  # tabelle an die die methoden inkl moving windows, die nicht angewendet werden können angehängt werden
 		  res99 <- data.frame(t(rep(NA,2)))
 		  colnames(res99) <- c("FIELDNAME","statistik")
 		 
@@ -310,8 +310,8 @@ outlierAnalysis <- function(tsdata, stat_movingwindows, stat_overlap, span_num, 
 		  # ende des jeweiligen moving windows
 		  startperiod <- endperiod-stat_movingwindows
 			    
-		  # potentielle lÃ¤nge des jeweiligen moving windows (dh wenn keine NAs in der zeitreihe sind) definiert durch anfang und ende und
-		  # der jeweiligen zeitlichen auflÃ¶sung der zeitreihe (= messintervall), welche oben bestimmt wurde
+		  # potentielle länge des jeweiligen moving windows (dh wenn keine NAs in der zeitreihe sind) definiert durch anfang und ende und
+		  # der jeweiligen zeitlichen auflösung der zeitreihe (= messintervall), welche oben bestimmt wurde
 		  # da noch anpassen
 		  pottimeperiod <- length(seq.dates(startperiod,endperiod,by=quanttemp[1,"timediff_h"]/24))
 		  
@@ -328,28 +328,28 @@ outlierAnalysis <- function(tsdata, stat_movingwindows, stat_overlap, span_num, 
 		  outlierdata <- outlierdata[order(outlierdata$timestamp,decreasing=F),]
 		  # vergabe einer fortlaufenden nummer
 		  rownames(outlierdata) <- seq(1,nrow(outlierdata),1)
-		  # anzahl der zeilen der tabelle (= anzahl der tatsÃ¤chlich vorhandenen messwerte)
+		  # anzahl der zeilen der tabelle (= anzahl der tatsächlich vorhandenen messwerte)
 		  acttimeperiod <- length(na.exclude(outlierdata$VALUE))
-		  # verhÃ¤ltnis zwischen tatsÃ¤chlichen und potentiellen messwerten
+		  # verhältnis zwischen tatsächlichen und potentiellen messwerten
 		  ratio <- round(acttimeperiod/pottimeperiod,digits=2)
 		  
-		  # entfernen der ausreiÃer (alle methoden werden ohne ausreiÃer durchgefÃ¼hrt)
+		  # entfernen der ausreißer (alle methoden werden ohne ausreißer durchgeführt)
 		  outlierdata <- na.exclude(outlierdata)
 
-		  # test auf normalverteilung der messwerte (1. gesamter datensatz mit ausreiÃern, 2.
+		  # test auf normalverteilung der messwerte (1. gesamter datensatz mit ausreißern, 2.
 		  # reduzierter datensatz (= an den beiden enden werden jeweils 10% der werte entfernt))
-		  # damit der einfluss der potentiellen ausreiÃer im datensatz gering gehalten wird, 
-		  # werden die 10% niedrigsten und 10% hÃ¶chsten werte (=potentielle ausreiÃer) vom datensatz entfernt
+		  # damit der einfluss der potentiellen ausreißer im datensatz gering gehalten wird, 
+		  # werden die 10% niedrigsten und 10% höchsten werte (=potentielle ausreißer) vom datensatz entfernt
 		  number <- round((nrow(outlierdata)*(20/100)/2),digits=0)
 		  # sortieren der werte
 		  shap_temp <- sort(outlierdata$VALUE,decreasing=T)
-		  # entfernen der hÃ¶chsten werte (10% der gesamten anzahl der werte)
+		  # entfernen der höchsten werte (10% der gesamten anzahl der werte)
 		  shap_temp <- shap_temp[-c(1:number)]
 		  # entfernen der niedrigsten werte (10% der gesamten anzahl der werte)
 		  shap_temp <- shap_temp[-c((length(shap_temp)-number):length(shap_temp))]
 		  # shapiro test auf normalverteilung
 		  res991 <- tryCatch(
-		    #expression die ausgefÃ¼hrt werden soll
+		    #expression die ausgeführt werden soll
 		    { shap_p_overall <- round(shapiro.test(na.exclude(outlierdata$VALUE))$p.value,digits=5) },
 		    error = function(cond) { # message(paste("Error shapiro test full data", cond, sep="\n"))
 		      res991=data.frame(FIELDNAME="No outliers")
@@ -365,7 +365,7 @@ outlierAnalysis <- function(tsdata, stat_movingwindows, stat_overlap, span_num, 
 		#    shap_p_overall <- round(shapiro.test(na.exclude(outlierdata$VALUE))$p.value,digits=5)
 		  
 		  res991 <- tryCatch(
-		    #expression die ausgefÃ¼hrt werden soll
+		    #expression die ausgeführt werden soll
 		    { shap_p_red <- round(shapiro.test(na.exclude(shap_temp))$p.value,digits=5) },
 		    error = function(cond) { # message(paste("Error shapiro test reduced data", cond, sep="\n")) 
 		      res991=data.frame(FIELDNAME="No outliers")
@@ -392,22 +392,22 @@ outlierAnalysis <- function(tsdata, stat_movingwindows, stat_overlap, span_num, 
 		  if (exists("shap_p_red")) 
  		  	shap_p_red_dummy=shap_p_red
  
-		  # !!!resultat der ausreiÃeranalyse: metadaten des jeweiligen moving windows!!!!
+		  # !!!resultat der ausreißeranalyse: metadaten des jeweiligen moving windows!!!!
 		  qs_01 <- data.frame(para=para,period=runb,start=startperiod,end=endperiod,
 				      tempres=quanttemp[1,"timediff_min"],potlength=pottimeperiod,actlength=acttimeperiod,rat=ratio,
 				      shapiro_overall=shap_p_overall_dummy,shapiro_red=shap_p_red_dummy,cov=cov)
-		  # anhÃ¤ngen an die oben definierte tabelle
+		  # anhängen an die oben definierte tabelle
 		  qs_res <- rbind(qs_res,qs_01)
 		  rm(pottimeperiod,acttimeperiod,shap_p_overall,shap_p_red,cov,number,qs_01)
 		  
-		  # vorausetzung der datensÃ¤tze: ratio tat/pot werte >=0.5 und anzahl unterschiedlicher
-		  # werte >= 40 -> das vor allem weil es zu datensÃ¤tze mit nur 0 werten kommen kann (zb niederschlag)
-		  # und dann hÃ¤ngen sich viele funktionen auf
+		  # vorausetzung der datensätze: ratio tat/pot werte >=0.5 und anzahl unterschiedlicher
+		  # werte >= 40 -> das vor allem weil es zu datensätze mit nur 0 werten kommen kann (zb niederschlag)
+		  # und dann hängen sich viele funktionen auf
 		   if (ratio<=0.5|(length(unique(outlierdata$VALUE))<=5)) { # print("alles gleich") 
 		     } else { 
 		     # loess = Fit a polynomial surface determined by one or more numerical predictors, using local fitting
-		     # analyse wird sowohl univariate als auch bivariate durchgefÃ¼hrt -
-		     # !!!!ACHTUNG: span muss an die anzahl der werte in der tabelle angepaÃt werden
+		     # analyse wird sowohl univariate als auch bivariate durchgeführt -
+		     # !!!!ACHTUNG: span muss an die anzahl der werte in der tabelle angepaßt werden
 		     outlierdata$timestamp_numeric <- as.numeric(outlierdata$timestamp)
 		     loesstemp <- loess(outlierdata$VALUE~outlierdata$timestamp_numeric,span=span_num)
 		     outlierdata$timestamp_num <- predict(loesstemp,outlierdata$timestamp_numeric)
@@ -418,36 +418,36 @@ outlierAnalysis <- function(tsdata, stat_movingwindows, stat_overlap, span_num, 
 		     rm(loesstemp)
 		     
 		     # 2. methode: rosner test (=ESD) (univariat)
-		     # rosner test -> getestet wird wieviele einer definierte anzahl an messwerten ausreiÃer sind
-		     # k = die anzahl der messwerte die getestet wird - k reicht von 1 bis zur hÃ¤lfte der messwerte
-		     # - k wird durch schleife verÃ¤ndert
-		     # ergebnis = anzahl der ausreiÃer
-		     # ergebnis ist immer die anzahl der ausreiÃer bei einem bestimmten k
+		     # rosner test -> getestet wird wieviele einer definierte anzahl an messwerten ausreißer sind
+		     # k = die anzahl der messwerte die getestet wird - k reicht von 1 bis zur hälfte der messwerte
+		     # - k wird durch schleife verändert
+		     # ergebnis = anzahl der ausreißer
+		     # ergebnis ist immer die anzahl der ausreißer bei einem bestimmten k
 		     rosres <- data.frame(t(rep(NA,2)))
 		     colnames(rosres) <- c("k","outlier")
-		     #rosi = k = anzahl der werte die uf ausreiÃer getestet wird
+		     #rosi = k = anzahl der werte die uf ausreißer getestet wird
 		     for (rosi in c(1:floor(nrow(outlierdata)/2))) {
 		     rosnertemp <- EnvStats::rosnerTest(outlierdata$VALUE,k=rosi,warn=F)
 		     # anzahl der werte die getestet werden
 		     resloop <- data.frame(k=rosi)
-		     # anzahl der ausreiÃer
+		     # anzahl der ausreißer
 		     resloop$outlier <- rosnertemp$n.outliers
 		     rosres <- rbind(rosres,resloop)
 		     }
 		     rosres <- rosres[-1,]
-		     # tabelle mit allen ks (= durchlÃ¤ufen), bei denen mindestens 1 ausreiÃer gefunden wurde 
+		     # tabelle mit allen ks (= durchläufen), bei denen mindestens 1 ausreißer gefunden wurde 
 		     rosres <- rosres[rosres$outlier>0,]
-		     # wenn mindestens 1 ausreiÃer gefunden wurde, dann wird die maximale anzahl an 
-		     # ausreiÃern gesucht (k nimmt zu, aber ab einem bestimmten k bleibt die anzahl 
-		     # der ausreiÃer gleich) 
+		     # wenn mindestens 1 ausreißer gefunden wurde, dann wird die maximale anzahl an 
+		     # ausreißern gesucht (k nimmt zu, aber ab einem bestimmten k bleibt die anzahl 
+		     # der ausreißer gleich) 
 		     if (nrow(rosres)>0) { 
-		     # alle ks mit der maximale anzahl an ausreiÃern
+		     # alle ks mit der maximale anzahl an ausreißern
 		     rosi <- rosres[rosres$outlier==max(rosres$outlier),]
-		     # von den maximalen ausreiÃern das niedigste k
+		     # von den maximalen ausreißern das niedigste k
 		     rosi <- min(rosi$k)
-		     # druchfÃ¼hren des rosnertest mit dem gerade ermittelten ks
+		     # druchführen des rosnertest mit dem gerade ermittelten ks
 		     rosnertemp <- EnvStats::rosnerTest(outlierdata$VALUE,k=rosi,warn=F)
-		     # selektion der messwerte die als ausreiÃer ermittelt wurden
+		     # selektion der messwerte die als ausreißer ermittelt wurden
 		     rosnertemp <- rosnertemp$all.stats
 		     res02 <- outlierdata[rosnertemp$Obs.Num,]
 		     res02$statistik <- paste("EnvStats_rosnerTest")
@@ -457,11 +457,11 @@ outlierAnalysis <- function(tsdata, stat_movingwindows, stat_overlap, span_num, 
 		     rm(rosi,rosnertemp,resloop,rosres)
 
 			# 3. methode: MAD +/- Streuungsparameter
-			# package: univOutl, function: LocScaleB, method: alle die mÃ¶glich sind, k: 2 und 5
-			# berechnung ist mittelwert +/- einem streuungsparameter - auÃerhalb dieses bereichs werden die werte als ausreiÃer definiert
-			# als mittelwert wird der median verwendet weil er robust gegenÃ¼ber ausreiÃer ist und dann gibt es die aufgelisteten streuungsparameter 
+			# package: univOutl, function: LocScaleB, method: alle die möglich sind, k: 2 und 5
+			# berechnung ist mittelwert +/- einem streuungsparameter - außerhalb dieses bereichs werden die werte als ausreißer definiert
+			# als mittelwert wird der median verwendet weil er robust gegenüber ausreißer ist und dann gibt es die aufgelisteten streuungsparameter 
 			# k ist der wert mit dem der jeweilige streuungsparameter multipliziert wird und hat damit einen direkten einfluss auf das 
-			# untere und obere limit ab dem ein wert ein ausreiÃer ist
+			# untere und obere limit ab dem ein wert ein ausreißer ist
 
 			for (vb in c("IQR","IDR","MAD","Gini","ScaleTau2","Qn","Sn")) {
 			   res02 <- vector()
@@ -511,10 +511,10 @@ outlierAnalysis <- function(tsdata, stat_movingwindows, stat_overlap, span_num, 
 
 		  # 4. methode: This function obtain local outlier factors using the LOF algorithm. 
 		  # ... given a data set it produces a vector of local outlier factors (=value shows "outlierness" of each value) for each case
-		  # analyse wird mit unterschiedlichen ks durchgefÃ¼hrt 
+		  # analyse wird mit unterschiedlichen ks durchgeführt 
 		  # (k = The number of neighbours that will be used in the calculation of the local outlier factors.)
-		  # eine klassifikation in ausreiÃer oder nicht-ausreiÃer (0/1) wird nicht durchgefÃ¼hrt
-		  # die 5 messwerte mit den hÃ¶chsten werten wird ausgewÃ¤hlt -> das kÃ¶nnten wir noch verbessern
+		  # eine klassifikation in ausreißer oder nicht-ausreißer (0/1) wird nicht durchgeführt
+		  # die 5 messwerte mit den höchsten werten wird ausgewählt -> das könnten wir noch verbessern
 		  # http://www.rdatamining.com/examples/outlier-detection
 		  
 		  outlierdata <- outlierdata[order(outlierdata$timestamp,decreasing=F),]
@@ -590,7 +590,7 @@ outlierAnalysis <- function(tsdata, stat_movingwindows, stat_overlap, span_num, 
 		  #lines(outlierdata[,"timestamp"],outlierdata[,"timestamp_num"],col="red")
 		  #savePlot(paste(respath,para,runb,"OutlierDetection_dens_univar",".pdf",sep=""),type="pdf")
 		  #dev.off()
-		  # anhÃ¤ngen an schleifentabelle
+		  # anhängen an schleifentabelle
 		  if (length(res02)>0) { res02 <- outlierdata[res02,] 
 		  res02$statistik <- paste("OutlierDetection_dens_univar",sep="")
 		  res02$timestamp_num <- NULL
@@ -620,7 +620,7 @@ outlierAnalysis <- function(tsdata, stat_movingwindows, stat_overlap, span_num, 
 		  #lines(outlierdata[,"timestamp"],outlierdata[,"timestamp_num"],col="red")
 		  #savePlot(paste(respath,para,runb,"OutlierDetection_dens_bivar",".pdf",sep=""),type="pdf")
 		  #dev.off()
-		  # anhÃ¤ngen an schleifentabelle
+		  # anhängen an schleifentabelle
 		  if (length(res02)>0) { res02 <- outlierdata[res02,] 
 		  res02$statistik <- paste("OutlierDetection_dens_bivar",sep="")
 		  res02$timestamp_num <- NULL
@@ -654,7 +654,7 @@ outlierAnalysis <- function(tsdata, stat_movingwindows, stat_overlap, span_num, 
 		  #lines(outlierdata[,"timestamp"],outlierdata[,"timestamp_num"],col="red")
 		  #savePlot(paste(respath,para,runb,"OutlierDetection_depthout_bivar",".pdf",sep=""),type="pdf")
 		  #dev.off()
-		  # anhÃ¤ngen an schleifentabelle
+		  # anhängen an schleifentabelle
 		  if (length(res02)>0) { res02 <- outlierdata[res02,] 
 		  res02$statistik <- paste("OutlierDetection_depthout_bivar",sep="")
 		  res02$timestamp_num <- NULL
@@ -663,7 +663,7 @@ outlierAnalysis <- function(tsdata, stat_movingwindows, stat_overlap, span_num, 
 		  #print("depthout")
 		  rm(res02)
 
-		  # 7. ausreiÃeranalyse: OutlierDetection::maha - Takes a dataset and finds its outliers using modelbased method
+		  # 7. ausreißeranalyse: OutlierDetection::maha - Takes a dataset and finds its outliers using modelbased method
 		  
 		  # univariate
 		  #windows(40,30)
@@ -687,7 +687,7 @@ outlierAnalysis <- function(tsdata, stat_movingwindows, stat_overlap, span_num, 
 		  #lines(outlierdata[,"timestamp"],outlierdata[,"timestamp_num"],col="red")
 		  #savePlot(paste(respath,para,runb,"OutlierDetection_maha_univar",".pdf",sep=""),type="pdf")
 		  #dev.off()
-		  # anhÃ¤ngen an schleifentabelle
+		  # anhängen an schleifentabelle
 		  if (length(res02)>0) { res02 <- outlierdata[res02,] 
 		  res02$statistik <- paste("OutlierDetection_maha_univar",sep="")
 		  res02$timestamp_num <- NULL
@@ -717,7 +717,7 @@ outlierAnalysis <- function(tsdata, stat_movingwindows, stat_overlap, span_num, 
 		  #lines(outlierdata[,"timestamp"],outlierdata[,"timestamp_num"],col="red")
 		  #savePlot(paste(respath,para,runb,"OutlierDetection_maha_bivar",".pdf",sep=""),type="pdf")
 		  #dev.off()
-		  # anhÃ¤ngen an schleifentabelle
+		  # anhängen an schleifentabelle
 		  if (length(res02)>0) { res02 <- outlierdata[res02,] 
 		  res02$statistik <- paste("OutlierDetection_maha_bivar",sep="")
 		  res02$timestamp_num <- NULL
@@ -726,7 +726,7 @@ outlierAnalysis <- function(tsdata, stat_movingwindows, stat_overlap, span_num, 
 		  #print("maha")
 		  rm(res02)
 		  
-		  # 8. ausreiÃeranalyse: OutlierDetection::nn 
+		  # 8. ausreißeranalyse: OutlierDetection::nn 
 		  
 		  # univariate
 		  #windows(40,30)
@@ -750,7 +750,7 @@ outlierAnalysis <- function(tsdata, stat_movingwindows, stat_overlap, span_num, 
 		  #lines(outlierdata[,"timestamp"],outlierdata[,"timestamp_num"],col="red")
 		  #savePlot(paste(respath,para,runb,"OutlierDetection_nn_univar",".pdf",sep=""),type="pdf")
 		  #dev.off()
-		  # anhÃ¤ngen an schleifentabelle
+		  # anhängen an schleifentabelle
 		  if (length(res02)>0) { res02 <- outlierdata[res02,] 
 		  res02$statistik <- paste("OutlierDetection_nn_univar",sep="")
 		  res02$timestamp_num <- NULL
@@ -780,7 +780,7 @@ outlierAnalysis <- function(tsdata, stat_movingwindows, stat_overlap, span_num, 
 		  #lines(outlierdata[,"timestamp"],outlierdata[,"timestamp_num"],col="red")
 		  #savePlot(paste(respath,para,runb,"OutlierDetection_nn_bivar",".pdf",sep=""),type="pdf")
 		  #dev.off()
-		  # anhÃ¤ngen an schleifentabelle
+		  # anhängen an schleifentabelle
 		  if (length(res02)>0) { res02 <- outlierdata[res02,] 
 		  res02$statistik <- paste("OutlierDetection_nn_bivar",sep="")
 		  res02$timestamp_num <- NULL
@@ -813,7 +813,7 @@ outlierAnalysis <- function(tsdata, stat_movingwindows, stat_overlap, span_num, 
 		  #lines(outlierdata[,"timestamp"],outlierdata[,"timestamp_num"],col="red")
 		  #savePlot(paste(respath,para,runb,"OutlierDetection_nnk_univar",".pdf",sep=""),type="pdf")
 		  #dev.off()
-		  # anhÃ¤ngen an schleifentabelle
+		  # anhängen an schleifentabelle
 		  if (length(res02)>0) { res02 <- outlierdata[res02,] 
 		  res02$statistik <- paste("OutlierDetection_nnk_univ",sep="")
 		  res02$timestamp_num <- NULL
@@ -843,7 +843,7 @@ outlierAnalysis <- function(tsdata, stat_movingwindows, stat_overlap, span_num, 
 		  #lines(outlierdata[,"timestamp"],outlierdata[,"timestamp_num"],col="red")
 		  #savePlot(paste(respath,para,runb,"OutlierDetection_nnk_bivar",".pdf",sep=""),type="pdf")
 		  #dev.off()
-		  # anhÃ¤ngen an schleifentabelle
+		  # anhängen an schleifentabelle
 		  if (length(res02)>0) { res02 <- outlierdata[res02,] 
 		  res02$statistik <- paste("OutlierDetection_nnk_bivar",sep="")
 		  res02$timestamp_num <- NULL
@@ -852,7 +852,7 @@ outlierAnalysis <- function(tsdata, stat_movingwindows, stat_overlap, span_num, 
 		  #print("nnk")
 		  rm(res02)  
 
-		  # zusÃ¤tzlich ,metainformation (zeitliche auflÃ¶sung, laufende nummer des moving windows, mittelwert des moving windows,
+		  # zusätzlich ,metainformation (zeitliche auflösung, laufende nummer des moving windows, mittelwert des moving windows,
 		  # beginn und ende des moving windows)
 		  res01$temp_resolution <- quanttemp[1,"timediff_min"]
 		  res01$period <- runb
@@ -861,7 +861,7 @@ outlierAnalysis <- function(tsdata, stat_movingwindows, stat_overlap, span_num, 
 		  res01$endperiod <- endperiod
 		  res00 <- rbind(res00,res01)
 		  
-		  # anhÃ¤ngen der info welche methoden nicht druchgefÃ¼hrt werden konnten an die schleifentabelle
+		  # anhängen der info welche methoden nicht druchgeführt werden konnten an die schleifentabelle
 		  if (nrow(res99)>1) {
 		  res99$period <- runb
 		  res99$startperiod <- startperiod 
@@ -870,7 +870,7 @@ outlierAnalysis <- function(tsdata, stat_movingwindows, stat_overlap, span_num, 
 		  res9999 <- rbind(res9999,res99)
 		  }
 		   }
-		  # lÃ¶schen von objekten die nicht mehr benÃ¶tigt werden
+		  # löschen von objekten die nicht mehr benötigt werden
 		  rm(runb)
 		  rm(ratio)
 		  rm(startperiod)
@@ -893,7 +893,7 @@ outlierAnalysis <- function(tsdata, stat_movingwindows, stat_overlap, span_num, 
 		ts_full_temp <- ts_full
 
 		tempx=NULL
-		# erstellung einer tabelle mit den hÃ¤ufigkeiten  
+		# erstellung einer tabelle mit den häufigkeiten  
 		if (nrow(res9999)>0) {
 		  errorloop <- data.frame(t(rep(NA,3)))
 		  colnames(errorloop) <- c("timestamp","FIELDNAME","statistik")
@@ -919,7 +919,7 @@ outlierAnalysis <- function(tsdata, stat_movingwindows, stat_overlap, span_num, 
 			
 		rm(errortemp,err,errorloop,errstart,errend) 
 
-		# anhÃ¤ngen der ermittelten ausreiÃer an die gesamte zeitreihe - getrennt nach den angewandten methoden
+		# anhängen der ermittelten ausreißer an die gesamte zeitreihe - getrennt nach den angewandten methoden
 		ts_full_temp$merge <- as.character(ts_full_temp$timestamp)
 		res00 <- res00[is.na(res00$statistik)==F,]
 		meth_loop <- c("EnvStats_rosnerTest","univOutl_LocScaleB_IDR_k2","univOutl_LocScaleB_IDR_k5","univOutl_LocScaleB_IQR_k2","univOutl_LocScaleB_IQR_k5",
@@ -945,7 +945,7 @@ outlierAnalysis <- function(tsdata, stat_movingwindows, stat_overlap, span_num, 
 		}
 		rm(jh,meth_loop)
 
-		# anhÃ¤ngen der information welche methoden nicht durchgefhrt werden konnten an die gesamte zeitreihe
+		# anhängen der information welche methoden nicht durchgefhrt werden konnten an die gesamte zeitreihe
 		if (!is.null(tempx) && nrow(tempx)>0) {
 		errorloop <- unique(tempx$statistik)
     #browser()
@@ -979,7 +979,7 @@ outlierAnalysis <- function(tsdata, stat_movingwindows, stat_overlap, span_num, 
 		pathvector <- c(paste(respath_final,para4file,"_outliers.dat",sep=""),paste(respath_final,para4file,"_method_notworking.dat",sep=""),
 				    paste(respath_final,para4file,"_movingwindows_metadata.dat",sep=""),paste(respath_final,para4file,"_timeseries_plusoutlier.dat",sep=""))
 		pathres <- c(pathres,pathvector)
-		# lÃ¶schen nicht mehr benÃ¶tigter objekte
+		# löschen nicht mehr benötigter objekte
 		rm(res00,res9999,qs_res,ts_full_temp,para,quanttemp,ts_full,taba,pardata01)
 	}
 	print(warnings())
