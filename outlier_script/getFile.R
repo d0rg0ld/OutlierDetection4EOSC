@@ -15,12 +15,14 @@ getFile <- function(username, password, dav) {
   files=unzip(tmpzip, list=TRUE)
   resultat=NULL
   cnames=NULL
+  print (paste("Extract Files from", tmpzip))
   for (file in files[files$Length>0,]$Name) {
     print (file)
     tab=read.table(unz(tmpzip,file), stringsAsFactors = F, sep=";")
     resultat=rbind(resultat,tab[-1,])
     cnames=append(cnames,paste(tab[1,], collapse=";"))
   }
+  print ("Done extracting")
 
   unlink(tmpzip)
 
@@ -30,6 +32,8 @@ getFile <- function(username, password, dav) {
   }
 
   colnames(resultat)=unlist(strsplit(cnames[1], ";"))
+
+  print (paste("Set colnames to", colnames(resultat)))
 
   vals=as.numeric(gsub(",",".",resultat$VALUE))
   #write(vals, stderr())

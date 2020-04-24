@@ -12,15 +12,18 @@ outlierAnalysis <- function(tsdata, stat_movingwindows, stat_overlap, span_num, 
 	pathres <- NULL
 
 	# tabelle an die die ergebnisse der kommenden schleifen angehängt werden
-	resi00 <- data.frame(t(rep(NA,38)))
-	colnames(resi00) <- c("timestamp","FIELDNAME","VALUE","temp_resolution","slopediffback","slopediffforward","Nas2","Nas7","slopediffback_grp","slopediffforward_grp",
-			      "EnvStats_rosnerTest","univOutl_LocScaleB_IDR_k2","univOutl_LocScaleB_IDR_k5","univOutl_LocScaleB_IQR_k2","univOutl_LocScaleB_IQR_k5",
-			      "univOutl_LocScaleB_Gini_k2","univOutl_LocScaleB_Gini_k5","univOutl_LocScaleB_Qn_k2","univOutl_LocScaleB_Qn_k5",
-			      "univOutl_LocScaleB_ScaleTau2_k2","univOutl_LocScaleB_ScaleTau2_k5","univOutl_LocScaleB_Sn_k2","univOutl_LocScaleB_Sn_k5",
-			      "univOutl_LocScaleB_MAD_k2","univOutl_LocScaleB_MAD_k5","DMwR_lofactor_univar_2","DMwR_lofactor_univar_4","DMwR_lofactor_bivar_2",
-			      "DMwR_lofactor_bivar_4","OutlierDetection_dens_univar","OutlierDetection_dens_bivar","OutlierDetection_depthout_bivar","OutlierDetection_maha_univar",
-			      "OutlierDetection_maha_bivar","OutlierDetection_nn_univar","OutlierDetection_nn_bivar","OutlierDetection_nnk_univ", "OutlierDetection_nnk_bivar")
-	resi00$timestamp <- chron("01/01/1970","12:00:00",format=c(dates="d/m/y",times="h:m:s"))
+	#resi00 <- data.frame(t(rep(NA,38)))
+	#resi00 <- data.frame(matrix(ncol=38), nrow=0)
+	resi00 <- NULL
+	
+	#colnames(resi00) <- c("timestamp","FIELDNAME","VALUE","temp_resolution","slopediffback","slopediffforward","Nas2","Nas7","slopediffback_grp","slopediffforward_grp",
+	#		      "EnvStats_rosnerTest","univOutl_LocScaleB_IDR_k2","univOutl_LocScaleB_IDR_k5","univOutl_LocScaleB_IQR_k2","univOutl_LocScaleB_IQR_k5",
+	#		      "univOutl_LocScaleB_Gini_k2","univOutl_LocScaleB_Gini_k5","univOutl_LocScaleB_Qn_k2","univOutl_LocScaleB_Qn_k5",
+	#		      "univOutl_LocScaleB_ScaleTau2_k2","univOutl_LocScaleB_ScaleTau2_k5","univOutl_LocScaleB_Sn_k2","univOutl_LocScaleB_Sn_k5",
+	#		      "univOutl_LocScaleB_MAD_k2","univOutl_LocScaleB_MAD_k5","DMwR_lofactor_univar_2","DMwR_lofactor_univar_4","DMwR_lofactor_bivar_2",
+	#		      "DMwR_lofactor_bivar_4","OutlierDetection_dens_univar","OutlierDetection_dens_bivar","OutlierDetection_depthout_bivar","OutlierDetection_maha_univar",
+	#		      "OutlierDetection_maha_bivar","OutlierDetection_nn_univar","OutlierDetection_nn_bivar","OutlierDetection_nnk_univ", "OutlierDetection_nnk_bivar")
+	#resi00$timestamp <- chron("01-01-1970","12:00:00",format=c(dates="d-m-y",times="h:m:s"))
 
 	for (para in paraloop) {
 		# Percentile threshold used in the outlier analysis, default value is 0.05 
@@ -35,8 +38,8 @@ outlierAnalysis <- function(tsdata, stat_movingwindows, stat_overlap, span_num, 
 		pardata00$MIN <- ifelse(nchar(pardata00$MIN)==1,paste("0",pardata00$MIN,sep=""),pardata00$MIN)
 		pardata00$SEC <- ifelse(nchar(pardata00$SEC)==1,paste("0",pardata00$SEC,sep=""),pardata00$SEC)
 		# umwandeln des zeitstempels in chron zeitformat (package: chron)
-		pardata00$timestamp <- chron(paste(pardata00$DAY,"/",pardata00$MONTH,"/",pardata00$YEAR,sep=""),paste(pardata00$HOUR,":",pardata00$MIN,":",pardata00$SEC,sep=""),
-						 format=c(dates="d/m/y",times="h:m:s"))
+		pardata00$timestamp <- chron(paste(pardata00$DAY,"-",pardata00$MONTH,"-",pardata00$YEAR,sep=""),paste(pardata00$HOUR,":",pardata00$MIN,":",pardata00$SEC,sep=""),
+						 format=c(dates="d-m-y",times="h:m:s"))
 
 		# tabelle mit den spalten die benötigt werden 
 		pardata01 <- pardata00[,c("timestamp","FIELDNAME","VALUE")]
@@ -91,6 +94,10 @@ outlierAnalysis <- function(tsdata, stat_movingwindows, stat_overlap, span_num, 
 		#print (end_ts)
 		#print (quanttemp[quanttemp$freq==max(quanttemp$freq),"timediff_h"]/24)
 		ts_full <- data.frame(timestamp=seq.dates(start_ts,end_ts,by=quanttemp[quanttemp$freq==max(quanttemp$freq),"timediff_h"]/24))
+		if (nchar(ts_full$timestamp)==5) { 
+			ts_full$timestamp <- paste("(",ts_full$timestamp," 00:00:00)",sep="") 
+			ts_full$timestamp <- chron(dates=substr(ts_full$timestamp,2,9),times=substr(ts_full$timestamp,11,18),format=c(dates="d-m-y",times="h:m:s"))
+		}
 		#print ("ORDER done")
 		# "merge" -> spalte mit der datensatz mit anderem verbunden wird (= primärschlüssel)
 		ts_full$merge <- as.character(ts_full$timestamp)
@@ -120,7 +127,7 @@ outlierAnalysis <- function(tsdata, stat_movingwindows, stat_overlap, span_num, 
 		loopres <- data.frame(t(rep(NA,10)))
 		colnames(loopres) <- c("timestamp","FIELDNAME","VALUE","temp_resolution","slopediffback","slopediffforward","Nas2","Nas7",
 				       "slopediffback_grp","slopediffforward_grp")
-		loopres$timestamp <- chron("01/01/70","12:00:00",format=c(dates="d/m/y",times="h:m:s"))
+		loopres$timestamp <- chron("01-01-70","12:00:00",format=c(dates="d-m-y",times="h:m:s"))
 		# vektor mit den zeitlichen auflösungen
 		temp_res_loop <- unique(ts_full$temp_resolution)
 		# das gehört noch dokumentiert
@@ -245,21 +252,21 @@ outlierAnalysis <- function(tsdata, stat_movingwindows, stat_overlap, span_num, 
 		qs_res <- data.frame(t(rep(NA,11)))
 		colnames(qs_res) <- c("para","period","start","end","tempres","potlength","actlength","rat",
 				      "shapiro_overall","shapiro_red","cov")
-		qs_res$start <- chron("01/01/1970","12:00:00",format=c(dates="d/m/y",times="h:m:s"))
-		qs_res$end <- chron("01/01/1970","12:00:00",format=c(dates="d/m/y",times="h:m:s"))
+		qs_res$start <- chron("01-01-1970","12:00:00",format=c(dates="d-m-y",times="h:m:s"))
+		qs_res$end <- chron("01-01-1970","12:00:00",format=c(dates="d-m-y",times="h:m:s"))
 
 		# resultat der analyse: alle ausreißer (definiert durch parameter, wert, zeitstempel und methode)
 		res00 <- data.frame(t(rep(NA,9)))
 		colnames(res00) <- c("FIELDNAME","VALUE","timestamp","statistik","temp_resolution","period","mean","startperiod","endperiod")
-		res00$timestamp <- chron("01/01/1970","12:00:00",format=c(dates="d/m/y",times="h:m:s"))
-		res00$startperiod <- chron("01/01/1970","12:00:00",format=c(dates="d/m/y",times="h:m:s"))
-		res00$endperiod <- chron("01/01/1970","12:00:00",format=c(dates="d/m/y",times="h:m:s"))
+		res00$timestamp <- chron("01-01-1970","12:00:00",format=c(dates="d-m-y",times="h:m:s"))
+		res00$startperiod <- chron("01-01-1970","12:00:00",format=c(dates="d-m-y",times="h:m:s"))
+		res00$endperiod <- chron("01-01-1970","12:00:00",format=c(dates="d-m-y",times="h:m:s"))
 
 		# resultat der analyse: alle moving windows in denen eine bestimmte methode nicht durchgeührt werden konnte
 		res9999 <- data.frame(t(rep(NA,5)))
 		colnames(res9999) <- c("FIELDNAME","statistik","period","startperiod","endperiod")
-		res9999$startperiod <- chron("01/01/1970","12:00:00",format=c(dates="d/m/y",times="h:m:s"))
-		res9999$endperiod <- chron("01/01/1970","12:00:00",format=c(dates="d/m/y",times="h:m:s"))
+		res9999$startperiod <- chron("01-01-1970","12:00:00",format=c(dates="d-m-y",times="h:m:s"))
+		res9999$endperiod <- chron("01-01-1970","12:00:00",format=c(dates="d-m-y",times="h:m:s"))
 
 		# 
 		taba <- ts_full[,c("timestamp","FIELDNAME","VALUE")]
@@ -290,7 +297,7 @@ outlierAnalysis <- function(tsdata, stat_movingwindows, stat_overlap, span_num, 
 		  # angehängt werden + die methode mit der die analyse durchführt wurde (="statistik")
 		  res01 <- data.frame(t(rep(NA,4)))
 		  colnames(res01) <- c("FIELDNAME","VALUE","timestamp","statistik")
-		  res01$timestamp <- chron("01/01/1970","12:00:00",format=c(dates="d/m/y",times="h:m:s"))
+		  res01$timestamp <- chron("01-01-1970","12:00:00",format=c(dates="d-m-y",times="h:m:s"))
 
 		  # tabelle an die die methoden inkl moving windows, die nicht angewendet werden können angehängt werden
 		  res99 <- data.frame(t(rep(NA,2)))
@@ -308,6 +315,13 @@ outlierAnalysis <- function(tsdata, stat_movingwindows, stat_overlap, span_num, 
 		  
 		  # tabelle mit den werten des jeweiligen moving windows 
 		  outlierdata <- taba[taba$timestamp>=startperiod&taba$timestamp<endperiod,]
+
+		  if (is.na(unique(outlierdata$VALUE))==T) {
+			outlierdata$VALUE <- 9999 
+			outlierdata$FIELDNAME <- para
+		  }
+
+
 		  # ornden nach zeitstempels
 		  outlierdata <- outlierdata[order(outlierdata$timestamp,decreasing=F),]
 		  # vergabe einer fortlaufenden nummer
@@ -356,6 +370,7 @@ outlierAnalysis <- function(tsdata, stat_movingwindows, stat_overlap, span_num, 
 		      if(nrow(outlierdata)>0)
 		      	res991 <- data.frame(FIELDNAME=unique(outlierdata$FIELDNAME))
 		      res991$statistik <- "Error shapiro test reduced data"
+		      shap_p_red <- 9999
 		      return(res991)
 		    }
 		  )
@@ -363,7 +378,11 @@ outlierAnalysis <- function(tsdata, stat_movingwindows, stat_overlap, span_num, 
 		  rm(res991,shap_temp)
 		  # berechnung des cov
 		  cov <- round(sd(na.exclude(outlierdata$VALUE))/abs(mean(na.exclude(outlierdata$VALUE))),digits=2)
-		  
+		  if (exists("shap_p_overall")==F) { 
+			shap_p_overall <- 999999 }
+		  if (exists("shap_p_red")==F) { 
+			shap_p_red <- 999999 }
+ 
  		  shap_p_overall_dummy=NA
 		  if (exists("shap_p_overall")) 
  		  	shap_p_overall_dummy=shap_p_overall
@@ -382,7 +401,7 @@ outlierAnalysis <- function(tsdata, stat_movingwindows, stat_overlap, span_num, 
 		  # vorausetzung der datensätze: ratio tat/pot werte >=0.5 und anzahl unterschiedlicher
 		  # werte >= 40 -> das vor allem weil es zu datensätze mit nur 0 werten kommen kann (zb niederschlag)
 		  # und dann hängen sich viele funktionen auf
-		   if (ratio<=0.5|(length(unique(outlierdata$VALUE))<=40)) { # print("alles gleich") 
+		   if (ratio<=0.5|(length(unique(outlierdata$VALUE))<=5)) { # print("alles gleich") 
 		     } else { 
 		     # loess = Fit a polynomial surface determined by one or more numerical predictors, using local fitting
 		     # analyse wird sowohl univariate als auch bivariate durchgeführt -
@@ -391,6 +410,9 @@ outlierAnalysis <- function(tsdata, stat_movingwindows, stat_overlap, span_num, 
 		     loesstemp <- loess(outlierdata$VALUE~outlierdata$timestamp_numeric,span=span_num)
 		     outlierdata$timestamp_num <- predict(loesstemp,outlierdata$timestamp_numeric)
 		     outlierdata$timestamp_numeric <- NULL
+
+		     write.table(outlierdata, paste("outlierdata", runb,  sep="_"))
+
 		     rm(loesstemp)
 		     
 		     # 2. methode: rosner test (=ESD) (univariat)
@@ -432,34 +454,59 @@ outlierAnalysis <- function(tsdata, stat_movingwindows, stat_overlap, span_num, 
 		     }
 		     rm(rosi,rosnertemp,resloop,rosres)
 
-		  # 3. methode: MAD +/- Streuungsparameter
-		  # package: univOutl, function: LocScaleB, method: alle die möglich sind, k: 2 und 5
-		  # berechnung ist mittelwert +/- einem streuungsparameter - außerhalb dieses bereichs werden die werte als ausreißer definiert
-		  # als mittelwert wird der median verwendet weil er robust gegenüber ausreißer ist und dann gibt es die aufgelisteten streuungsparameter 
-		  # k ist der wert mit dem der jeweilige streuungsparameter multipliziert wird und hat damit einen direkten einfluss auf das 
-		  # untere und obere limit ab dem ein wert ein ausreißer ist
+			# 3. methode: MAD +/- Streuungsparameter
+			# package: univOutl, function: LocScaleB, method: alle die möglich sind, k: 2 und 5
+			# berechnung ist mittelwert +/- einem streuungsparameter - außerhalb dieses bereichs werden die werte als ausreißer definiert
+			# als mittelwert wird der median verwendet weil er robust gegenüber ausreißer ist und dann gibt es die aufgelisteten streuungsparameter 
+			# k ist der wert mit dem der jeweilige streuungsparameter multipliziert wird und hat damit einen direkten einfluss auf das 
+			# untere und obere limit ab dem ein wert ein ausreißer ist
 
-		  for (vb in c("IQR","IDR","MAD","Gini","ScaleTau2","Qn","Sn")) {
-		  res02 <- univOutl::LocScaleB(outlierdata$VALUE,k=2,method=vb,weights=NULL,id=NULL,exclude=NA,logt=FALSE,return.dataframe=TRUE)$data
-		  res02 <- res02[res02$outliers==1,]
-		  if (nrow(res02)>0) { res02 <- outlierdata[res02$id,] 
-		    res02$statistik <- paste("univOutl_LocScaleB_",vb,"_k2",sep="")
-		    }
-		  res02$timestamp_num <- NULL
-		  res01 <- rbind(res01,res02)
-		  rm(res02)
+			for (vb in c("IQR","IDR","MAD","Gini","ScaleTau2","Qn","Sn")) {
+			   res02 <- vector()
+			   res991 <- tryCatch(
+			      { res02 <- univOutl::LocScaleB(outlierdata$VALUE,k=2,method=vb,weights=NULL,id=NULL,exclude=NA,logt=FALSE,return.dataframe=TRUE)$data 
+			        res02 <- res02[res02$outliers==1,]
+			        if (nrow(res02)>0) { 
+				  res02 <- outlierdata[res02$id,] 
+			          res02$statistik <- paste("univOutl_LocScaleB_",vb,"_k2",sep="")
+			        }
+			        res02$timestamp_num <- NULL
+			        res01 <- rbind(res01,res02)
+			        rm(res02)  
+			      },
+			      error = function(cond) { #message(paste("Error Error UnivOutl_LocScaleB", cond, sep="\n")) 
+				res991 <- data.frame(FIELDNAME=unique(outlierdata$FIELDNAME))
+				res991$statistik <- paste("univOutl_LocScaleB_",vb,"_k2",sep="")
+				return(res991)
+			      }
+			    )
+			    res99 <- rbind(res99,res991)
+			    rm(res991)
 
-		  res02 <- univOutl::LocScaleB(outlierdata$VALUE,k=5,method=vb,weights=NULL,id=NULL,exclude=NA,logt=FALSE,return.dataframe=TRUE)$data
-		  res02 <- res02[res02$outliers==1,]
-		  if (nrow(res02)>0) { res02 <- outlierdata[res02$id,] 
-		  res02$statistik <- paste("univOutl_LocScaleB_",vb,"_k5",sep="")
-		  }
-		  res02$timestamp_num <- NULL
-		  res01 <- rbind(res01,res02)
-		  rm(res02)
-		  }
-		  rm(vb)
-		  
+			    res02 = vector()
+			    res991 <- tryCatch(
+			      { res02 <- univOutl::LocScaleB(outlierdata$VALUE,k=5,method=vb,weights=NULL,id=NULL,exclude=NA,logt=FALSE,return.dataframe=TRUE)$data 
+			        res02 <- res02[res02$outliers==1,]
+			        if (nrow(res02)>0) { 
+				  res02 <- outlierdata[res02$id,] 
+			          res02$statistik <- paste("univOutl_LocScaleB_",vb,"_k5",sep="")
+			        }
+			        res02$timestamp_num <- NULL
+			        res01 <- rbind(res01,res02)
+			        rm(res02) 
+			      },
+			      error = function(cond) { #message(paste("Error Error UnivOutl_LocScaleB", cond, sep="\n")) 
+				res991 <- data.frame(FIELDNAME=unique(outlierdata$FIELDNAME))
+				res991$statistik <- paste("univOutl_LocScaleB_",vb,"_k5",sep="")
+				return(res991)
+			      }
+			    )
+			    res99 <- rbind(res99,res991)
+			    rm(res991)
+			 }
+			  rm(vb)
+
+
 		  # 4. methode: This function obtain local outlier factors using the LOF algorithm. 
 		  # ... given a data set it produces a vector of local outlier factors (=value shows "outlierness" of each value) for each case
 		  # analyse wird mit unterschiedlichen ks durchgeführt 
@@ -843,11 +890,12 @@ outlierAnalysis <- function(tsdata, stat_movingwindows, stat_overlap, span_num, 
 
 		ts_full_temp <- ts_full
 
+		tempx=NULL
 		# erstellung einer tabelle mit den häufigkeiten  
 		if (nrow(res9999)>0) {
 		  errorloop <- data.frame(t(rep(NA,3)))
 		  colnames(errorloop) <- c("timestamp","FIELDNAME","statistik")
-		  errorloop$timestamp <- chron("01/01/1970","12:00:00",format=c(dates="d/m/y",times="h:m:s"))
+		  errorloop$timestamp <- chron("01-01-1970","12:00:00",format=c(dates="d-m-y",times="h:m:s"))
 
 		  for (err in c(1:nrow(res9999))) {
 		    errstart <- res9999[err,"startperiod"]
@@ -865,7 +913,8 @@ outlierAnalysis <- function(tsdata, stat_movingwindows, stat_overlap, span_num, 
 		  tempx$timestamp <- substr(tempx$timestamp_statistik,1,19)
 		  tempx$statistik <- substr(tempx$timestamp_statistik,21,99)
 		  tempx$timestamp_statistik <- NULL
-		  } 
+		}
+			
 		rm(errortemp,err,errorloop,errstart,errend) 
 
 		# anhängen der ermittelten ausreißer an die gesamte zeitreihe - getrennt nach den angewandten methoden
@@ -895,7 +944,7 @@ outlierAnalysis <- function(tsdata, stat_movingwindows, stat_overlap, span_num, 
 		rm(jh,meth_loop)
 
 		# anhängen der information welche methoden nicht durchgefhrt werden konnten an die gesamte zeitreihe
-		if (nrow(tempx)>0) {
+		if (!is.null(tempx) && nrow(tempx)>0) {
 		errorloop <- unique(tempx$statistik)
 
 		for (err in errorloop) {
@@ -914,15 +963,27 @@ outlierAnalysis <- function(tsdata, stat_movingwindows, stat_overlap, span_num, 
 		# exportieren
 		write.table(ts_full_temp,paste(respath_final,para4file,"_timeseries_plusoutlier.dat",sep=""),sep=";",dec=".",row.names=F,na = "")
 		# exportieren der gesamten zeitreihe aller parameter
-		resi00 <- rbind(resi00,ts_full_temp)
-		write.table(resi00,paste(respath_final,"total_timeseries_plusoutlier.dat",sep=""),sep=";",dec=".",row.names=F,na = "")
+		print("BEFORE RESI00 rbind")
+		if (is.null(resi00)) {
+			resi00=ts_full_temp
+		} else {
+			resi00 <- rbind(resi00,ts_full_temp)
+		}
+		#resi00 <- rbind(resi00,ts_full_temp)
+		print("AFTER RESI00 rbind")
 		# erstellen eines vektors mit den pfaden aller ergebnisdateien 
-		pathvector <- paste(paste(respath,para4file,"_outliers.dat",sep=""),";",paste(respath,para4file,"_method_notworking.dat",sep=""),";",
-				    paste(respath,para4file,"_movingwindows_metadata.dat",sep=""),";",paste(respath,para4file,"_timeseries_plusoutlier.dat",sep=""),sep="")
+		#pathvector <- paste(paste(respath,para4file,"_outliers.dat",sep=""),";",paste(respath,para4file,"_method_notworking.dat",sep=""),";",
+		#		    paste(respath,para4file,"_movingwindows_metadata.dat",sep=""),";",paste(respath,para4file,"_timeseries_plusoutlier.dat",sep=""),sep="")
+		pathvector <- c(paste(respath,para4file,"_outliers.dat",sep=""),paste(respath,para4file,"_method_notworking.dat",sep=""),
+				    paste(respath,para4file,"_movingwindows_metadata.dat",sep=""),paste(respath,para4file,"_timeseries_plusoutlier.dat",sep=""))
 		pathres <- c(pathres,pathvector)
 		# löschen nicht mehr benötigter objekte
 		rm(res00,res9999,qs_res,ts_full_temp,para,quanttemp,ts_full,taba,pardata01)
 	}
+	print(warnings())
+	total_outfile=paste(respath_final,"total_timeseries_plusoutlier.dat",sep="")
+	write.table(resi00, total_outfile, sep=";",dec=".",row.names=F,na = "")
 	rm(sample,pathvector,resi00,paraloop,homepath,respath,respath_final,ct_num,span_num,stat_movingwindows,stat_movingwindows_mod,stat_overlap)
+	pathres=c(total_outfile, pathres)
 	return(pathres)
 }

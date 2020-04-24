@@ -109,6 +109,11 @@ respath=opt$outpathbase
 cachepath=opt$bufferdir
 myts=opt$timestamp
 
+
+stat_movingwindows=50
+stat_interval=10
+stat_span=2
+
 ##DEBUG OVERRIDE
 #.sos <- "https://sensorweb.demo.52north.org/sensorwebtestbed/service" 
 #sos_site	<- "ELV-WS2500"
@@ -179,21 +184,19 @@ write.table(tsdata, paste("DUMMYDUMP_", mypid,".tsv", sep=""), sep="\t", row.nam
 
 source(paste(getwd(), "outlierAnalysis.R", sep="/"))
 filelist=outlierAnalysis(tsdata, stat_movingwindows, stat_interval, stat_span, respath)
-print(strsplit(filelist, ";"))
+print(unlist(filelist))
+#print(strsplit(filelist, ";"))
 #sys.exit(1)
 #warnings()
 
 pkgTest("zip")
-zipfile=paste(sos_site, "_", gsub("\\/", "", sos_parameter), "_", gsub(" ", "_", sos_startperiod), "_", gsub(" ", "_", sos_endperiod), "_", stat_movingwindows, "_", stat_interval,sep="")
+outfile=paste(gsub("\\/", "", sos_offering), "_", gsub("\\/", "", sos_site), "_", gsub("\\/", "", sos_parameter), "_", gsub(" ", "_", sos_startperiod), "_", gsub(" ", "_", sos_endperiod), "_", stat_movingwindows, "_", stat_interval,sep="")
 
-zipfile=gsub("[:\\.-]", "_", zipfile)
+outfile=gsub("[:\\.-]", "_", outfile)
 
-zipfile=paste(respath, zipfile, ".zip", sep="")
+outfile=paste(respath, outfile, ".zip", sep="")
 
-#print(zipfile)
-#print(filelist)
-#print (unlist(filelist))
-zipr(zipfile, unlist(strsplit(filelist, ";")))
+zipr(outfile, unlist(filelist))
 
 print (paste("ARE WE QUIET ", opt$quiet, sep=""))
 print (paste("------------ END ---",Sys.time(),"----------------", sep=""))
@@ -201,6 +204,6 @@ file.create(paste(respath, mypid, ".done", sep=""))
 sink()
 sink(type="message")
 if (!opt$quiet) {
-	cat(zipfile)
+	cat(outfile)
 	flush.console()
 }
