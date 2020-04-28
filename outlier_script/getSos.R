@@ -18,20 +18,29 @@ getSos <- function(verbose, saveOriginal, sosVersion, binding, responseFormat,
 	sos_startperiod <- as_datetime(sos_startperiod)
 	sos_endperiod <- as_datetime(sos_endperiod)
 
-	sos_startperiod_utc <- floor_date(sos_startperiod, unit="month")
-	#print(unclass(sos_endperiod))
-	#browser()
-	sos_endperiod_utc <- (ceiling_date(sos_endperiod, unit="month")-seconds(1))
 
+	sos_startperiod_utc <- sos_startperiod
+	sos_endperiod_utc <- sos_endperiod
+
+	if (loadCache) {
+		sos_startperiod_utc <- floor_date(sos_startperiod, unit="month")
+		#print(unclass(sos_endperiod))
+		#browser()
+		sos_endperiod_utc <- (ceiling_date(sos_endperiod, unit="month")-seconds(1))
+	}
 	#print (paste("sos_startperiod : ",sos_startperiod," sos_endperiod : ",sos_endperiod,sep=""))
 	#print (paste("sos_startperiod_utc : ",sos_startperiod_utc," sos_endperiod_utc : ",sos_endperiod_utc,sep=""))
 	#print (paste("sos_startperiod_utc : ",sos_startperiod_utc," sos_endperiod_utc : ",sos_endperiod_utc-seconds(1), sep=""))
 
 	source <- sos_startperiod_utc
+	
 	target <- source+months(1)-seconds(1)
 
+	if (target > sos_endperiod_utc & !loadCache)
+		target <- sos_endperiod_utc
+
 	restab00 <- t(data.frame(rep(NA,8)))
-	colnames(restab00) <- c("YEAR","MONTH", "DAY", "HOUR", "MIN", "SEC", "FIELDNAME","VALUE")
+	colnames(restab00) <- c("YEAR","MONTH", "DAY", "HOUR", "MINUTE", "SECOND", "FIELDNAME","VALUE")
 
 	print (paste("source : ",source," target : ",target, sep=""))
 	done=FALSE
@@ -43,21 +52,27 @@ getSos <- function(verbose, saveOriginal, sosVersion, binding, responseFormat,
 	  periodstart <- paste(sprintf("%04d",year(source)),sprintf("%02d",month(source)),sprintf("%02d",day(source)),sep="")
 	  periodend <- paste(sprintf("%04d",year(target)), sprintf("%02d",month(target)),sprintf("%02d",day(target)),sep="")
 
-	  cache_filename=paste(gsub(" ", "_", sos_site) ,"_",sos_parameter,"_",periodstart,"_",periodend,sep="")
-
-	  cache_filename=paste(cachepath,gsub("[://]","_", cache_filename), sep="/")
 
 	  loaded_object=NULL
-	  print (cache_filename)
-	  try ((loaded_object=load(cache_filename)), silent=TRUE)
-	  print (loaded_object)
-	  if (.loadCache==FALSE || is.null(loaded_object) || loaded_object!="restab") {
+	  if (loadCache) {
+	  	  cache_filename=paste(gsub(" ", "_", sos_offering) ,"_", gsub(" ", "_", sos_site) ,"_",sos_parameter,"_",periodstart,"_",periodend,sep="")
+	  	  cache_filename=paste(cachepath,gsub("[://]","_", cache_filename), sep="/")
+		  print (cache_filename)
+		  try ((loaded_object=load(cache_filename)), silent=TRUE)
+		  print (loaded_object)
+	  }
+
+	  if (loadCache==FALSE || is.null(loaded_object) || loaded_object!="restab") {
 		      period <- sosCreateTimePeriod(sos = sos,
 						    begin = source,
 						    end = target)
 		      .eventTime <- sosCreateEventTimeList(period)
 			print(.eventTime)
-		      print (paste("Loading observations from SOS : ", cache_filename, sep=""))
+
+		      if (loadCache)
+		      	print (paste("Loading observations from SOS Cache: ", cache_filename, sep=""))
+		      else		      
+			print (paste("Loading observations from SOS"))
 
 		      myGetObservation <- NULL
 		      if (offeringOnly==1) {
@@ -103,7 +118,9 @@ getSos <- function(verbose, saveOriginal, sosVersion, binding, responseFormat,
 							 saveOriginal = saveOriginal)
 			}
 		      }
-		      save(myGetObservation, file=paste(cache_filename, "myGetObs", sep="_"))
+
+		      if (loadCache)
+		      	save(myGetObservation, file=paste(cache_filename, "myGetObs", sep="_"))
 		      print (paste("Finished loading observations from SOS : ", "", sep=""))
 
 		      restab <- t(data.frame(rep(NA,32)))
@@ -210,7 +227,7 @@ getSos <- function(verbose, saveOriginal, sosVersion, binding, responseFormat,
 						"procedure","result", "resultUnit")]
 			# treat procedure as fieldname, dirty workaround
 		      colnames(restab) <- c("SITECODE","OBSERVEDPROPERTY",
-						"YEAR","MONTH", "DAY", "HOUR", "MIN", "SEC", 
+						"YEAR","MONTH", "DAY", "HOUR", "MINUTE", "SECOND", 
 						"FIELDNAME","VALUE", "UNIT")
 
 		      if (offeringOnly==1) {
@@ -225,17 +242,19 @@ getSos <- function(verbose, saveOriginal, sosVersion, binding, responseFormat,
 			restab$UNIT=NULL
 		      } 
 		
-
-		      save(restab,file=cache_filename)
+		      if (loadCache)
+		      	save(restab,file=cache_filename)
 	      }
 	      restab00 <- rbind(restab00,restab)
 	      print(Sys.time())
 	      source=target + seconds(1)
 	      print (target)
-	      target=target %m+% months(1)
+	      target=source %m+% months(1) - seconds(1)
 	      print (source)
 	      print (target)
 	      #browser()
+	      if (!loadCache & target > sos_endperiod_utc)
+		target <- sos_endperiod_utc
 	      if (source> sos_endperiod_utc)
 		done=TRUE
 	}
@@ -245,7 +264,30 @@ getSos <- function(verbose, saveOriginal, sosVersion, binding, responseFormat,
 	rownames(tsdata) <- seq(1,nrow(tsdata),1)
 	tsdata$VALUE <- as.numeric(tsdata$VALUE)
 
+	#reduce tsdata to actual period of interest
+	tsdata_timestamp= paste(
+			  paste(sprintf("%04d",tsdata$YEAR), sprintf("%02d",tsdata$MONTH), sprintf("%02d",tsdata$DAY), sep="-"), 
+			  paste(sprintf("%02d",tsdata$HOUR), sprintf("%02d",tsdata$MINUTE), sprintf("%02d",tsdata$SECOND), sep=":"), 
+			  sep=" ")
+
+	print (head(tsdata_timestamp)) 
+
+	tsdata_POSIXct=as.POSIXct(
+			tsdata_timestamp,
+			format = "%Y-%m-%d %H:%M:%S", tz="UTC")
+	sos_start_POSIXct=as.POSIXct(sos_startperiod, tz="UTC")
+	sos_end_POSIXct=as.POSIXct(sos_endperiod, tz="UTC")
+
+	print (paste(sos_startperiod, sos_endperiod, sos_start_POSIXct, sos_end_POSIXct, tsdata_POSIXct[1]))
+
+	valid_dates1=(tsdata_POSIXct >= sos_start_POSIXct)
+	valid_dates2=(tsdata_POSIXct <= sos_end_POSIXct)
+
 	
+	valid_dates=valid_dates1&valid_dates2
+
+	print (paste("TSDATA RED", nrow(tsdata), sum(valid_dates1),  sum(valid_dates2), sum(valid_dates)))
+	tsdata=tsdata[valid_dates, ]	
 
 	return(tsdata)
 		

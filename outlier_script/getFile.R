@@ -41,14 +41,60 @@ getFile <- function(username, password, dav) {
   tsdata <- resultat
 
   # stay compatible with old shit
-  cols=c("SITECODE","VALUE","FIELDNAME","RID","DAY","MONTH","YEAR")
-  if (!("HOUR" %in% cols))
+  #cols=c("SITECODE","VALUE","FIELDNAME","RID","DAY","MONTH","YEAR")
+
+
+  #swap alternative aliases
+  if (!("SITECODE" %in% colnames(resultat)) & ("SITE_CODE" %in% colnames(resultat))) 
+	tsdata$SITECODE=tsdata$SITE_CODE
+  if (!("FIELDNAME" %in% colnames(resultat)) & ("SUBST" %in% colnames(resultat))) 
+	tsdata$FIELDNAME=tsdata$SUBST
+  if (!("VALUE" %in% colnames(resultat)) & ("VAL" %in% colnames(resultat))) 
+	tsdata$VALUE=tsdata$VAL
+  if (!("HOUR" %in% colnames(resultat)) & ("SHOUR" %in% colnames(resultat))) 
+	tsdata$HOUR=tsdata$SHOUR
+  if (!("DAY" %in% colnames(resultat)) & ("SDAY" %in% colnames(resultat))) 
+	tsdata$DAY=tsdata$SDAY
+  if (!("MONTH" %in% colnames(resultat)) & ("SMONTH" %in% colnames(resultat))) 
+	tsdata$MONTH=tsdata$SMONTH
+  if (!("YEAR" %in% colnames(resultat)) & ("SYEAR" %in% colnames(resultat))) 
+	tsdata$YEAR=tsdata$SYEAR
+  if (!("MINUTE" %in% colnames(resultat)) & ("SMINUTE" %in% colnames(resultat))) 
+	tsdata$MINUTE=tsdata$SMINUTE
+  if (!("SECOND" %in% colnames(resultat)) & ("SSECOND" %in% colnames(resultat))) 
+	tsdata$SECOND=tsdata$SSECOND
+  if (("DATE" %in%  colnames(resultat)) & (!("DAY" %in% colnames(resultat))) & (!("MONTH" %in% colnames(resultat))) & (!("YEAR" %in% colnames(resultat)))) {
+	dt1=as.POSIXlt(tsdata$DATE, format="%Y%m%d%H%M%S", tz="UTC")
+	if ((sum(is.na(dt1))>0))	
+		dt1=as.POSIXlt(tsdata$DATE, format="%Y%m%d", tz="UTC")
+		if ((sum(is.na(dt1))>0))	
+			dt1=as.POSIXlt(tsdata$DATE, format="%Y-%m-%d %H:%M:%S", tz="UTC")
+	if (sum(is.na(dt1))==0) {
+		tsdata$YEAR=dt1$year+1900
+		tsdata$MONTH=dt1$mon+1
+		tsdata$DAY=dt1$mday
+		tsdata$HOUR=dt1$hour
+		tsdata$MINUTE=dt1$min
+		tsdata$SECOND=dt1$sec
+	}
+  }
+  	
+  if (!("YEAR" %in% colnames(resultat)) || !("MONTH" %in% colnames(resultat)) || !("DAY" %in% colnames(resultat)))
+	return(NULL)
+
+
+  if (!("HOUR" %in% colnames(resultat)))
         tsdata$HOUR=0
-  if (!("MIN" %in% cols))
+  if (!("MINUTE" %in% colnames(resultat)))
         tsdata$MIN=0
-  if (!("SEC" %in% cols))
+  if (!("SECOND" %in% colnames(resultat)))
         tsdata$SEC=0
-  colnames(tsdata) <- c("SITECODE","VALUE","FIELDNAME","RID","DAY","MONTH","YEAR", "HOUR", "MIN", "SEC")
+  if (!("RID" %in% colnames(resultat)))
+        tsdata$RID=""
+
+  tsdata=tsdata[,c("SITECODE","VALUE","FIELDNAME","RID","DAY","MONTH","YEAR", "HOUR", "MINUTE", "SECOND")]
+  
+ # colnames(tsdata) <- c("SITECODE","VALUE","FIELDNAME","RID","DAY","MONTH","YEAR", "HOUR", "MIN", "SEC")
   rownames(tsdata) <- seq(1,nrow(tsdata),1)
   tsdata$RID <- NULL
   tsdata$FIELDNAME <- paste(tsdata$SITECODE, tsdata$FIELDNAME, sep="_")

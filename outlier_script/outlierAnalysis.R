@@ -25,9 +25,12 @@ outlierAnalysis <- function(tsdata, stat_movingwindows, stat_overlap, span_num, 
 	#		      "DMwR_lofactor_bivar_4","OutlierDetection_dens_univar","OutlierDetection_dens_bivar","OutlierDetection_depthout_bivar","OutlierDetection_maha_univar",
 	#		      "OutlierDetection_maha_bivar","OutlierDetection_nn_univar","OutlierDetection_nn_bivar","OutlierDetection_nnk_univ", "OutlierDetection_nnk_bivar")
 	#resi00$timestamp <- chron("01-01-1970","12:00:00",format=c(dates="d-m-y",times="h:m:s"))
-
+	parcnt=0
 	for (para in paraloop) {
 		# Percentile threshold used in the outlier analysis, default value is 0.05 
+		parcnt=parcnt+1
+		print (paste("Analysing outliers for parameter", para, ",", parcnt, "out of", length(paraloop)))
+
 		ct_num <- 0.99
 
 		# tabelle mit den werten des definierten parameters
@@ -36,10 +39,10 @@ outlierAnalysis <- function(tsdata, stat_movingwindows, stat_overlap, span_num, 
 		pardata00$MONTH <- ifelse(nchar(pardata00$MONTH)==1,paste("0",pardata00$MONTH,sep=""),pardata00$MONTH)
 		pardata00$DAY <- ifelse(nchar(pardata00$DAY)==1,paste("0",pardata00$DAY,sep=""),pardata00$DAY)
 		pardata00$HOUR <- ifelse(nchar(pardata00$HOUR)==1,paste("0",pardata00$HOUR,sep=""),pardata00$HOUR)
-		pardata00$MIN <- ifelse(nchar(pardata00$MIN)==1,paste("0",pardata00$MIN,sep=""),pardata00$MIN)
-		pardata00$SEC <- ifelse(nchar(pardata00$SEC)==1,paste("0",pardata00$SEC,sep=""),pardata00$SEC)
+		pardata00$MINUTE <- ifelse(nchar(pardata00$MINUTE)==1,paste("0",pardata00$MINUTE,sep=""),pardata00$MINUTE)
+		pardata00$SECOND <- ifelse(nchar(pardata00$SECOND)==1,paste("0",pardata00$SECOND,sep=""),pardata00$SECOND)
 		# umwandeln des zeitstempels in chron zeitformat (package: chron)
-		pardata00$timestamp <- chron(paste(pardata00$DAY,"-",pardata00$MONTH,"-",pardata00$YEAR,sep=""),paste(pardata00$HOUR,":",pardata00$MIN,":",pardata00$SEC,sep=""),
+		pardata00$timestamp <- chron(paste(pardata00$DAY,"-",pardata00$MONTH,"-",pardata00$YEAR,sep=""),paste(pardata00$HOUR,":",pardata00$MINUTE,":",pardata00$SECOND,sep=""),
 						 format=c(dates="d-m-y",times="h:m:s"))
 
 		# tabelle mit den spalten die benötigt werden 
@@ -294,6 +297,7 @@ outlierAnalysis <- function(tsdata, stat_movingwindows, stat_overlap, span_num, 
 		rm(veca,vecb)
 
 		for (runb in sample) {
+		  print(paste("Processing window", runb, "out of", max(sample)))
 		  #print(runb)
 		  # tabelle an die die messwerte die als ausreißer bestimmt wurden 
 		  # angehängt werden + die methode mit der die analyse durchführt wurde (="statistik")
@@ -409,11 +413,17 @@ outlierAnalysis <- function(tsdata, stat_movingwindows, stat_overlap, span_num, 
 		     # analyse wird sowohl univariate als auch bivariate durchgeführt -
 		     # !!!!ACHTUNG: span muss an die anzahl der werte in der tabelle angepaßt werden
 		     outlierdata$timestamp_numeric <- as.numeric(outlierdata$timestamp)
+		     #print(head(outlierdata$timestamp_numeric))
+		     #print(span_num)
+		     #span_num=2
+			# FIX ME
 		     loesstemp <- loess(outlierdata$VALUE~outlierdata$timestamp_numeric,span=span_num)
+		     #print(head(loesstemp))
 		     outlierdata$timestamp_num <- predict(loesstemp,outlierdata$timestamp_numeric)
+		     #print("AFTER LOESS")
 		     outlierdata$timestamp_numeric <- NULL
 
-		     write.table(outlierdata, paste("outlierdata", runb,  sep="_"))
+		     #write.table(outlierdata, paste("outlierdata", runb,  sep="_"))
 
 		     rm(loesstemp)
 		     

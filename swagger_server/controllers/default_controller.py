@@ -73,7 +73,7 @@ def makeTimeStamp():
 def makeNonblockingLocationReponse(pid, timestamp):
 	return { "Location": request.base_url.replace("qs_nonblocking", "qs_checkstatus")+"?pid="+str(pid)+"&timestamp="+timestamp }
 
-def qs_blocking_get(sosendpoint, begin, end, parameter, procedure, offering, offeringonly, site, windowwidth=None, windowinterval=None, span=0.06):  # noqa: E501
+def qs_blocking_get(sosendpoint, begin, end, parameter, procedure, offering, offeringonly, site, usecache, windowwidth=None, windowinterval=None, span=0.06):  # noqa: E501
     """Retrieve a parameter from one station from start to end
 
      # noqa: E501
@@ -144,6 +144,9 @@ def qs_blocking_get(sosendpoint, begin, end, parameter, procedure, offering, off
     if offeringonly:
         args.append("-y")
 
+    if usecache:
+        args.append("-U")
+
     if sites:
         args.append("-s")
         args.append(sites)
@@ -166,7 +169,7 @@ def qs_blocking_get(sosendpoint, begin, end, parameter, procedure, offering, off
 
 
 
-def qs_blocking_post(repourl, windowwidth=None, windowinterval=None):  # noqa: E501
+def qs_blocking_post(repourl, windowwidth=None, windowinterval=None, span=0.06):  # noqa: E501
     """Perform outlier analysis on file(s) stored in remote repo
 
      # noqa: E501
@@ -182,16 +185,17 @@ def qs_blocking_post(repourl, windowwidth=None, windowinterval=None):  # noqa: E
     """
 
 
-    print("READER: " + globVars.user)
-    print("READER: " + globVars.password)    
+    #print("READER: " + globVars.user)
+    #print("READER: " + globVars.password)    
     
     myts=makeTimeStamp()
 
     args=['/usr/bin/Rscript',globVars.scriptdir + '/quality_check.R',
                                         "-d", globVars.scriptdir,
 					"-r", repourl,
-					"-u", globVars.user,
-					"-c", globVars.password,
+					#"-u", globVars.user,
+					"-S", str(span),
+					#"-c", globVars.password,
                                         "-w", str(windowwidth),
                                         "-i", str(windowinterval),
 					"-z", myts,
@@ -210,7 +214,7 @@ def make_jsonresponse(ts, pid):
     
     return { "timestamp" : ts, "pid" : pid}
 
-def qs_nonblocking_get(sosendpoint, begin, end, parameter, procedure, offering, offeringonly, site, windowwidth=None, windowinterval=None, span=0.06, wait=False):  # noqa: E501
+def qs_nonblocking_get(sosendpoint, begin, end, parameter, procedure, offering, offeringonly, site, usecache, windowwidth=None, windowinterval=None, span=0.06, wait=False):  # noqa: E501
     """Retrieve a parameter from one station from start to end
 
      # noqa: E501
@@ -268,7 +272,7 @@ def qs_nonblocking_get(sosendpoint, begin, end, parameter, procedure, offering, 
     args=['/usr/bin/Rscript',globVars.scriptdir + '/quality_check.R',
                                         "-d", globVars.scriptdir,
                                         "-e", sosendpoint,
-					"-S", span,
+					"-S", str(span),
                                         "-f", begin,
                                         "-t", end,
                                         "-w", str(windowwidth),
@@ -281,6 +285,9 @@ def qs_nonblocking_get(sosendpoint, begin, end, parameter, procedure, offering, 
 
     if offeringonly:
         args.append("-y")
+
+    if usecache:
+        args.append("-U")
 
     if sites:
         args.append("-s")
@@ -304,7 +311,7 @@ def qs_nonblocking_get(sosendpoint, begin, end, parameter, procedure, offering, 
 
 
 
-def qs_nonblocking_post(repourl, windowwidth=None, windowinterval=None, wait=False):  # noqa: E501
+def qs_nonblocking_post(repourl, windowwidth=None, windowinterval=None, span=0.06,wait=False):  # noqa: E501
     """Perform outlier analysis on file(s) stored in remote repo
 
      # noqa: E501
@@ -320,16 +327,17 @@ def qs_nonblocking_post(repourl, windowwidth=None, windowinterval=None, wait=Fal
     """
 
 
-    print("READER: " + globVars.user)
-    print("READER: " + globVars.password)    
+    #print("READER: " + globVars.user)
+    #print("READER: " + globVars.password)    
 
     myts=makeTimeStamp()
 
     args=['/usr/bin/Rscript',globVars.scriptdir + '/quality_check.R',
                                         "-d", globVars.scriptdir,
+					"-S", str(span),
 					"-r", repourl,
-					"-u", globVars.user,
-					"-c", globVars.password,
+					#"-u", globVars.user,
+					#"-c", globVars.password,
                                         "-w", str(windowwidth),
                                         "-i", str(windowinterval),
 					"-q",

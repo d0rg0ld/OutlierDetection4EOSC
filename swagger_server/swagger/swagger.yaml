@@ -82,6 +82,14 @@ paths:
           default: []
           items:
             type: string
+      - name: usecache
+        in: query
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: boolean
+          default: false
       - name: windowwidth
         in: query
         required: false
@@ -167,8 +175,8 @@ paths:
                 type: string
                 format: binary
                 x-content-type: application/zip
-      security:
-      - basicAuth: []
+      #security:
+      #- basicAuth: []
       x-openapi-router-controller: swagger_server.controllers.default_controller
   /qs_nonblocking:
     get:
@@ -247,6 +255,14 @@ paths:
           default: []
           items:
             type: string
+      - name: usecache
+        in: query
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: boolean
+          default: false
       - name: windowwidth
         in: query
         required: false
@@ -330,8 +346,8 @@ paths:
               schema:
                 type: string
                 x-content-type: application/json
-      security:
-      - basicAuth: []
+      #security:
+      #- basicAuth: []
       x-openapi-router-controller: swagger_server.controllers.default_controller
   /qs_checkstatus:
     get:
@@ -413,9 +429,9 @@ components:
         minimum: 1
         type: integer
         default: 10
-  securitySchemes:
-    basicAuth:
-      type: http
-      scheme: basic
-      x-basicInfoFunc: swagger_server.controllers.authorization_controller.check_basicAuth
+  #securitySchemes:
+  #  basicAuth:
+  #    type: http
+  #    scheme: basic
+  #    x-basicInfoFunc: swagger_server.controllers.authorization_controller.check_basicAuth
 

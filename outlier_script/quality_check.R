@@ -66,6 +66,8 @@ option_list = list(
               help="result directory [default= %default]", metavar="character"),
 	make_option(c("-b", "--bufferdir"), type="character", default="../cache/", 
               help="cache directory [default= %default]", metavar="character"),
+	make_option(c("-U", "--usecache"), action="store_true", default=FALSE, 
+              help="Load/Store values from/in cache directory [default= %default]"),
 	make_option(c("-z", "--timestamp"), type="character", default="", 
               help="Init timestamp", metavar="character"),
 	make_option(c("-q", "--quiet"), action="store_true", default=FALSE, 
@@ -107,12 +109,9 @@ username = opt$username
 password = opt$credential
 respath=opt$outpathbase
 cachepath=opt$bufferdir
+useCache=opt$usecache
 myts=opt$timestamp
 
-
-stat_movingwindows=50
-stat_interval=10
-stat_span=2
 
 ##DEBUG OVERRIDE
 #.sos <- "https://sensorweb.demo.52north.org/sensorwebtestbed/service" 
@@ -137,7 +136,6 @@ stat_span=2
 #password = ""
 #myts="20200122_143300"
 
-.loadCache=FALSE
 
 #DEBUG OVERRIDE
 
@@ -172,7 +170,7 @@ if (type==1) {
   source(paste(getwd(),"getSos.R", sep="/"))
   tsdata=getSos( FALSE, FALSE, sos200_version, "KVP", "http://www.opengis.net/om/2.0",
 		.sos, sos_offering, sos_site, sos_parameter, sos_procedure, sos_startperiod, sos_endperiod,
-		cachepath, .loadCache, sos_offeringonly, FALSE)
+		cachepath, useCache, sos_offeringonly, FALSE)
 } else {
 
   source(paste(getwd(),"getFile.R", sep="/"))
@@ -180,7 +178,8 @@ if (type==1) {
 }
 print(colnames(tsdata))
 
-write.table(tsdata, paste("DUMMYDUMP_", mypid,".tsv", sep=""), sep="\t", row.names=F, col.names=TRUE)
+#for debug 
+write.table(tsdata, paste("DEBUG_DUMP_", mypid,".tsv", sep=""), sep="\t", row.names=F, col.names=TRUE)
 
 source(paste(getwd(), "outlierAnalysis.R", sep="/"))
 filelist=outlierAnalysis(tsdata, stat_movingwindows, stat_interval, stat_span, respath)
