@@ -40,8 +40,6 @@ getFile <- function(username, password, dav) {
   resultat$VALUE=vals
   tsdata <- resultat
 
-  # stay compatible with old shit
-  #cols=c("SITECODE","VALUE","FIELDNAME","RID","DAY","MONTH","YEAR")
 
 
   #swap alternative aliases
@@ -86,9 +84,9 @@ getFile <- function(username, password, dav) {
   if (!("HOUR" %in% colnames(resultat)))
         tsdata$HOUR=0
   if (!("MINUTE" %in% colnames(resultat)))
-        tsdata$MIN=0
+        tsdata$MINUTE=0
   if (!("SECOND" %in% colnames(resultat)))
-        tsdata$SEC=0
+        tsdata$SECOND=0
   if (!("RID" %in% colnames(resultat)))
         tsdata$RID=""
 
