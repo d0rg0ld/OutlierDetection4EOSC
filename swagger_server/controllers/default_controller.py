@@ -1,3 +1,11 @@
+#This work is co-funded by the EOSC-hub project (Horizon 2020) under Grant number 777536. 
+
+# Doron Goldfarb (doron DOT goldfarb AT umweltbundesamt DOT at)
+# Johannes Kobler (johannes DOT kobler AT umweltbundesamt DOT at)
+
+# Environment Agency Austria, 2020
+
+
 import sys, os
 
 	
