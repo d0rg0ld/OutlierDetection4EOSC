@@ -4,7 +4,7 @@
 
 # Doron Goldfarb (doron DOT goldfarb AT umweltbundesamt DOT at)
 # Johannes Kobler (johannes DOT kobler AT umweltbundesamt DOT at)
-#
+
 # Environment Agency Austria, 2020
 
 getFile <- function(username, password, dav) {
