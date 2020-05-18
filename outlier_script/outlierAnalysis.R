@@ -1,3 +1,4 @@
+#This work is co-funded by the EOSC-hub project (Horizon 2020) under Grant number 777536.
 
 outlierAnalysis <- function(tsdata, stat_movingwindows, stat_overlap, span_num, respath_final) {
 
