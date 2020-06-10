@@ -8,7 +8,7 @@ Reference: Goldfarb, D., Kobler, J. and Peterseil, J. (2020) Providing a user-fr
 
 This service prototype is based on a python-flask server stub automatically generated from an [OpenAPI Specification yaml file](swagger_server/swagger/swagger.yaml) via the online [Swagger Editor](https://editor.swagger.io/). See the section below for further information about the generation and how to start the server.
 
-Requests to the flask server trigger the respective procedures in the [default controller] (swagger_server/controllers/default_controller.py), which call R-code performing the actual work. The latter can be found in the outlier_script folder and is divided into several functional modules represented as separate R-Scripts. The entry point is the script [quality_check.R](outlier_script/quality_check.R) which retrieves the data to be analyzed from [file repositories](outlier_script/getFile.R) or from [SOS](outlier_script/getSos.R). The actual outlier analysis is performed in the file [outlierAnalysis.R](outlier_script/outlierAnalysis.R).
+Requests to the flask server trigger the respective procedures in the [default controller] (swagger_server/controllers/default_controller.py) , which call R-code performing the actual work. The latter can be found in the outlier_script folder and is divided into several functional modules represented as separate R-Scripts. The entry point is the script [quality_check.R](outlier_script/quality_check.R) which retrieves the data to be analyzed from [file repositories](outlier_script/getFile.R) or from [SOS](outlier_script/getSos.R). The actual outlier analysis is performed in the file [outlierAnalysis.R](outlier_script/outlierAnalysis.R).
 
 # Swagger generated server
 
